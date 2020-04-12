@@ -1,0 +1,126 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-casal-heading" jhiTranslate="lareiraAppHomoApp.casal.home.createOrEditLabel">Create or edit a Casal</h2>
+
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+
+                <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="lareiraAppHomoApp.casal.maridoNome" for="field_maridoNome">Marido Nome</label>
+                    <input type="text" class="form-control" name="maridoNome" id="field_maridoNome"
+                           formControlName="maridoNome"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="lareiraAppHomoApp.casal.maridoSobrenome" for="field_maridoSobrenome">Marido Sobrenome</label>
+                    <input type="text" class="form-control" name="maridoSobrenome" id="field_maridoSobrenome"
+                           formControlName="maridoSobrenome"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="lareiraAppHomoApp.casal.maridoDataNascimento" for="field_maridoDataNascimento">Marido Data Nascimento</label>
+                    <div class="input-group">
+                        <input id="field_maridoDataNascimento" type="text" class="form-control" name="maridoDataNascimento" ngbDatepicker #maridoDataNascimentoDp="ngbDatepicker" formControlName="maridoDataNascimento"/>
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="maridoDataNascimentoDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="lareiraAppHomoApp.casal.maridoProfissao" for="field_maridoProfissao">Marido Profissao</label>
+                    <input type="text" class="form-control" name="maridoProfissao" id="field_maridoProfissao"
+                           formControlName="maridoProfissao"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="lareiraAppHomoApp.casal.maridoTelCelular" for="field_maridoTelCelular">Marido Tel Celular</label>
+                    <input type="text" class="form-control" name="maridoTelCelular" id="field_maridoTelCelular"
+                           formControlName="maridoTelCelular"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="lareiraAppHomoApp.casal.maridoEmail" for="field_maridoEmail">Marido Email</label>
+                    <input type="text" class="form-control" name="maridoEmail" id="field_maridoEmail"
+                           formControlName="maridoEmail"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="lareiraAppHomoApp.casal.maridoProblemaSaude" for="field_maridoProblemaSaude">Marido Problema Saude</label>
+                    <input type="text" class="form-control" name="maridoProblemaSaude" id="field_maridoProblemaSaude"
+                           formControlName="maridoProblemaSaude"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="lareiraAppHomoApp.casal.esposaNome" for="field_esposaNome">Esposa Nome</label>
+                    <input type="text" class="form-control" name="esposaNome" id="field_esposaNome"
+                           formControlName="esposaNome"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="lareiraAppHomoApp.casal.esposaSobrenome" for="field_esposaSobrenome">Esposa Sobrenome</label>
+                    <input type="text" class="form-control" name="esposaSobrenome" id="field_esposaSobrenome"
+                           formControlName="esposaSobrenome"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="lareiraAppHomoApp.casal.esposaDataNascimento" for="field_esposaDataNascimento">Esposa Data Nascimento</label>
+                    <div class="input-group">
+                        <input id="field_esposaDataNascimento" type="text" class="form-control" name="esposaDataNascimento" ngbDatepicker #esposaDataNascimentoDp="ngbDatepicker" formControlName="esposaDataNascimento"/>
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="esposaDataNascimentoDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="lareiraAppHomoApp.casal.esposaProfissao" for="field_esposaProfissao">Esposa Profissao</label>
+                    <input type="text" class="form-control" name="esposaProfissao" id="field_esposaProfissao"
+                           formControlName="esposaProfissao"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="lareiraAppHomoApp.casal.esposaTelCelular" for="field_esposaTelCelular">Esposa Tel Celular</label>
+                    <input type="text" class="form-control" name="esposaTelCelular" id="field_esposaTelCelular"
+                           formControlName="esposaTelCelular"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="lareiraAppHomoApp.casal.esposaEmail" for="field_esposaEmail">Esposa Email</label>
+                    <input type="text" class="form-control" name="esposaEmail" id="field_esposaEmail"
+                           formControlName="esposaEmail"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="lareiraAppHomoApp.casal.esposaProblemaSaude" for="field_esposaProblemaSaude">Esposa Problema Saude</label>
+                    <input type="text" class="form-control" name="esposaProblemaSaude" id="field_esposaProblemaSaude"
+                           formControlName="esposaProblemaSaude"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="lareiraAppHomoApp.casal.lareira" for="field_lareira">Lareira</label>
+                    <select class="form-control" id="field_lareira" name="lareira" formControlName="lareira">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="lareiraOption.id === editForm.get('lareira')!.value?.id ? editForm.get('lareira')!.value : lareiraOption" *ngFor="let lareiraOption of lareiras; trackBy: trackById">{{ lareiraOption.id }}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

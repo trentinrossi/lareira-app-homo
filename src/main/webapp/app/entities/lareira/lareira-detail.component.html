@@ -1,0 +1,54 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="lareira">
+            <h2><span jhiTranslate="lareiraAppHomoApp.lareira.detail.title">Lareira</span> {{ lareira.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="lareiraAppHomoApp.lareira.nome">Nome</span></dt>
+                <dd>
+                    <span>{{ lareira.nome }}</span>
+                </dd>
+                <dt><span jhiTranslate="lareiraAppHomoApp.lareira.endereco">Endereco</span></dt>
+                <dd>
+                    <span>{{ lareira.endereco }}</span>
+                </dd>
+                <dt><span jhiTranslate="lareiraAppHomoApp.lareira.bairro">Bairro</span></dt>
+                <dd>
+                    <span>{{ lareira.bairro }}</span>
+                </dd>
+                <dt><span jhiTranslate="lareiraAppHomoApp.lareira.cep">Cep</span></dt>
+                <dd>
+                    <span>{{ lareira.cep }}</span>
+                </dd>
+                <dt><span jhiTranslate="lareiraAppHomoApp.lareira.cidade">Cidade</span></dt>
+                <dd>
+                    <span>{{ lareira.cidade }}</span>
+                </dd>
+                <dt><span jhiTranslate="lareiraAppHomoApp.lareira.estado">Estado</span></dt>
+                <dd>
+                    <span>{{ lareira.estado }}</span>
+                </dd>
+                <dt><span jhiTranslate="lareiraAppHomoApp.lareira.telefone">Telefone</span></dt>
+                <dd>
+                    <span>{{ lareira.telefone }}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/lareira', lareira.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

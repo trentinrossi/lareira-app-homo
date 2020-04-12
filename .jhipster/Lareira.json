@@ -1,0 +1,52 @@
+{
+    "name": "Lareira",
+    "fields": [
+        {
+            "fieldName": "nome",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "endereco",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "bairro",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "cep",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "cidade",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "estado",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "telefone",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "casal",
+            "otherEntityRelationshipName": "lareira",
+            "relationshipName": "casal"
+        }
+    ],
+    "changelogDate": "20200412182500",
+    "entityTableName": "lareira",
+    "dto": "no",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": true,
+    "fluentMethods": true,
+    "readOnly": false,
+    "embedded": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

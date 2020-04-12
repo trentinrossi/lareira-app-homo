@@ -1,0 +1,88 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="casal">
+            <h2><span jhiTranslate="lareiraAppHomoApp.casal.detail.title">Casal</span> {{ casal.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="lareiraAppHomoApp.casal.maridoNome">Marido Nome</span></dt>
+                <dd>
+                    <span>{{ casal.maridoNome }}</span>
+                </dd>
+                <dt><span jhiTranslate="lareiraAppHomoApp.casal.maridoSobrenome">Marido Sobrenome</span></dt>
+                <dd>
+                    <span>{{ casal.maridoSobrenome }}</span>
+                </dd>
+                <dt><span jhiTranslate="lareiraAppHomoApp.casal.maridoDataNascimento">Marido Data Nascimento</span></dt>
+                <dd>
+                    <span>{{ casal.maridoDataNascimento }}</span>
+                </dd>
+                <dt><span jhiTranslate="lareiraAppHomoApp.casal.maridoProfissao">Marido Profissao</span></dt>
+                <dd>
+                    <span>{{ casal.maridoProfissao }}</span>
+                </dd>
+                <dt><span jhiTranslate="lareiraAppHomoApp.casal.maridoTelCelular">Marido Tel Celular</span></dt>
+                <dd>
+                    <span>{{ casal.maridoTelCelular }}</span>
+                </dd>
+                <dt><span jhiTranslate="lareiraAppHomoApp.casal.maridoEmail">Marido Email</span></dt>
+                <dd>
+                    <span>{{ casal.maridoEmail }}</span>
+                </dd>
+                <dt><span jhiTranslate="lareiraAppHomoApp.casal.maridoProblemaSaude">Marido Problema Saude</span></dt>
+                <dd>
+                    <span>{{ casal.maridoProblemaSaude }}</span>
+                </dd>
+                <dt><span jhiTranslate="lareiraAppHomoApp.casal.esposaNome">Esposa Nome</span></dt>
+                <dd>
+                    <span>{{ casal.esposaNome }}</span>
+                </dd>
+                <dt><span jhiTranslate="lareiraAppHomoApp.casal.esposaSobrenome">Esposa Sobrenome</span></dt>
+                <dd>
+                    <span>{{ casal.esposaSobrenome }}</span>
+                </dd>
+                <dt><span jhiTranslate="lareiraAppHomoApp.casal.esposaDataNascimento">Esposa Data Nascimento</span></dt>
+                <dd>
+                    <span>{{ casal.esposaDataNascimento }}</span>
+                </dd>
+                <dt><span jhiTranslate="lareiraAppHomoApp.casal.esposaProfissao">Esposa Profissao</span></dt>
+                <dd>
+                    <span>{{ casal.esposaProfissao }}</span>
+                </dd>
+                <dt><span jhiTranslate="lareiraAppHomoApp.casal.esposaTelCelular">Esposa Tel Celular</span></dt>
+                <dd>
+                    <span>{{ casal.esposaTelCelular }}</span>
+                </dd>
+                <dt><span jhiTranslate="lareiraAppHomoApp.casal.esposaEmail">Esposa Email</span></dt>
+                <dd>
+                    <span>{{ casal.esposaEmail }}</span>
+                </dd>
+                <dt><span jhiTranslate="lareiraAppHomoApp.casal.esposaProblemaSaude">Esposa Problema Saude</span></dt>
+                <dd>
+                    <span>{{ casal.esposaProblemaSaude }}</span>
+                </dd>
+                <dt><span jhiTranslate="lareiraAppHomoApp.casal.lareira">Lareira</span></dt>
+                <dd>
+                    <div *ngIf="casal.lareira">
+                        <a [routerLink]="['/lareira', casal.lareira?.id, 'view']">{{ casal.lareira?.id }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/casal', casal.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

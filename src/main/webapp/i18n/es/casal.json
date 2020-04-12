@@ -1,0 +1,36 @@
+{
+  "lareiraAppHomoApp": {
+    "casal": {
+      "home": {
+        "title": "Casals",
+        "createLabel": "Crear nuevo Casal",
+        "createOrEditLabel": "Crear o editar Casal",
+        "notFound": "Ningún Casals encontrado"
+      },
+      "created": "Un nuevo Casal ha sido creado con el identificador {{ param }}",
+      "updated": "Un Casal ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Casal ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Casal {{ id }}?"
+      },
+      "detail": {
+        "title": "Casal"
+      },
+      "maridoNome": "Marido Nome",
+      "maridoSobrenome": "Marido Sobrenome",
+      "maridoDataNascimento": "Marido Data Nascimento",
+      "maridoProfissao": "Marido Profissao",
+      "maridoTelCelular": "Marido Tel Celular",
+      "maridoEmail": "Marido Email",
+      "maridoProblemaSaude": "Marido Problema Saude",
+      "esposaNome": "Esposa Nome",
+      "esposaSobrenome": "Esposa Sobrenome",
+      "esposaDataNascimento": "Esposa Data Nascimento",
+      "esposaProfissao": "Esposa Profissao",
+      "esposaTelCelular": "Esposa Tel Celular",
+      "esposaEmail": "Esposa Email",
+      "esposaProblemaSaude": "Esposa Problema Saude",
+      "lareira": "Lareira"
+    }
+  }
+}

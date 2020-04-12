@@ -1,0 +1,29 @@
+{
+  "lareiraAppHomoApp": {
+    "lareira": {
+      "home": {
+        "title": "Lareiras",
+        "createLabel": "Create a new Lareira",
+        "createOrEditLabel": "Create or edit a Lareira",
+        "notFound": "No Lareiras found"
+      },
+      "created": "A new Lareira is created with identifier {{ param }}",
+      "updated": "A Lareira is updated with identifier {{ param }}",
+      "deleted": "A Lareira is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Lareira {{ id }}?"
+      },
+      "detail": {
+        "title": "Lareira"
+      },
+      "nome": "Nome",
+      "endereco": "Endereco",
+      "bairro": "Bairro",
+      "cep": "Cep",
+      "cidade": "Cidade",
+      "estado": "Estado",
+      "telefone": "Telefone",
+      "casal": "Casal"
+    }
+  }
+}

@@ -1,0 +1,38 @@
+entity Lareira {
+    nome String,
+    endereco String,
+    bairro String,
+    cep String,
+    cidade String,
+    estado String,
+    telefone String
+}
+
+entity Casal {
+    maridoNome String,
+    maridoSobrenome String,
+    maridoDataNascimento LocalDate,
+    maridoProfissao String,
+    maridoTelCelular String,
+    maridoEmail String,
+    maridoProblemaSaude String,
+    esposaNome String,
+    esposaSobrenome String,
+    esposaDataNascimento LocalDate,
+    esposaProfissao String,
+    esposaTelCelular String,
+    esposaEmail String,
+    esposaProblemaSaude String,
+}
+
+relationship OneToMany {
+	Lareira to Casal
+}
+
+// Set pagination options
+paginate Lareira, Casal with pagination
+
+// Set service options to all except few
+service all with serviceImpl
+
+filter Lareira, Casal
