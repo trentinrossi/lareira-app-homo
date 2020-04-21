@@ -8,6 +8,8 @@ import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * A Casal.
@@ -67,6 +69,9 @@ public class Casal implements Serializable {
 
     @Column(name = "esposa_problema_saude")
     private String esposaProblemaSaude;
+
+    @OneToMany(mappedBy = "idCasal")
+    private Set<Filho> ids = new HashSet<>();
 
     @ManyToOne(optional = false)
     @NotNull
@@ -262,6 +267,31 @@ public class Casal implements Serializable {
 
     public void setEsposaProblemaSaude(String esposaProblemaSaude) {
         this.esposaProblemaSaude = esposaProblemaSaude;
+    }
+
+    public Set<Filho> getIds() {
+        return ids;
+    }
+
+    public Casal ids(Set<Filho> filhos) {
+        this.ids = filhos;
+        return this;
+    }
+
+    public Casal addId(Filho filho) {
+        this.ids.add(filho);
+        filho.setIdCasal(this);
+        return this;
+    }
+
+    public Casal removeId(Filho filho) {
+        this.ids.remove(filho);
+        filho.setIdCasal(null);
+        return this;
+    }
+
+    public void setIds(Set<Filho> filhos) {
+        this.ids = filhos;
     }
 
     public Lareira getIdLareira() {

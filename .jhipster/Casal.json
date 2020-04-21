@@ -74,6 +74,12 @@
     ],
     "relationships": [
         {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "filho",
+            "otherEntityRelationshipName": "idCasal",
+            "relationshipName": "id"
+        },
+        {
             "relationshipType": "many-to-one",
             "otherEntityName": "lareira",
             "otherEntityRelationshipName": "id",

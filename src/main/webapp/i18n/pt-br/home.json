@@ -1,7 +1,7 @@
 {
   "home": {
-    "title": "Bem vindo, Java Hipster!",
-    "subtitle": "Esta é a página principal",
+    "title": "Gestão de Lareiras",
+    "subtitle": "Sistema para Gerenciamento de cadastros dos movimentos Lareira",
     "logged": {
       "message": "Você está logado como \"{{username}}\"."
     },

@@ -9,6 +9,7 @@
         "main": "Entities",
         "lareira": "Lareira",
         "casal": "Casal",
+        "filho": "Filho",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

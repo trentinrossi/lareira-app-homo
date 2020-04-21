@@ -1,4 +1,5 @@
 import { Moment } from 'moment';
+import { IFilho } from 'app/shared/model/filho.model';
 
 export interface ICasal {
   id?: number;
@@ -16,6 +17,7 @@ export interface ICasal {
   esposaTelCelular?: string;
   esposaEmail?: string;
   esposaProblemaSaude?: string;
+  ids?: IFilho[];
   idLareiraId?: number;
 }
 
@@ -36,6 +38,7 @@ export class Casal implements ICasal {
     public esposaTelCelular?: string,
     public esposaEmail?: string,
     public esposaProblemaSaude?: string,
+    public ids?: IFilho[],
     public idLareiraId?: number
   ) {}
 }

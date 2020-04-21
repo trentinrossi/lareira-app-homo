@@ -2,7 +2,7 @@
   "lareiraAppHomoApp": {
     "casal": {
       "home": {
-        "title": "Casals",
+        "title": "Casais",
         "createLabel": "Criar novo Casal",
         "createOrEditLabel": "Criar ou editar Casal",
         "notFound": "Nenhum Casal encontrado"
@@ -30,7 +30,8 @@
       "esposaTelCelular": "Esposa Tel Celular",
       "esposaEmail": "Esposa Email",
       "esposaProblemaSaude": "Esposa Problema Saude",
-      "idLareira": "Id Lareira"
+      "id": "Código",
+      "idLareira": "Lareira"
     }
   }
 }

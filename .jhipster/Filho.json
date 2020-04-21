@@ -1,0 +1,46 @@
+{
+    "name": "Filho",
+    "fields": [
+        {
+            "fieldName": "nome",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "minlength",
+                "maxlength"
+            ],
+            "fieldValidateRulesMinlength": "3",
+            "fieldValidateRulesMaxlength": "100"
+        },
+        {
+            "fieldName": "sexo",
+            "fieldType": "Sexo",
+            "fieldValues": "MASCULINO,FEMININO"
+        },
+        {
+            "fieldName": "dataNascimento",
+            "fieldType": "LocalDate"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "casal",
+            "otherEntityRelationshipName": "id",
+            "relationshipValidateRules": "required",
+            "relationshipName": "idCasal",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20200421214600",
+    "entityTableName": "filho",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "embedded": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

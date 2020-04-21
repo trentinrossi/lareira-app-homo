@@ -2,6 +2,7 @@ package br.com.lareira.web.rest;
 
 import br.com.lareira.LareiraAppHomoApp;
 import br.com.lareira.domain.Casal;
+import br.com.lareira.domain.Filho;
 import br.com.lareira.domain.Lareira;
 import br.com.lareira.repository.CasalRepository;
 import br.com.lareira.service.CasalService;
@@ -1485,6 +1486,26 @@ public class CasalResourceIT {
 
         // Get all the casalList where esposaProblemaSaude does not contain UPDATED_ESPOSA_PROBLEMA_SAUDE
         defaultCasalShouldBeFound("esposaProblemaSaude.doesNotContain=" + UPDATED_ESPOSA_PROBLEMA_SAUDE);
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllCasalsByIdIsEqualToSomething() throws Exception {
+        // Initialize the database
+        casalRepository.saveAndFlush(casal);
+        Filho id = FilhoResourceIT.createEntity(em);
+        em.persist(id);
+        em.flush();
+        casal.addId(id);
+        casalRepository.saveAndFlush(casal);
+        Long idId = id.getId();
+
+        // Get all the casalList where id equals to idId
+        defaultCasalShouldBeFound("idId.equals=" + idId);
+
+        // Get all the casalList where id equals to idId + 1
+        defaultCasalShouldNotBeFound("idId.equals=" + (idId + 1));
     }
 
 

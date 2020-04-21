@@ -7,7 +7,6 @@ entity Lareira {
     estado String,
     telefone String
 }
-
 entity Casal {
     maridoNome String required minlength(3) maxlength(100),
     maridoSobrenome String,
@@ -24,18 +23,26 @@ entity Casal {
     esposaEmail String,
     esposaProblemaSaude String
 }
+entity Filho {
+    nome String required minlength(3) maxlength(100),
+    sexo Sexo,
+    dataNascimento LocalDate
+}
+enum Sexo {
+    MASCULINO, FEMININO
+}
+relationship OneToMany {
+    Lareira {id} to Casal {idLareira required}
+}
 
 relationship OneToMany {
-	Lareira {id} to Casal {idLareira required}
+    Casal {id} to Filho {idCasal required}
 }
 
 // DTO
 dto * with mapstruct
-
 // Set service options to all except few
 service * with serviceImpl
-
 // Set pagination options
 paginate Lareira, Casal with pagination
-
 filter Lareira, Casal
