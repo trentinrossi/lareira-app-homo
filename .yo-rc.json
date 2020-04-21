@@ -37,6 +37,8 @@
     "enableTranslation": true,
     "nativeLanguage": "pt-br",
     "languages": ["pt-br", "en", "es"],
-    "blueprints": []
+    "blueprints": [],
+    "herokuAppName": "lareira-app-homo",
+    "herokuDeployType": "jar"
   }
 }
