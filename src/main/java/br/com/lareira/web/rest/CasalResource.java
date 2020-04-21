@@ -1,8 +1,8 @@
 package br.com.lareira.web.rest;
 
-import br.com.lareira.domain.Casal;
 import br.com.lareira.service.CasalService;
 import br.com.lareira.web.rest.errors.BadRequestAlertException;
+import br.com.lareira.service.dto.CasalDTO;
 import br.com.lareira.service.dto.CasalCriteria;
 import br.com.lareira.service.CasalQueryService;
 
@@ -20,6 +20,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -51,17 +52,17 @@ public class CasalResource {
     /**
      * {@code POST  /casals} : Create a new casal.
      *
-     * @param casal the casal to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new casal, or with status {@code 400 (Bad Request)} if the casal has already an ID.
+     * @param casalDTO the casalDTO to create.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new casalDTO, or with status {@code 400 (Bad Request)} if the casal has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/casals")
-    public ResponseEntity<Casal> createCasal(@RequestBody Casal casal) throws URISyntaxException {
-        log.debug("REST request to save Casal : {}", casal);
-        if (casal.getId() != null) {
+    public ResponseEntity<CasalDTO> createCasal(@Valid @RequestBody CasalDTO casalDTO) throws URISyntaxException {
+        log.debug("REST request to save Casal : {}", casalDTO);
+        if (casalDTO.getId() != null) {
             throw new BadRequestAlertException("A new casal cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Casal result = casalService.save(casal);
+        CasalDTO result = casalService.save(casalDTO);
         return ResponseEntity.created(new URI("/api/casals/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -70,21 +71,21 @@ public class CasalResource {
     /**
      * {@code PUT  /casals} : Updates an existing casal.
      *
-     * @param casal the casal to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated casal,
-     * or with status {@code 400 (Bad Request)} if the casal is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the casal couldn't be updated.
+     * @param casalDTO the casalDTO to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated casalDTO,
+     * or with status {@code 400 (Bad Request)} if the casalDTO is not valid,
+     * or with status {@code 500 (Internal Server Error)} if the casalDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/casals")
-    public ResponseEntity<Casal> updateCasal(@RequestBody Casal casal) throws URISyntaxException {
-        log.debug("REST request to update Casal : {}", casal);
-        if (casal.getId() == null) {
+    public ResponseEntity<CasalDTO> updateCasal(@Valid @RequestBody CasalDTO casalDTO) throws URISyntaxException {
+        log.debug("REST request to update Casal : {}", casalDTO);
+        if (casalDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        Casal result = casalService.save(casal);
+        CasalDTO result = casalService.save(casalDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, casal.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, casalDTO.getId().toString()))
             .body(result);
     }
 
@@ -96,9 +97,9 @@ public class CasalResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of casals in body.
      */
     @GetMapping("/casals")
-    public ResponseEntity<List<Casal>> getAllCasals(CasalCriteria criteria, Pageable pageable) {
+    public ResponseEntity<List<CasalDTO>> getAllCasals(CasalCriteria criteria, Pageable pageable) {
         log.debug("REST request to get Casals by criteria: {}", criteria);
-        Page<Casal> page = casalQueryService.findByCriteria(criteria, pageable);
+        Page<CasalDTO> page = casalQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
@@ -118,20 +119,20 @@ public class CasalResource {
     /**
      * {@code GET  /casals/:id} : get the "id" casal.
      *
-     * @param id the id of the casal to retrieve.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the casal, or with status {@code 404 (Not Found)}.
+     * @param id the id of the casalDTO to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the casalDTO, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/casals/{id}")
-    public ResponseEntity<Casal> getCasal(@PathVariable Long id) {
+    public ResponseEntity<CasalDTO> getCasal(@PathVariable Long id) {
         log.debug("REST request to get Casal : {}", id);
-        Optional<Casal> casal = casalService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(casal);
+        Optional<CasalDTO> casalDTO = casalService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(casalDTO);
     }
 
     /**
      * {@code DELETE  /casals/:id} : delete the "id" casal.
      *
-     * @param id the id of the casal to delete.
+     * @param id the id of the casalDTO to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/casals/{id}")

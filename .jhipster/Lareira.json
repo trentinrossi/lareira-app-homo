@@ -3,7 +3,10 @@
     "fields": [
         {
             "fieldName": "nome",
-            "fieldType": "String"
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
         },
         {
             "fieldName": "endereco",
@@ -34,13 +37,13 @@
         {
             "relationshipType": "one-to-many",
             "otherEntityName": "casal",
-            "otherEntityRelationshipName": "lareira",
-            "relationshipName": "casal"
+            "otherEntityRelationshipName": "idLareira",
+            "relationshipName": "id"
         }
     ],
     "changelogDate": "20200412182500",
     "entityTableName": "lareira",
-    "dto": "no",
+    "dto": "mapstruct",
     "pagination": "pagination",
     "service": "serviceImpl",
     "jpaMetamodelFiltering": true,

@@ -37,7 +37,7 @@
                     <th scope="col"  jhiSortBy="esposaTelCelular"><span jhiTranslate="lareiraAppHomoApp.casal.esposaTelCelular">Esposa Tel Celular</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="esposaEmail"><span jhiTranslate="lareiraAppHomoApp.casal.esposaEmail">Esposa Email</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="esposaProblemaSaude"><span jhiTranslate="lareiraAppHomoApp.casal.esposaProblemaSaude">Esposa Problema Saude</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="lareira.id"><span jhiTranslate="lareiraAppHomoApp.casal.lareira">Lareira</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="idLareiraId"><span jhiTranslate="lareiraAppHomoApp.casal.idLareira">Id Lareira</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"></th>
                 </tr>
             </thead>
@@ -59,8 +59,8 @@
                     <td>{{ casal.esposaEmail }}</td>
                     <td>{{ casal.esposaProblemaSaude }}</td>
                     <td>
-                        <div *ngIf="casal.lareira">
-                            <a [routerLink]="['/lareira', casal.lareira?.id, 'view']" >{{ casal.lareira?.id }}</a>
+                        <div *ngIf="casal.idLareiraId">
+                            <a [routerLink]="['/lareira', casal.idLareiraId , 'view']" >{{ casal.idLareiraId }}</a>
                         </div>
                     </td>
                     <td class="text-right">

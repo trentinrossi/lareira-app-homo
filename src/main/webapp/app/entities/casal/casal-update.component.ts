@@ -22,21 +22,21 @@ export class CasalUpdateComponent implements OnInit {
 
   editForm = this.fb.group({
     id: [],
-    maridoNome: [],
+    maridoNome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
     maridoSobrenome: [],
     maridoDataNascimento: [],
     maridoProfissao: [],
     maridoTelCelular: [],
     maridoEmail: [],
     maridoProblemaSaude: [],
-    esposaNome: [],
+    esposaNome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
     esposaSobrenome: [],
     esposaDataNascimento: [],
     esposaProfissao: [],
     esposaTelCelular: [],
     esposaEmail: [],
     esposaProblemaSaude: [],
-    lareira: []
+    idLareiraId: [null, Validators.required]
   });
 
   constructor(
@@ -71,7 +71,7 @@ export class CasalUpdateComponent implements OnInit {
       esposaTelCelular: casal.esposaTelCelular,
       esposaEmail: casal.esposaEmail,
       esposaProblemaSaude: casal.esposaProblemaSaude,
-      lareira: casal.lareira
+      idLareiraId: casal.idLareiraId
     });
   }
 
@@ -107,7 +107,7 @@ export class CasalUpdateComponent implements OnInit {
       esposaTelCelular: this.editForm.get(['esposaTelCelular'])!.value,
       esposaEmail: this.editForm.get(['esposaEmail'])!.value,
       esposaProblemaSaude: this.editForm.get(['esposaProblemaSaude'])!.value,
-      lareira: this.editForm.get(['lareira'])!.value
+      idLareiraId: this.editForm.get(['idLareiraId'])!.value
     };
   }
 

@@ -5,6 +5,8 @@ import br.com.lareira.domain.Casal;
 import br.com.lareira.domain.Lareira;
 import br.com.lareira.repository.CasalRepository;
 import br.com.lareira.service.CasalService;
+import br.com.lareira.service.dto.CasalDTO;
+import br.com.lareira.service.mapper.CasalMapper;
 import br.com.lareira.service.dto.CasalCriteria;
 import br.com.lareira.service.CasalQueryService;
 
@@ -85,6 +87,9 @@ public class CasalResourceIT {
     private CasalRepository casalRepository;
 
     @Autowired
+    private CasalMapper casalMapper;
+
+    @Autowired
     private CasalService casalService;
 
     @Autowired
@@ -120,6 +125,16 @@ public class CasalResourceIT {
             .esposaTelCelular(DEFAULT_ESPOSA_TEL_CELULAR)
             .esposaEmail(DEFAULT_ESPOSA_EMAIL)
             .esposaProblemaSaude(DEFAULT_ESPOSA_PROBLEMA_SAUDE);
+        // Add required entity
+        Lareira lareira;
+        if (TestUtil.findAll(em, Lareira.class).isEmpty()) {
+            lareira = LareiraResourceIT.createEntity(em);
+            em.persist(lareira);
+            em.flush();
+        } else {
+            lareira = TestUtil.findAll(em, Lareira.class).get(0);
+        }
+        casal.setIdLareira(lareira);
         return casal;
     }
     /**
@@ -144,6 +159,16 @@ public class CasalResourceIT {
             .esposaTelCelular(UPDATED_ESPOSA_TEL_CELULAR)
             .esposaEmail(UPDATED_ESPOSA_EMAIL)
             .esposaProblemaSaude(UPDATED_ESPOSA_PROBLEMA_SAUDE);
+        // Add required entity
+        Lareira lareira;
+        if (TestUtil.findAll(em, Lareira.class).isEmpty()) {
+            lareira = LareiraResourceIT.createUpdatedEntity(em);
+            em.persist(lareira);
+            em.flush();
+        } else {
+            lareira = TestUtil.findAll(em, Lareira.class).get(0);
+        }
+        casal.setIdLareira(lareira);
         return casal;
     }
 
@@ -158,9 +183,10 @@ public class CasalResourceIT {
         int databaseSizeBeforeCreate = casalRepository.findAll().size();
 
         // Create the Casal
+        CasalDTO casalDTO = casalMapper.toDto(casal);
         restCasalMockMvc.perform(post("/api/casals").with(csrf())
             .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(casal)))
+            .content(TestUtil.convertObjectToJsonBytes(casalDTO)))
             .andExpect(status().isCreated());
 
         // Validate the Casal in the database
@@ -190,11 +216,12 @@ public class CasalResourceIT {
 
         // Create the Casal with an existing ID
         casal.setId(1L);
+        CasalDTO casalDTO = casalMapper.toDto(casal);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restCasalMockMvc.perform(post("/api/casals").with(csrf())
             .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(casal)))
+            .content(TestUtil.convertObjectToJsonBytes(casalDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the Casal in the database
@@ -202,6 +229,44 @@ public class CasalResourceIT {
         assertThat(casalList).hasSize(databaseSizeBeforeCreate);
     }
 
+
+    @Test
+    @Transactional
+    public void checkMaridoNomeIsRequired() throws Exception {
+        int databaseSizeBeforeTest = casalRepository.findAll().size();
+        // set the field null
+        casal.setMaridoNome(null);
+
+        // Create the Casal, which fails.
+        CasalDTO casalDTO = casalMapper.toDto(casal);
+
+        restCasalMockMvc.perform(post("/api/casals").with(csrf())
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(TestUtil.convertObjectToJsonBytes(casalDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<Casal> casalList = casalRepository.findAll();
+        assertThat(casalList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkEsposaNomeIsRequired() throws Exception {
+        int databaseSizeBeforeTest = casalRepository.findAll().size();
+        // set the field null
+        casal.setEsposaNome(null);
+
+        // Create the Casal, which fails.
+        CasalDTO casalDTO = casalMapper.toDto(casal);
+
+        restCasalMockMvc.perform(post("/api/casals").with(csrf())
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(TestUtil.convertObjectToJsonBytes(casalDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<Casal> casalList = casalRepository.findAll();
+        assertThat(casalList).hasSize(databaseSizeBeforeTest);
+    }
 
     @Test
     @Transactional
@@ -1425,21 +1490,17 @@ public class CasalResourceIT {
 
     @Test
     @Transactional
-    public void getAllCasalsByLareiraIsEqualToSomething() throws Exception {
-        // Initialize the database
+    public void getAllCasalsByIdLareiraIsEqualToSomething() throws Exception {
+        // Get already existing entity
+        Lareira idLareira = casal.getIdLareira();
         casalRepository.saveAndFlush(casal);
-        Lareira lareira = LareiraResourceIT.createEntity(em);
-        em.persist(lareira);
-        em.flush();
-        casal.setLareira(lareira);
-        casalRepository.saveAndFlush(casal);
-        Long lareiraId = lareira.getId();
+        Long idLareiraId = idLareira.getId();
 
-        // Get all the casalList where lareira equals to lareiraId
-        defaultCasalShouldBeFound("lareiraId.equals=" + lareiraId);
+        // Get all the casalList where idLareira equals to idLareiraId
+        defaultCasalShouldBeFound("idLareiraId.equals=" + idLareiraId);
 
-        // Get all the casalList where lareira equals to lareiraId + 1
-        defaultCasalShouldNotBeFound("lareiraId.equals=" + (lareiraId + 1));
+        // Get all the casalList where idLareira equals to idLareiraId + 1
+        defaultCasalShouldNotBeFound("idLareiraId.equals=" + (idLareiraId + 1));
     }
 
     /**
@@ -1502,7 +1563,7 @@ public class CasalResourceIT {
     @Transactional
     public void updateCasal() throws Exception {
         // Initialize the database
-        casalService.save(casal);
+        casalRepository.saveAndFlush(casal);
 
         int databaseSizeBeforeUpdate = casalRepository.findAll().size();
 
@@ -1525,10 +1586,11 @@ public class CasalResourceIT {
             .esposaTelCelular(UPDATED_ESPOSA_TEL_CELULAR)
             .esposaEmail(UPDATED_ESPOSA_EMAIL)
             .esposaProblemaSaude(UPDATED_ESPOSA_PROBLEMA_SAUDE);
+        CasalDTO casalDTO = casalMapper.toDto(updatedCasal);
 
         restCasalMockMvc.perform(put("/api/casals").with(csrf())
             .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(updatedCasal)))
+            .content(TestUtil.convertObjectToJsonBytes(casalDTO)))
             .andExpect(status().isOk());
 
         // Validate the Casal in the database
@@ -1557,11 +1619,12 @@ public class CasalResourceIT {
         int databaseSizeBeforeUpdate = casalRepository.findAll().size();
 
         // Create the Casal
+        CasalDTO casalDTO = casalMapper.toDto(casal);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restCasalMockMvc.perform(put("/api/casals").with(csrf())
             .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(casal)))
+            .content(TestUtil.convertObjectToJsonBytes(casalDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the Casal in the database
@@ -1573,7 +1636,7 @@ public class CasalResourceIT {
     @Transactional
     public void deleteCasal() throws Exception {
         // Initialize the database
-        casalService.save(casal);
+        casalRepository.saveAndFlush(casal);
 
         int databaseSizeBeforeDelete = casalRepository.findAll().size();
 

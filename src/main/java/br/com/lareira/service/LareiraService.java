@@ -1,6 +1,6 @@
 package br.com.lareira.service;
 
-import br.com.lareira.domain.Lareira;
+import br.com.lareira.service.dto.LareiraDTO;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -8,17 +8,17 @@ import org.springframework.data.domain.Pageable;
 import java.util.Optional;
 
 /**
- * Service Interface for managing {@link Lareira}.
+ * Service Interface for managing {@link br.com.lareira.domain.Lareira}.
  */
 public interface LareiraService {
 
     /**
      * Save a lareira.
      *
-     * @param lareira the entity to save.
+     * @param lareiraDTO the entity to save.
      * @return the persisted entity.
      */
-    Lareira save(Lareira lareira);
+    LareiraDTO save(LareiraDTO lareiraDTO);
 
     /**
      * Get all the lareiras.
@@ -26,7 +26,7 @@ public interface LareiraService {
      * @param pageable the pagination information.
      * @return the list of entities.
      */
-    Page<Lareira> findAll(Pageable pageable);
+    Page<LareiraDTO> findAll(Pageable pageable);
 
     /**
      * Get the "id" lareira.
@@ -34,7 +34,7 @@ public interface LareiraService {
      * @param id the id of the entity.
      * @return the entity.
      */
-    Optional<Lareira> findOne(Long id);
+    Optional<LareiraDTO> findOne(Long id);
 
     /**
      * Delete the "id" lareira.

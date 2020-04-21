@@ -17,7 +17,7 @@ export class LareiraUpdateComponent implements OnInit {
 
   editForm = this.fb.group({
     id: [],
-    nome: [],
+    nome: [null, [Validators.required]],
     endereco: [],
     bairro: [],
     cep: [],

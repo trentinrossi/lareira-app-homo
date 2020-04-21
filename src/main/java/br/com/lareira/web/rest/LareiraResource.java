@@ -1,8 +1,8 @@
 package br.com.lareira.web.rest;
 
-import br.com.lareira.domain.Lareira;
 import br.com.lareira.service.LareiraService;
 import br.com.lareira.web.rest.errors.BadRequestAlertException;
+import br.com.lareira.service.dto.LareiraDTO;
 import br.com.lareira.service.dto.LareiraCriteria;
 import br.com.lareira.service.LareiraQueryService;
 
@@ -20,6 +20,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -51,17 +52,17 @@ public class LareiraResource {
     /**
      * {@code POST  /lareiras} : Create a new lareira.
      *
-     * @param lareira the lareira to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new lareira, or with status {@code 400 (Bad Request)} if the lareira has already an ID.
+     * @param lareiraDTO the lareiraDTO to create.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new lareiraDTO, or with status {@code 400 (Bad Request)} if the lareira has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/lareiras")
-    public ResponseEntity<Lareira> createLareira(@RequestBody Lareira lareira) throws URISyntaxException {
-        log.debug("REST request to save Lareira : {}", lareira);
-        if (lareira.getId() != null) {
+    public ResponseEntity<LareiraDTO> createLareira(@Valid @RequestBody LareiraDTO lareiraDTO) throws URISyntaxException {
+        log.debug("REST request to save Lareira : {}", lareiraDTO);
+        if (lareiraDTO.getId() != null) {
             throw new BadRequestAlertException("A new lareira cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Lareira result = lareiraService.save(lareira);
+        LareiraDTO result = lareiraService.save(lareiraDTO);
         return ResponseEntity.created(new URI("/api/lareiras/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -70,21 +71,21 @@ public class LareiraResource {
     /**
      * {@code PUT  /lareiras} : Updates an existing lareira.
      *
-     * @param lareira the lareira to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated lareira,
-     * or with status {@code 400 (Bad Request)} if the lareira is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the lareira couldn't be updated.
+     * @param lareiraDTO the lareiraDTO to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated lareiraDTO,
+     * or with status {@code 400 (Bad Request)} if the lareiraDTO is not valid,
+     * or with status {@code 500 (Internal Server Error)} if the lareiraDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/lareiras")
-    public ResponseEntity<Lareira> updateLareira(@RequestBody Lareira lareira) throws URISyntaxException {
-        log.debug("REST request to update Lareira : {}", lareira);
-        if (lareira.getId() == null) {
+    public ResponseEntity<LareiraDTO> updateLareira(@Valid @RequestBody LareiraDTO lareiraDTO) throws URISyntaxException {
+        log.debug("REST request to update Lareira : {}", lareiraDTO);
+        if (lareiraDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        Lareira result = lareiraService.save(lareira);
+        LareiraDTO result = lareiraService.save(lareiraDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, lareira.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, lareiraDTO.getId().toString()))
             .body(result);
     }
 
@@ -96,9 +97,9 @@ public class LareiraResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of lareiras in body.
      */
     @GetMapping("/lareiras")
-    public ResponseEntity<List<Lareira>> getAllLareiras(LareiraCriteria criteria, Pageable pageable) {
+    public ResponseEntity<List<LareiraDTO>> getAllLareiras(LareiraCriteria criteria, Pageable pageable) {
         log.debug("REST request to get Lareiras by criteria: {}", criteria);
-        Page<Lareira> page = lareiraQueryService.findByCriteria(criteria, pageable);
+        Page<LareiraDTO> page = lareiraQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
@@ -118,20 +119,20 @@ public class LareiraResource {
     /**
      * {@code GET  /lareiras/:id} : get the "id" lareira.
      *
-     * @param id the id of the lareira to retrieve.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the lareira, or with status {@code 404 (Not Found)}.
+     * @param id the id of the lareiraDTO to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the lareiraDTO, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/lareiras/{id}")
-    public ResponseEntity<Lareira> getLareira(@PathVariable Long id) {
+    public ResponseEntity<LareiraDTO> getLareira(@PathVariable Long id) {
         log.debug("REST request to get Lareira : {}", id);
-        Optional<Lareira> lareira = lareiraService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(lareira);
+        Optional<LareiraDTO> lareiraDTO = lareiraService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(lareiraDTO);
     }
 
     /**
      * {@code DELETE  /lareiras/:id} : delete the "id" lareira.
      *
-     * @param id the id of the lareira to delete.
+     * @param id the id of the lareiraDTO to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/lareiras/{id}")

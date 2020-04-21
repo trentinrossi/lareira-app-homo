@@ -3,6 +3,8 @@ package br.com.lareira.service.impl;
 import br.com.lareira.service.CasalService;
 import br.com.lareira.domain.Casal;
 import br.com.lareira.repository.CasalRepository;
+import br.com.lareira.service.dto.CasalDTO;
+import br.com.lareira.service.mapper.CasalMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,20 +26,25 @@ public class CasalServiceImpl implements CasalService {
 
     private final CasalRepository casalRepository;
 
-    public CasalServiceImpl(CasalRepository casalRepository) {
+    private final CasalMapper casalMapper;
+
+    public CasalServiceImpl(CasalRepository casalRepository, CasalMapper casalMapper) {
         this.casalRepository = casalRepository;
+        this.casalMapper = casalMapper;
     }
 
     /**
      * Save a casal.
      *
-     * @param casal the entity to save.
+     * @param casalDTO the entity to save.
      * @return the persisted entity.
      */
     @Override
-    public Casal save(Casal casal) {
-        log.debug("Request to save Casal : {}", casal);
-        return casalRepository.save(casal);
+    public CasalDTO save(CasalDTO casalDTO) {
+        log.debug("Request to save Casal : {}", casalDTO);
+        Casal casal = casalMapper.toEntity(casalDTO);
+        casal = casalRepository.save(casal);
+        return casalMapper.toDto(casal);
     }
 
     /**
@@ -48,9 +55,10 @@ public class CasalServiceImpl implements CasalService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Page<Casal> findAll(Pageable pageable) {
+    public Page<CasalDTO> findAll(Pageable pageable) {
         log.debug("Request to get all Casals");
-        return casalRepository.findAll(pageable);
+        return casalRepository.findAll(pageable)
+            .map(casalMapper::toDto);
     }
 
     /**
@@ -61,9 +69,10 @@ public class CasalServiceImpl implements CasalService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Optional<Casal> findOne(Long id) {
+    public Optional<CasalDTO> findOne(Long id) {
         log.debug("Request to get Casal : {}", id);
-        return casalRepository.findById(id);
+        return casalRepository.findById(id)
+            .map(casalMapper::toDto);
     }
 
     /**

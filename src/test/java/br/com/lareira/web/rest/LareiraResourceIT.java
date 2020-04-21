@@ -5,6 +5,8 @@ import br.com.lareira.domain.Lareira;
 import br.com.lareira.domain.Casal;
 import br.com.lareira.repository.LareiraRepository;
 import br.com.lareira.service.LareiraService;
+import br.com.lareira.service.dto.LareiraDTO;
+import br.com.lareira.service.mapper.LareiraMapper;
 import br.com.lareira.service.dto.LareiraCriteria;
 import br.com.lareira.service.LareiraQueryService;
 
@@ -58,6 +60,9 @@ public class LareiraResourceIT {
 
     @Autowired
     private LareiraRepository lareiraRepository;
+
+    @Autowired
+    private LareiraMapper lareiraMapper;
 
     @Autowired
     private LareiraService lareiraService;
@@ -119,9 +124,10 @@ public class LareiraResourceIT {
         int databaseSizeBeforeCreate = lareiraRepository.findAll().size();
 
         // Create the Lareira
+        LareiraDTO lareiraDTO = lareiraMapper.toDto(lareira);
         restLareiraMockMvc.perform(post("/api/lareiras").with(csrf())
             .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(lareira)))
+            .content(TestUtil.convertObjectToJsonBytes(lareiraDTO)))
             .andExpect(status().isCreated());
 
         // Validate the Lareira in the database
@@ -144,11 +150,12 @@ public class LareiraResourceIT {
 
         // Create the Lareira with an existing ID
         lareira.setId(1L);
+        LareiraDTO lareiraDTO = lareiraMapper.toDto(lareira);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restLareiraMockMvc.perform(post("/api/lareiras").with(csrf())
             .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(lareira)))
+            .content(TestUtil.convertObjectToJsonBytes(lareiraDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the Lareira in the database
@@ -156,6 +163,25 @@ public class LareiraResourceIT {
         assertThat(lareiraList).hasSize(databaseSizeBeforeCreate);
     }
 
+
+    @Test
+    @Transactional
+    public void checkNomeIsRequired() throws Exception {
+        int databaseSizeBeforeTest = lareiraRepository.findAll().size();
+        // set the field null
+        lareira.setNome(null);
+
+        // Create the Lareira, which fails.
+        LareiraDTO lareiraDTO = lareiraMapper.toDto(lareira);
+
+        restLareiraMockMvc.perform(post("/api/lareiras").with(csrf())
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(TestUtil.convertObjectToJsonBytes(lareiraDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<Lareira> lareiraList = lareiraRepository.findAll();
+        assertThat(lareiraList).hasSize(databaseSizeBeforeTest);
+    }
 
     @Test
     @Transactional
@@ -765,21 +791,21 @@ public class LareiraResourceIT {
 
     @Test
     @Transactional
-    public void getAllLareirasByCasalIsEqualToSomething() throws Exception {
+    public void getAllLareirasByIdIsEqualToSomething() throws Exception {
         // Initialize the database
         lareiraRepository.saveAndFlush(lareira);
-        Casal casal = CasalResourceIT.createEntity(em);
-        em.persist(casal);
+        Casal id = CasalResourceIT.createEntity(em);
+        em.persist(id);
         em.flush();
-        lareira.addCasal(casal);
+        lareira.addId(id);
         lareiraRepository.saveAndFlush(lareira);
-        Long casalId = casal.getId();
+        Long idId = id.getId();
 
-        // Get all the lareiraList where casal equals to casalId
-        defaultLareiraShouldBeFound("casalId.equals=" + casalId);
+        // Get all the lareiraList where id equals to idId
+        defaultLareiraShouldBeFound("idId.equals=" + idId);
 
-        // Get all the lareiraList where casal equals to casalId + 1
-        defaultLareiraShouldNotBeFound("casalId.equals=" + (casalId + 1));
+        // Get all the lareiraList where id equals to idId + 1
+        defaultLareiraShouldNotBeFound("idId.equals=" + (idId + 1));
     }
 
     /**
@@ -835,7 +861,7 @@ public class LareiraResourceIT {
     @Transactional
     public void updateLareira() throws Exception {
         // Initialize the database
-        lareiraService.save(lareira);
+        lareiraRepository.saveAndFlush(lareira);
 
         int databaseSizeBeforeUpdate = lareiraRepository.findAll().size();
 
@@ -851,10 +877,11 @@ public class LareiraResourceIT {
             .cidade(UPDATED_CIDADE)
             .estado(UPDATED_ESTADO)
             .telefone(UPDATED_TELEFONE);
+        LareiraDTO lareiraDTO = lareiraMapper.toDto(updatedLareira);
 
         restLareiraMockMvc.perform(put("/api/lareiras").with(csrf())
             .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(updatedLareira)))
+            .content(TestUtil.convertObjectToJsonBytes(lareiraDTO)))
             .andExpect(status().isOk());
 
         // Validate the Lareira in the database
@@ -876,11 +903,12 @@ public class LareiraResourceIT {
         int databaseSizeBeforeUpdate = lareiraRepository.findAll().size();
 
         // Create the Lareira
+        LareiraDTO lareiraDTO = lareiraMapper.toDto(lareira);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restLareiraMockMvc.perform(put("/api/lareiras").with(csrf())
             .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(lareira)))
+            .content(TestUtil.convertObjectToJsonBytes(lareiraDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the Lareira in the database
@@ -892,7 +920,7 @@ public class LareiraResourceIT {
     @Transactional
     public void deleteLareira() throws Exception {
         // Initialize the database
-        lareiraService.save(lareira);
+        lareiraRepository.saveAndFlush(lareira);
 
         int databaseSizeBeforeDelete = lareiraRepository.findAll().size();
 

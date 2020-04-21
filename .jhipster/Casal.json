@@ -3,7 +3,14 @@
     "fields": [
         {
             "fieldName": "maridoNome",
-            "fieldType": "String"
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "minlength",
+                "maxlength"
+            ],
+            "fieldValidateRulesMinlength": "3",
+            "fieldValidateRulesMaxlength": "100"
         },
         {
             "fieldName": "maridoSobrenome",
@@ -31,7 +38,14 @@
         },
         {
             "fieldName": "esposaNome",
-            "fieldType": "String"
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "minlength",
+                "maxlength"
+            ],
+            "fieldValidateRulesMinlength": "3",
+            "fieldValidateRulesMaxlength": "100"
         },
         {
             "fieldName": "esposaSobrenome",
@@ -62,14 +76,15 @@
         {
             "relationshipType": "many-to-one",
             "otherEntityName": "lareira",
-            "otherEntityRelationshipName": "casal",
-            "relationshipName": "lareira",
+            "otherEntityRelationshipName": "id",
+            "relationshipValidateRules": "required",
+            "relationshipName": "idLareira",
             "otherEntityField": "id"
         }
     ],
     "changelogDate": "20200412182600",
     "entityTableName": "casal",
-    "dto": "no",
+    "dto": "mapstruct",
     "pagination": "pagination",
     "service": "serviceImpl",
     "jpaMetamodelFiltering": true,

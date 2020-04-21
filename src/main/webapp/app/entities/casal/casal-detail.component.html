@@ -64,10 +64,10 @@
                 <dd>
                     <span>{{ casal.esposaProblemaSaude }}</span>
                 </dd>
-                <dt><span jhiTranslate="lareiraAppHomoApp.casal.lareira">Lareira</span></dt>
+                <dt><span jhiTranslate="lareiraAppHomoApp.casal.idLareira">Id Lareira</span></dt>
                 <dd>
-                    <div *ngIf="casal.lareira">
-                        <a [routerLink]="['/lareira', casal.lareira?.id, 'view']">{{ casal.lareira?.id }}</a>
+                    <div *ngIf="casal.idLareiraId">
+                        <a [routerLink]="['/lareira', casal.idLareiraId, 'view']">{{ casal.idLareiraId }}</a>
                     </div>
                 </dd>
             </dl>

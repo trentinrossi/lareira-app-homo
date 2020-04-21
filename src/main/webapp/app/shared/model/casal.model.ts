@@ -1,5 +1,4 @@
 import { Moment } from 'moment';
-import { ILareira } from 'app/shared/model/lareira.model';
 
 export interface ICasal {
   id?: number;
@@ -17,7 +16,7 @@ export interface ICasal {
   esposaTelCelular?: string;
   esposaEmail?: string;
   esposaProblemaSaude?: string;
-  lareira?: ILareira;
+  idLareiraId?: number;
 }
 
 export class Casal implements ICasal {
@@ -37,6 +36,6 @@ export class Casal implements ICasal {
     public esposaTelCelular?: string,
     public esposaEmail?: string,
     public esposaProblemaSaude?: string,
-    public lareira?: ILareira
+    public idLareiraId?: number
   ) {}
 }

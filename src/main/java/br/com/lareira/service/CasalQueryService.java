@@ -18,12 +18,14 @@ import br.com.lareira.domain.Casal;
 import br.com.lareira.domain.*; // for static metamodels
 import br.com.lareira.repository.CasalRepository;
 import br.com.lareira.service.dto.CasalCriteria;
+import br.com.lareira.service.dto.CasalDTO;
+import br.com.lareira.service.mapper.CasalMapper;
 
 /**
  * Service for executing complex queries for {@link Casal} entities in the database.
  * The main input is a {@link CasalCriteria} which gets converted to {@link Specification},
  * in a way that all the filters must apply.
- * It returns a {@link List} of {@link Casal} or a {@link Page} of {@link Casal} which fulfills the criteria.
+ * It returns a {@link List} of {@link CasalDTO} or a {@link Page} of {@link CasalDTO} which fulfills the criteria.
  */
 @Service
 @Transactional(readOnly = true)
@@ -33,33 +35,37 @@ public class CasalQueryService extends QueryService<Casal> {
 
     private final CasalRepository casalRepository;
 
-    public CasalQueryService(CasalRepository casalRepository) {
+    private final CasalMapper casalMapper;
+
+    public CasalQueryService(CasalRepository casalRepository, CasalMapper casalMapper) {
         this.casalRepository = casalRepository;
+        this.casalMapper = casalMapper;
     }
 
     /**
-     * Return a {@link List} of {@link Casal} which matches the criteria from the database.
+     * Return a {@link List} of {@link CasalDTO} which matches the criteria from the database.
      * @param criteria The object which holds all the filters, which the entities should match.
      * @return the matching entities.
      */
     @Transactional(readOnly = true)
-    public List<Casal> findByCriteria(CasalCriteria criteria) {
+    public List<CasalDTO> findByCriteria(CasalCriteria criteria) {
         log.debug("find by criteria : {}", criteria);
         final Specification<Casal> specification = createSpecification(criteria);
-        return casalRepository.findAll(specification);
+        return casalMapper.toDto(casalRepository.findAll(specification));
     }
 
     /**
-     * Return a {@link Page} of {@link Casal} which matches the criteria from the database.
+     * Return a {@link Page} of {@link CasalDTO} which matches the criteria from the database.
      * @param criteria The object which holds all the filters, which the entities should match.
      * @param page The page, which should be returned.
      * @return the matching entities.
      */
     @Transactional(readOnly = true)
-    public Page<Casal> findByCriteria(CasalCriteria criteria, Pageable page) {
+    public Page<CasalDTO> findByCriteria(CasalCriteria criteria, Pageable page) {
         log.debug("find by criteria : {}, page: {}", criteria, page);
         final Specification<Casal> specification = createSpecification(criteria);
-        return casalRepository.findAll(specification, page);
+        return casalRepository.findAll(specification, page)
+            .map(casalMapper::toDto);
     }
 
     /**
@@ -127,9 +133,9 @@ public class CasalQueryService extends QueryService<Casal> {
             if (criteria.getEsposaProblemaSaude() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getEsposaProblemaSaude(), Casal_.esposaProblemaSaude));
             }
-            if (criteria.getLareiraId() != null) {
-                specification = specification.and(buildSpecification(criteria.getLareiraId(),
-                    root -> root.join(Casal_.lareira, JoinType.LEFT).get(Lareira_.id)));
+            if (criteria.getIdLareiraId() != null) {
+                specification = specification.and(buildSpecification(criteria.getIdLareiraId(),
+                    root -> root.join(Casal_.idLareira, JoinType.LEFT).get(Lareira_.id)));
             }
         }
         return specification;

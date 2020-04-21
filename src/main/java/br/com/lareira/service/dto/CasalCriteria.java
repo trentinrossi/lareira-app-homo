@@ -55,7 +55,7 @@ public class CasalCriteria implements Serializable, Criteria {
 
     private StringFilter esposaProblemaSaude;
 
-    private LongFilter lareiraId;
+    private LongFilter idLareiraId;
 
     public CasalCriteria() {
     }
@@ -76,7 +76,7 @@ public class CasalCriteria implements Serializable, Criteria {
         this.esposaTelCelular = other.esposaTelCelular == null ? null : other.esposaTelCelular.copy();
         this.esposaEmail = other.esposaEmail == null ? null : other.esposaEmail.copy();
         this.esposaProblemaSaude = other.esposaProblemaSaude == null ? null : other.esposaProblemaSaude.copy();
-        this.lareiraId = other.lareiraId == null ? null : other.lareiraId.copy();
+        this.idLareiraId = other.idLareiraId == null ? null : other.idLareiraId.copy();
     }
 
     @Override
@@ -204,12 +204,12 @@ public class CasalCriteria implements Serializable, Criteria {
         this.esposaProblemaSaude = esposaProblemaSaude;
     }
 
-    public LongFilter getLareiraId() {
-        return lareiraId;
+    public LongFilter getIdLareiraId() {
+        return idLareiraId;
     }
 
-    public void setLareiraId(LongFilter lareiraId) {
-        this.lareiraId = lareiraId;
+    public void setIdLareiraId(LongFilter idLareiraId) {
+        this.idLareiraId = idLareiraId;
     }
 
 
@@ -238,7 +238,7 @@ public class CasalCriteria implements Serializable, Criteria {
             Objects.equals(esposaTelCelular, that.esposaTelCelular) &&
             Objects.equals(esposaEmail, that.esposaEmail) &&
             Objects.equals(esposaProblemaSaude, that.esposaProblemaSaude) &&
-            Objects.equals(lareiraId, that.lareiraId);
+            Objects.equals(idLareiraId, that.idLareiraId);
     }
 
     @Override
@@ -259,7 +259,7 @@ public class CasalCriteria implements Serializable, Criteria {
         esposaTelCelular,
         esposaEmail,
         esposaProblemaSaude,
-        lareiraId
+        idLareiraId
         );
     }
 
@@ -281,7 +281,7 @@ public class CasalCriteria implements Serializable, Criteria {
                 (esposaTelCelular != null ? "esposaTelCelular=" + esposaTelCelular + ", " : "") +
                 (esposaEmail != null ? "esposaEmail=" + esposaEmail + ", " : "") +
                 (esposaProblemaSaude != null ? "esposaProblemaSaude=" + esposaProblemaSaude + ", " : "") +
-                (lareiraId != null ? "lareiraId=" + lareiraId + ", " : "") +
+                (idLareiraId != null ? "idLareiraId=" + idLareiraId + ", " : "") +
             "}";
     }
 

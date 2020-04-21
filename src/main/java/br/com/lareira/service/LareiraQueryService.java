@@ -18,12 +18,14 @@ import br.com.lareira.domain.Lareira;
 import br.com.lareira.domain.*; // for static metamodels
 import br.com.lareira.repository.LareiraRepository;
 import br.com.lareira.service.dto.LareiraCriteria;
+import br.com.lareira.service.dto.LareiraDTO;
+import br.com.lareira.service.mapper.LareiraMapper;
 
 /**
  * Service for executing complex queries for {@link Lareira} entities in the database.
  * The main input is a {@link LareiraCriteria} which gets converted to {@link Specification},
  * in a way that all the filters must apply.
- * It returns a {@link List} of {@link Lareira} or a {@link Page} of {@link Lareira} which fulfills the criteria.
+ * It returns a {@link List} of {@link LareiraDTO} or a {@link Page} of {@link LareiraDTO} which fulfills the criteria.
  */
 @Service
 @Transactional(readOnly = true)
@@ -33,33 +35,37 @@ public class LareiraQueryService extends QueryService<Lareira> {
 
     private final LareiraRepository lareiraRepository;
 
-    public LareiraQueryService(LareiraRepository lareiraRepository) {
+    private final LareiraMapper lareiraMapper;
+
+    public LareiraQueryService(LareiraRepository lareiraRepository, LareiraMapper lareiraMapper) {
         this.lareiraRepository = lareiraRepository;
+        this.lareiraMapper = lareiraMapper;
     }
 
     /**
-     * Return a {@link List} of {@link Lareira} which matches the criteria from the database.
+     * Return a {@link List} of {@link LareiraDTO} which matches the criteria from the database.
      * @param criteria The object which holds all the filters, which the entities should match.
      * @return the matching entities.
      */
     @Transactional(readOnly = true)
-    public List<Lareira> findByCriteria(LareiraCriteria criteria) {
+    public List<LareiraDTO> findByCriteria(LareiraCriteria criteria) {
         log.debug("find by criteria : {}", criteria);
         final Specification<Lareira> specification = createSpecification(criteria);
-        return lareiraRepository.findAll(specification);
+        return lareiraMapper.toDto(lareiraRepository.findAll(specification));
     }
 
     /**
-     * Return a {@link Page} of {@link Lareira} which matches the criteria from the database.
+     * Return a {@link Page} of {@link LareiraDTO} which matches the criteria from the database.
      * @param criteria The object which holds all the filters, which the entities should match.
      * @param page The page, which should be returned.
      * @return the matching entities.
      */
     @Transactional(readOnly = true)
-    public Page<Lareira> findByCriteria(LareiraCriteria criteria, Pageable page) {
+    public Page<LareiraDTO> findByCriteria(LareiraCriteria criteria, Pageable page) {
         log.debug("find by criteria : {}, page: {}", criteria, page);
         final Specification<Lareira> specification = createSpecification(criteria);
-        return lareiraRepository.findAll(specification, page);
+        return lareiraRepository.findAll(specification, page)
+            .map(lareiraMapper::toDto);
     }
 
     /**
@@ -106,9 +112,9 @@ public class LareiraQueryService extends QueryService<Lareira> {
             if (criteria.getTelefone() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getTelefone(), Lareira_.telefone));
             }
-            if (criteria.getCasalId() != null) {
-                specification = specification.and(buildSpecification(criteria.getCasalId(),
-                    root -> root.join(Lareira_.casals, JoinType.LEFT).get(Casal_.id)));
+            if (criteria.getIdId() != null) {
+                specification = specification.and(buildSpecification(criteria.getIdId(),
+                    root -> root.join(Lareira_.ids, JoinType.LEFT).get(Casal_.id)));
             }
         }
         return specification;

@@ -2,6 +2,7 @@ package br.com.lareira.domain;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -21,7 +22,8 @@ public class Lareira implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "nome")
+    @NotNull
+    @Column(name = "nome", nullable = false)
     private String nome;
 
     @Column(name = "endereco")
@@ -42,8 +44,8 @@ public class Lareira implements Serializable {
     @Column(name = "telefone")
     private String telefone;
 
-    @OneToMany(mappedBy = "lareira")
-    private Set<Casal> casals = new HashSet<>();
+    @OneToMany(mappedBy = "idLareira")
+    private Set<Casal> ids = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -145,29 +147,29 @@ public class Lareira implements Serializable {
         this.telefone = telefone;
     }
 
-    public Set<Casal> getCasals() {
-        return casals;
+    public Set<Casal> getIds() {
+        return ids;
     }
 
-    public Lareira casals(Set<Casal> casals) {
-        this.casals = casals;
+    public Lareira ids(Set<Casal> casals) {
+        this.ids = casals;
         return this;
     }
 
-    public Lareira addCasal(Casal casal) {
-        this.casals.add(casal);
-        casal.setLareira(this);
+    public Lareira addId(Casal casal) {
+        this.ids.add(casal);
+        casal.setIdLareira(this);
         return this;
     }
 
-    public Lareira removeCasal(Casal casal) {
-        this.casals.remove(casal);
-        casal.setLareira(null);
+    public Lareira removeId(Casal casal) {
+        this.ids.remove(casal);
+        casal.setIdLareira(null);
         return this;
     }
 
-    public void setCasals(Set<Casal> casals) {
-        this.casals = casals;
+    public void setIds(Set<Casal> casals) {
+        this.ids = casals;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

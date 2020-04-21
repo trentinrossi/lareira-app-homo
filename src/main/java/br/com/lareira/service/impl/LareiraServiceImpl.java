@@ -3,6 +3,8 @@ package br.com.lareira.service.impl;
 import br.com.lareira.service.LareiraService;
 import br.com.lareira.domain.Lareira;
 import br.com.lareira.repository.LareiraRepository;
+import br.com.lareira.service.dto.LareiraDTO;
+import br.com.lareira.service.mapper.LareiraMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,20 +26,25 @@ public class LareiraServiceImpl implements LareiraService {
 
     private final LareiraRepository lareiraRepository;
 
-    public LareiraServiceImpl(LareiraRepository lareiraRepository) {
+    private final LareiraMapper lareiraMapper;
+
+    public LareiraServiceImpl(LareiraRepository lareiraRepository, LareiraMapper lareiraMapper) {
         this.lareiraRepository = lareiraRepository;
+        this.lareiraMapper = lareiraMapper;
     }
 
     /**
      * Save a lareira.
      *
-     * @param lareira the entity to save.
+     * @param lareiraDTO the entity to save.
      * @return the persisted entity.
      */
     @Override
-    public Lareira save(Lareira lareira) {
-        log.debug("Request to save Lareira : {}", lareira);
-        return lareiraRepository.save(lareira);
+    public LareiraDTO save(LareiraDTO lareiraDTO) {
+        log.debug("Request to save Lareira : {}", lareiraDTO);
+        Lareira lareira = lareiraMapper.toEntity(lareiraDTO);
+        lareira = lareiraRepository.save(lareira);
+        return lareiraMapper.toDto(lareira);
     }
 
     /**
@@ -48,9 +55,10 @@ public class LareiraServiceImpl implements LareiraService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Page<Lareira> findAll(Pageable pageable) {
+    public Page<LareiraDTO> findAll(Pageable pageable) {
         log.debug("Request to get all Lareiras");
-        return lareiraRepository.findAll(pageable);
+        return lareiraRepository.findAll(pageable)
+            .map(lareiraMapper::toDto);
     }
 
     /**
@@ -61,9 +69,10 @@ public class LareiraServiceImpl implements LareiraService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Optional<Lareira> findOne(Long id) {
+    public Optional<LareiraDTO> findOne(Long id) {
         log.debug("Request to get Lareira : {}", id);
-        return lareiraRepository.findById(id);
+        return lareiraRepository.findById(id)
+            .map(lareiraMapper::toDto);
     }
 
     /**
