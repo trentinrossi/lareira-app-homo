@@ -1,15 +1,184 @@
-<div class="row justify-content-center">
-    <div class="col-8">
+<div class="container">
+    <div>
         <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
             <h2 id="jhi-casal-heading" jhiTranslate="lareiraAppHomoApp.casal.home.createOrEditLabel">Create or edit a Casal</h2>
 
             <div>
                 <jhi-alert-error></jhi-alert-error>
 
-                <div class="form-group" [hidden]="!editForm.get('id')!.value">
-                    <label for="id" jhiTranslate="global.field.id">ID</label>
-                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+                <div class="ui-g ui-fluid">
+                    <div class="ui-g-12 ui-lg-6 ui-md-6">
+                        <div class="form-group">
+                            <label class="form-control-label" jhiTranslate="lareiraAppHomoApp.casal.idLareira" for="field_idLareira">Id Lareira</label>
+                            <select class="form-control" id="field_idLareira" name="idLareira" formControlName="idLareiraId">
+                                <option *ngIf="!editForm.get('idLareiraId')!.value" [ngValue]="null" selected></option>
+                                <option [ngValue]="lareiraOption.id" *ngFor="let lareiraOption of lareiras; trackBy: trackById">{{ lareiraOption.nome }}</option>
+                            </select>
+                        </div>
+                        <div *ngIf="editForm.get('idLareiraId')!.invalid && (editForm.get('idLareiraId')!.dirty || editForm.get('idLareiraId')!.touched)">
+                            <small class="form-text text-danger" *ngIf="editForm.get('idLareiraId')?.errors?.required"
+                                jhiTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="ui-g-12 ui-lg-6 ui-md-6">
+
+                    </div>
+
+                    <div class="ui-g-12 ui-lg-6">
+                        <div class="card no-margin">
+                            <h1>Marido</h1>
+                            <div class="ui-g">
+                                <div class="ui-g-12 ui-md-6 ui-fluid">
+                                    <label class="form-control-label" jhiTranslate="lareiraAppHomoApp.casal.maridoNome" for="field_maridoNome">Marido
+                                        Nome</label>
+                                    <input type="text" class="form-control" name="maridoNome" id="field_maridoNome" formControlName="maridoNome" />
+                                    <div
+                                        *ngIf="editForm.get('maridoNome')!.invalid && (editForm.get('maridoNome')!.dirty || editForm.get('maridoNome')!.touched)">
+                                        <small class="form-text text-danger" *ngIf="editForm.get('maridoNome')?.errors?.required"
+                                            jhiTranslate="entity.validation.required">
+                                            This field is required.
+                                        </small>
+                                        <small class="form-text text-danger" *ngIf="editForm.get('maridoNome')?.errors?.minlength"
+                                            jhiTranslate="entity.validation.minlength" [translateValues]="{ min: 3 }">
+                                            This field is required to be at least 3 characters.
+                                        </small>
+                                        <small class="form-text text-danger" *ngIf="editForm.get('maridoNome')?.errors?.maxlength"
+                                            jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 100 }">
+                                            This field cannot be longer than 100 characters.
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="ui-g-12 ui-md-6 ui-fluid">
+                                    <label class="form-control-label" jhiTranslate="lareiraAppHomoApp.casal.maridoSobrenome" for="field_maridoSobrenome">Marido
+                                        Sobrenome</label>
+                                    <input type="text" class="form-control" name="maridoSobrenome" id="field_maridoSobrenome"
+                                        formControlName="maridoSobrenome" />
+                                </div>
+                                <div class="ui-g-12 ui-md-6 ui-fluid">
+                                    <label class="form-control-label" jhiTranslate="lareiraAppHomoApp.casal.maridoDataNascimento"
+                                        for="field_maridoDataNascimento">Marido Data
+                                        Nascimento</label>
+                                    <div class="input-group">
+                                        <input id="field_maridoDataNascimento" type="text" class="form-control" name="maridoDataNascimento" ngbDatepicker
+                                            #maridoDataNascimentoDp="ngbDatepicker" formControlName="maridoDataNascimento" />
+                                        <span class="input-group-append">
+                                            <button type="button" class="btn btn-secondary" (click)="maridoDataNascimentoDp.toggle()">
+                                                <fa-icon icon="calendar-alt"></fa-icon>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="ui-g-12 ui-md-6 ui-fluid">
+                                    <label class="form-control-label" jhiTranslate="lareiraAppHomoApp.casal.maridoProfissao" for="field_maridoProfissao">Marido
+                                        Profissao</label>
+                                    <input type="text" class="form-control" name="maridoProfissao" id="field_maridoProfissao"
+                                        formControlName="maridoProfissao" />
+                                </div>
+                                <div class="ui-g-12 ui-md-6 ui-fluid">
+                                    <label class="form-control-label" jhiTranslate="lareiraAppHomoApp.casal.maridoTelCelular"
+                                        for="field_maridoTelCelular">Marido Tel
+                                        Celular</label>
+                                    <input type="text" class="form-control" name="maridoTelCelular" id="field_maridoTelCelular"
+                                        formControlName="maridoTelCelular" />
+                                </div>
+                                <div class="ui-g-12 ui-md-6 ui-fluid">
+                                    <label class="form-control-label" jhiTranslate="lareiraAppHomoApp.casal.maridoEmail" for="field_maridoEmail">Marido
+                                        Email</label>
+                                    <input type="text" class="form-control" name="maridoEmail" id="field_maridoEmail" formControlName="maridoEmail" />
+                                </div>
+                                <div class="ui-g-12 ui-md-12 ui-fluid">
+                                    <label class="form-control-label" jhiTranslate="lareiraAppHomoApp.casal.maridoProblemaSaude"
+                                        for="field_maridoProblemaSaude">Marido Problema
+                                        Saude</label>
+                                    <input type="text" class="form-control" name="maridoProblemaSaude" id="field_maridoProblemaSaude"
+                                        formControlName="maridoProblemaSaude" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="ui-g-12 ui-lg-6">
+                        <div class="card no-margin">
+                            <h1>Esposa</h1>
+                            <div class="ui-g">
+                                <div class="ui-g-12 ui-md-6 ui-fluid">
+                                    <label class="form-control-label" jhiTranslate="lareiraAppHomoApp.casal.esposaNome" for="field_esposaNome">Esposa
+                                        Nome</label>
+                                    <input type="text" class="form-control" name="esposaNome" id="field_esposaNome" formControlName="esposaNome" />
+                                    <div
+                                        *ngIf="editForm.get('esposaNome')!.invalid && (editForm.get('esposaNome')!.dirty || editForm.get('esposaNome')!.touched)">
+                                        <small class="form-text text-danger" *ngIf="editForm.get('esposaNome')?.errors?.required"
+                                            jhiTranslate="entity.validation.required">
+                                            This field is required.
+                                        </small>
+                                        <small class="form-text text-danger" *ngIf="editForm.get('esposaNome')?.errors?.minlength"
+                                            jhiTranslate="entity.validation.minlength" [translateValues]="{ min: 3 }">
+                                            This field is required to be at least 3 characters.
+                                        </small>
+                                        <small class="form-text text-danger" *ngIf="editForm.get('esposaNome')?.errors?.maxlength"
+                                            jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 100 }">
+                                            This field cannot be longer than 100 characters.
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="ui-g-12 ui-md-6 ui-fluid">
+                                    <label class="form-control-label" jhiTranslate="lareiraAppHomoApp.casal.esposaSobrenome" for="field_esposaSobrenome">Esposa
+                                        Sobrenome</label>
+                                    <input type="text" class="form-control" name="esposaSobrenome" id="field_esposaSobrenome"
+                                        formControlName="esposaSobrenome" />
+                                </div>
+                                <div class="ui-g-12 ui-md-6 ui-fluid">
+                                    <label class="form-control-label" jhiTranslate="lareiraAppHomoApp.casal.esposaDataNascimento"
+                                        for="field_esposaDataNascimento">Esposa Data
+                                        Nascimento</label>
+                                    <div class="input-group">
+                                        <input id="field_esposaDataNascimento" type="text" class="form-control" name="esposaDataNascimento" ngbDatepicker
+                                            #esposaDataNascimentoDp="ngbDatepicker" formControlName="esposaDataNascimento" />
+                                        <span class="input-group-append">
+                                            <button type="button" class="btn btn-secondary" (click)="esposaDataNascimentoDp.toggle()">
+                                                <fa-icon icon="calendar-alt"></fa-icon>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="ui-g-12 ui-md-6 ui-fluid"> <label class="form-control-label" jhiTranslate="lareiraAppHomoApp.casal.esposaProfissao"
+                                        for="field_esposaProfissao">Esposa
+                                        Profissao</label>
+                                    <input type="text" class="form-control" name="esposaProfissao" id="field_esposaProfissao"
+                                        formControlName="esposaProfissao" />
+                                </div>
+                                <div class="ui-g-12 ui-md-6 ui-fluid">
+                                    <label class="form-control-label" jhiTranslate="lareiraAppHomoApp.casal.esposaTelCelular"
+                                        for="field_esposaTelCelular">Esposa Tel
+                                        Celular</label>
+                                    <input type="text" class="form-control" name="esposaTelCelular" id="field_esposaTelCelular"
+                                        formControlName="esposaTelCelular" />
+                                </div>
+                                <div class="ui-g-12 ui-md-6 ui-fluid">
+                                    <label class="form-control-label" jhiTranslate="lareiraAppHomoApp.casal.esposaEmail" for="field_esposaEmail">Esposa
+                                        Email</label>
+                                    <input type="text" class="form-control" name="esposaEmail" id="field_esposaEmail" formControlName="esposaEmail" />
+                                </div>
+                                <div class="ui-g-12 ui-md-12 ui-fluid">
+                                    <label class="form-control-label" jhiTranslate="lareiraAppHomoApp.casal.esposaProblemaSaude"
+                                        for="field_esposaProblemaSaude">Esposa Problema
+                                        Saude</label>
+                                    <input type="text" class="form-control" name="esposaProblemaSaude" id="field_esposaProblemaSaude"
+                                        formControlName="esposaProblemaSaude" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
+            </div>
+
+            <!--
+            <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                <label for="id" jhiTranslate="global.field.id">ID</label>
+                <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
 
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="lareiraAppHomoApp.casal.maridoNome" for="field_maridoNome">Marido Nome</label>
@@ -146,6 +315,7 @@
                     </small>
                 </div>
             </div>
+            -->
 
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
