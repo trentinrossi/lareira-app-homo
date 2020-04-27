@@ -55,6 +55,8 @@ public class CasalCriteria implements Serializable, Criteria {
 
     private StringFilter esposaProblemaSaude;
 
+    private LongFilter idId;
+
     private LongFilter idLareiraId;
 
     public CasalCriteria() {
@@ -76,6 +78,7 @@ public class CasalCriteria implements Serializable, Criteria {
         this.esposaTelCelular = other.esposaTelCelular == null ? null : other.esposaTelCelular.copy();
         this.esposaEmail = other.esposaEmail == null ? null : other.esposaEmail.copy();
         this.esposaProblemaSaude = other.esposaProblemaSaude == null ? null : other.esposaProblemaSaude.copy();
+        this.idId = other.idId == null ? null : other.idId.copy();
         this.idLareiraId = other.idLareiraId == null ? null : other.idLareiraId.copy();
     }
 
@@ -204,6 +207,14 @@ public class CasalCriteria implements Serializable, Criteria {
         this.esposaProblemaSaude = esposaProblemaSaude;
     }
 
+    public LongFilter getIdId() {
+        return idId;
+    }
+
+    public void setIdId(LongFilter idId) {
+        this.idId = idId;
+    }
+
     public LongFilter getIdLareiraId() {
         return idLareiraId;
     }
@@ -238,6 +249,7 @@ public class CasalCriteria implements Serializable, Criteria {
             Objects.equals(esposaTelCelular, that.esposaTelCelular) &&
             Objects.equals(esposaEmail, that.esposaEmail) &&
             Objects.equals(esposaProblemaSaude, that.esposaProblemaSaude) &&
+            Objects.equals(idId, that.idId) &&
             Objects.equals(idLareiraId, that.idLareiraId);
     }
 
@@ -259,6 +271,7 @@ public class CasalCriteria implements Serializable, Criteria {
         esposaTelCelular,
         esposaEmail,
         esposaProblemaSaude,
+        idId,
         idLareiraId
         );
     }
@@ -281,6 +294,7 @@ public class CasalCriteria implements Serializable, Criteria {
                 (esposaTelCelular != null ? "esposaTelCelular=" + esposaTelCelular + ", " : "") +
                 (esposaEmail != null ? "esposaEmail=" + esposaEmail + ", " : "") +
                 (esposaProblemaSaude != null ? "esposaProblemaSaude=" + esposaProblemaSaude + ", " : "") +
+                (idId != null ? "idId=" + idId + ", " : "") +
                 (idLareiraId != null ? "idLareiraId=" + idLareiraId + ", " : "") +
             "}";
     }

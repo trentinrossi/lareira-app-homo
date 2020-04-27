@@ -1,3 +1,5 @@
+import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
+import { MomentDateFormatter } from './../shared/util/datepicker-adapter-ptBr';
 import { NgModule, LOCALE_ID } from '@angular/core';
 import { DatePipe, registerLocaleData } from '@angular/common';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -51,6 +53,7 @@ import { fontAwesomeIcons } from './icons/font-awesome-icons';
       useValue: 'pt'
     },
     { provide: NgbDateAdapter, useClass: NgbDateMomentAdapter },
+    { provide: NgbDateParserFormatter, useClass: MomentDateFormatter },
     DatePipe,
     {
       provide: HTTP_INTERCEPTORS,

@@ -61,6 +61,8 @@ export class CasalService {
 
   protected convertDateFromServer(res: EntityResponseType): EntityResponseType {
     if (res.body) {
+      console.log(res.body);
+
       res.body.maridoDataNascimento = res.body.maridoDataNascimento ? moment(res.body.maridoDataNascimento) : undefined;
       res.body.esposaDataNascimento = res.body.esposaDataNascimento ? moment(res.body.esposaDataNascimento) : undefined;
     }

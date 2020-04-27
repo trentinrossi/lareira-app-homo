@@ -15,6 +15,8 @@ public interface CasalMapper extends EntityMapper<CasalDTO, Casal> {
     @Mapping(source = "idLareira.id", target = "idLareiraId")
     CasalDTO toDto(Casal casal);
 
+    @Mapping(target = "ids", ignore = true)
+    @Mapping(target = "removeId", ignore = true)
     @Mapping(source = "idLareiraId", target = "idLareira")
     Casal toEntity(CasalDTO casalDTO);
 

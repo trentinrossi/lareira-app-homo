@@ -133,6 +133,10 @@ public class CasalQueryService extends QueryService<Casal> {
             if (criteria.getEsposaProblemaSaude() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getEsposaProblemaSaude(), Casal_.esposaProblemaSaude));
             }
+            if (criteria.getIdId() != null) {
+                specification = specification.and(buildSpecification(criteria.getIdId(),
+                    root -> root.join(Casal_.ids, JoinType.LEFT).get(Filho_.id)));
+            }
             if (criteria.getIdLareiraId() != null) {
                 specification = specification.and(buildSpecification(criteria.getIdLareiraId(),
                     root -> root.join(Casal_.idLareira, JoinType.LEFT).get(Lareira_.id)));

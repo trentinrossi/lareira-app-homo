@@ -1,0 +1,44 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="filho">
+            <h2><span jhiTranslate="lareiraAppHomoApp.filho.detail.title">Filho</span> {{ filho.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="lareiraAppHomoApp.filho.nome">Nome</span></dt>
+                <dd>
+                    <span>{{ filho.nome }}</span>
+                </dd>
+                <dt><span jhiTranslate="lareiraAppHomoApp.filho.sexo">Sexo</span></dt>
+                <dd>
+                    <span jhiTranslate="{{ 'lareiraAppHomoApp.Sexo.' + filho.sexo }}">{{ filho.sexo }}</span>
+                </dd>
+                <dt><span jhiTranslate="lareiraAppHomoApp.filho.dataNascimento">Data Nascimento</span></dt>
+                <dd>
+                    <span>{{ filho.dataNascimento }}</span>
+                </dd>
+                <dt><span jhiTranslate="lareiraAppHomoApp.filho.idCasal">Id Casal</span></dt>
+                <dd>
+                    <div *ngIf="filho.idCasalId">
+                        <a [routerLink]="['/casal', filho.idCasalId, 'view']">{{ filho.idCasalId }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/filho', filho.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,25 @@
+{
+  "lareiraAppHomoApp": {
+    "filho": {
+      "home": {
+        "title": "Filhos",
+        "createLabel": "Create a new Filho",
+        "createOrEditLabel": "Create or edit a Filho",
+        "notFound": "No Filhos found"
+      },
+      "created": "A new Filho is created with identifier {{ param }}",
+      "updated": "A Filho is updated with identifier {{ param }}",
+      "deleted": "A Filho is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Filho {{ id }}?"
+      },
+      "detail": {
+        "title": "Filho"
+      },
+      "nome": "Nome",
+      "sexo": "Sexo",
+      "dataNascimento": "Data Nascimento",
+      "idCasal": "Id Casal"
+    }
+  }
+}
