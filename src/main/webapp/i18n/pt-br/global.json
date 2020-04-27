@@ -10,6 +10,7 @@
         "lareira": "Lareira",
         "casal": "Casal",
         "filho": "Filho",
+        "tipoUniao": "Tipo União",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

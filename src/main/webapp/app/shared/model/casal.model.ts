@@ -1,5 +1,6 @@
 import { Moment } from 'moment';
 import { IFilho } from 'app/shared/model/filho.model';
+import { UF } from 'app/shared/model/enumerations/uf.model';
 
 export interface ICasal {
   id?: number;
@@ -17,6 +18,21 @@ export interface ICasal {
   esposaTelCelular?: string;
   esposaEmail?: string;
   esposaProblemaSaude?: string;
+  casalFoneFixo?: string;
+  casalFoneContato?: string;
+  casalCep?: string;
+  casalNomeRua?: string;
+  casalNumeroRua?: string;
+  casalBairro?: string;
+  casalCidade?: string;
+  casalEstado?: UF;
+  fotoCasalContentType?: string;
+  fotoCasal?: any;
+  dataUniao?: Moment;
+  numeroFicha?: number;
+  informacoesCasal?: string;
+  tipoUniaoId?: number;
+  casalPadrinhoId?: number;
   ids?: IFilho[];
   idLareiraId?: number;
 }
@@ -38,6 +54,21 @@ export class Casal implements ICasal {
     public esposaTelCelular?: string,
     public esposaEmail?: string,
     public esposaProblemaSaude?: string,
+    public casalFoneFixo?: string,
+    public casalFoneContato?: string,
+    public casalCep?: string,
+    public casalNomeRua?: string,
+    public casalNumeroRua?: string,
+    public casalBairro?: string,
+    public casalCidade?: string,
+    public casalEstado?: UF,
+    public fotoCasalContentType?: string,
+    public fotoCasal?: any,
+    public dataUniao?: Moment,
+    public numeroFicha?: number,
+    public informacoesCasal?: string,
+    public tipoUniaoId?: number,
+    public casalPadrinhoId?: number,
     public ids?: IFilho[],
     public idLareiraId?: number
   ) {}

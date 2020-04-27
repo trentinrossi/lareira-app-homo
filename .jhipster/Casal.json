@@ -70,9 +70,75 @@
         {
             "fieldName": "esposaProblemaSaude",
             "fieldType": "String"
+        },
+        {
+            "fieldName": "casalFoneFixo",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "casalFoneContato",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "casalCep",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "casalNomeRua",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "casalNumeroRua",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "casalBairro",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "casalCidade",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "casalEstado",
+            "fieldType": "UF",
+            "fieldValues": "AC,AL,AP,AM,BA,CE,DF,ES,GO,MA,MT,MS,MG,PA,PB,PR,PE,PI,RJ,RN,RS,RO,RR,SC,SP,SE,TO"
+        },
+        {
+            "fieldName": "fotoCasal",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "any"
+        },
+        {
+            "fieldName": "dataUniao",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "numeroFicha",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "informacoesCasal",
+            "fieldType": "String"
         }
     ],
     "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "tipoUniao",
+            "otherEntityRelationshipName": "casal",
+            "relationshipName": "tipoUniao",
+            "otherEntityField": "id",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "casal",
+            "otherEntityRelationshipName": "casal",
+            "relationshipName": "casalPadrinho",
+            "otherEntityField": "id",
+            "ownerSide": true
+        },
         {
             "relationshipType": "one-to-many",
             "otherEntityName": "filho",

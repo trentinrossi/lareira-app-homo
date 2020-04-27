@@ -2,6 +2,8 @@ package br.com.lareira.web.rest;
 
 import br.com.lareira.LareiraAppHomoApp;
 import br.com.lareira.domain.Casal;
+import br.com.lareira.domain.TipoUniao;
+import br.com.lareira.domain.Casal;
 import br.com.lareira.domain.Filho;
 import br.com.lareira.domain.Lareira;
 import br.com.lareira.repository.CasalRepository;
@@ -20,6 +22,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Base64Utils;
 import javax.persistence.EntityManager;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -31,6 +34,7 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import br.com.lareira.domain.enumeration.UF;
 /**
  * Integration tests for the {@link CasalResource} REST controller.
  */
@@ -84,6 +88,46 @@ public class CasalResourceIT {
     private static final String DEFAULT_ESPOSA_PROBLEMA_SAUDE = "AAAAAAAAAA";
     private static final String UPDATED_ESPOSA_PROBLEMA_SAUDE = "BBBBBBBBBB";
 
+    private static final String DEFAULT_CASAL_FONE_FIXO = "AAAAAAAAAA";
+    private static final String UPDATED_CASAL_FONE_FIXO = "BBBBBBBBBB";
+
+    private static final String DEFAULT_CASAL_FONE_CONTATO = "AAAAAAAAAA";
+    private static final String UPDATED_CASAL_FONE_CONTATO = "BBBBBBBBBB";
+
+    private static final String DEFAULT_CASAL_CEP = "AAAAAAAAAA";
+    private static final String UPDATED_CASAL_CEP = "BBBBBBBBBB";
+
+    private static final String DEFAULT_CASAL_NOME_RUA = "AAAAAAAAAA";
+    private static final String UPDATED_CASAL_NOME_RUA = "BBBBBBBBBB";
+
+    private static final String DEFAULT_CASAL_NUMERO_RUA = "AAAAAAAAAA";
+    private static final String UPDATED_CASAL_NUMERO_RUA = "BBBBBBBBBB";
+
+    private static final String DEFAULT_CASAL_BAIRRO = "AAAAAAAAAA";
+    private static final String UPDATED_CASAL_BAIRRO = "BBBBBBBBBB";
+
+    private static final String DEFAULT_CASAL_CIDADE = "AAAAAAAAAA";
+    private static final String UPDATED_CASAL_CIDADE = "BBBBBBBBBB";
+
+    private static final UF DEFAULT_CASAL_ESTADO = UF.AC;
+    private static final UF UPDATED_CASAL_ESTADO = UF.AL;
+
+    private static final byte[] DEFAULT_FOTO_CASAL = TestUtil.createByteArray(1, "0");
+    private static final byte[] UPDATED_FOTO_CASAL = TestUtil.createByteArray(1, "1");
+    private static final String DEFAULT_FOTO_CASAL_CONTENT_TYPE = "image/jpg";
+    private static final String UPDATED_FOTO_CASAL_CONTENT_TYPE = "image/png";
+
+    private static final LocalDate DEFAULT_DATA_UNIAO = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_DATA_UNIAO = LocalDate.now(ZoneId.systemDefault());
+    private static final LocalDate SMALLER_DATA_UNIAO = LocalDate.ofEpochDay(-1L);
+
+    private static final Integer DEFAULT_NUMERO_FICHA = 1;
+    private static final Integer UPDATED_NUMERO_FICHA = 2;
+    private static final Integer SMALLER_NUMERO_FICHA = 1 - 1;
+
+    private static final String DEFAULT_INFORMACOES_CASAL = "AAAAAAAAAA";
+    private static final String UPDATED_INFORMACOES_CASAL = "BBBBBBBBBB";
+
     @Autowired
     private CasalRepository casalRepository;
 
@@ -125,7 +169,20 @@ public class CasalResourceIT {
             .esposaProfissao(DEFAULT_ESPOSA_PROFISSAO)
             .esposaTelCelular(DEFAULT_ESPOSA_TEL_CELULAR)
             .esposaEmail(DEFAULT_ESPOSA_EMAIL)
-            .esposaProblemaSaude(DEFAULT_ESPOSA_PROBLEMA_SAUDE);
+            .esposaProblemaSaude(DEFAULT_ESPOSA_PROBLEMA_SAUDE)
+            .casalFoneFixo(DEFAULT_CASAL_FONE_FIXO)
+            .casalFoneContato(DEFAULT_CASAL_FONE_CONTATO)
+            .casalCep(DEFAULT_CASAL_CEP)
+            .casalNomeRua(DEFAULT_CASAL_NOME_RUA)
+            .casalNumeroRua(DEFAULT_CASAL_NUMERO_RUA)
+            .casalBairro(DEFAULT_CASAL_BAIRRO)
+            .casalCidade(DEFAULT_CASAL_CIDADE)
+            .casalEstado(DEFAULT_CASAL_ESTADO)
+            .fotoCasal(DEFAULT_FOTO_CASAL)
+            .fotoCasalContentType(DEFAULT_FOTO_CASAL_CONTENT_TYPE)
+            .dataUniao(DEFAULT_DATA_UNIAO)
+            .numeroFicha(DEFAULT_NUMERO_FICHA)
+            .informacoesCasal(DEFAULT_INFORMACOES_CASAL);
         // Add required entity
         Lareira lareira;
         if (TestUtil.findAll(em, Lareira.class).isEmpty()) {
@@ -159,7 +216,20 @@ public class CasalResourceIT {
             .esposaProfissao(UPDATED_ESPOSA_PROFISSAO)
             .esposaTelCelular(UPDATED_ESPOSA_TEL_CELULAR)
             .esposaEmail(UPDATED_ESPOSA_EMAIL)
-            .esposaProblemaSaude(UPDATED_ESPOSA_PROBLEMA_SAUDE);
+            .esposaProblemaSaude(UPDATED_ESPOSA_PROBLEMA_SAUDE)
+            .casalFoneFixo(UPDATED_CASAL_FONE_FIXO)
+            .casalFoneContato(UPDATED_CASAL_FONE_CONTATO)
+            .casalCep(UPDATED_CASAL_CEP)
+            .casalNomeRua(UPDATED_CASAL_NOME_RUA)
+            .casalNumeroRua(UPDATED_CASAL_NUMERO_RUA)
+            .casalBairro(UPDATED_CASAL_BAIRRO)
+            .casalCidade(UPDATED_CASAL_CIDADE)
+            .casalEstado(UPDATED_CASAL_ESTADO)
+            .fotoCasal(UPDATED_FOTO_CASAL)
+            .fotoCasalContentType(UPDATED_FOTO_CASAL_CONTENT_TYPE)
+            .dataUniao(UPDATED_DATA_UNIAO)
+            .numeroFicha(UPDATED_NUMERO_FICHA)
+            .informacoesCasal(UPDATED_INFORMACOES_CASAL);
         // Add required entity
         Lareira lareira;
         if (TestUtil.findAll(em, Lareira.class).isEmpty()) {
@@ -208,6 +278,19 @@ public class CasalResourceIT {
         assertThat(testCasal.getEsposaTelCelular()).isEqualTo(DEFAULT_ESPOSA_TEL_CELULAR);
         assertThat(testCasal.getEsposaEmail()).isEqualTo(DEFAULT_ESPOSA_EMAIL);
         assertThat(testCasal.getEsposaProblemaSaude()).isEqualTo(DEFAULT_ESPOSA_PROBLEMA_SAUDE);
+        assertThat(testCasal.getCasalFoneFixo()).isEqualTo(DEFAULT_CASAL_FONE_FIXO);
+        assertThat(testCasal.getCasalFoneContato()).isEqualTo(DEFAULT_CASAL_FONE_CONTATO);
+        assertThat(testCasal.getCasalCep()).isEqualTo(DEFAULT_CASAL_CEP);
+        assertThat(testCasal.getCasalNomeRua()).isEqualTo(DEFAULT_CASAL_NOME_RUA);
+        assertThat(testCasal.getCasalNumeroRua()).isEqualTo(DEFAULT_CASAL_NUMERO_RUA);
+        assertThat(testCasal.getCasalBairro()).isEqualTo(DEFAULT_CASAL_BAIRRO);
+        assertThat(testCasal.getCasalCidade()).isEqualTo(DEFAULT_CASAL_CIDADE);
+        assertThat(testCasal.getCasalEstado()).isEqualTo(DEFAULT_CASAL_ESTADO);
+        assertThat(testCasal.getFotoCasal()).isEqualTo(DEFAULT_FOTO_CASAL);
+        assertThat(testCasal.getFotoCasalContentType()).isEqualTo(DEFAULT_FOTO_CASAL_CONTENT_TYPE);
+        assertThat(testCasal.getDataUniao()).isEqualTo(DEFAULT_DATA_UNIAO);
+        assertThat(testCasal.getNumeroFicha()).isEqualTo(DEFAULT_NUMERO_FICHA);
+        assertThat(testCasal.getInformacoesCasal()).isEqualTo(DEFAULT_INFORMACOES_CASAL);
     }
 
     @Test
@@ -293,7 +376,20 @@ public class CasalResourceIT {
             .andExpect(jsonPath("$.[*].esposaProfissao").value(hasItem(DEFAULT_ESPOSA_PROFISSAO)))
             .andExpect(jsonPath("$.[*].esposaTelCelular").value(hasItem(DEFAULT_ESPOSA_TEL_CELULAR)))
             .andExpect(jsonPath("$.[*].esposaEmail").value(hasItem(DEFAULT_ESPOSA_EMAIL)))
-            .andExpect(jsonPath("$.[*].esposaProblemaSaude").value(hasItem(DEFAULT_ESPOSA_PROBLEMA_SAUDE)));
+            .andExpect(jsonPath("$.[*].esposaProblemaSaude").value(hasItem(DEFAULT_ESPOSA_PROBLEMA_SAUDE)))
+            .andExpect(jsonPath("$.[*].casalFoneFixo").value(hasItem(DEFAULT_CASAL_FONE_FIXO)))
+            .andExpect(jsonPath("$.[*].casalFoneContato").value(hasItem(DEFAULT_CASAL_FONE_CONTATO)))
+            .andExpect(jsonPath("$.[*].casalCep").value(hasItem(DEFAULT_CASAL_CEP)))
+            .andExpect(jsonPath("$.[*].casalNomeRua").value(hasItem(DEFAULT_CASAL_NOME_RUA)))
+            .andExpect(jsonPath("$.[*].casalNumeroRua").value(hasItem(DEFAULT_CASAL_NUMERO_RUA)))
+            .andExpect(jsonPath("$.[*].casalBairro").value(hasItem(DEFAULT_CASAL_BAIRRO)))
+            .andExpect(jsonPath("$.[*].casalCidade").value(hasItem(DEFAULT_CASAL_CIDADE)))
+            .andExpect(jsonPath("$.[*].casalEstado").value(hasItem(DEFAULT_CASAL_ESTADO.toString())))
+            .andExpect(jsonPath("$.[*].fotoCasalContentType").value(hasItem(DEFAULT_FOTO_CASAL_CONTENT_TYPE)))
+            .andExpect(jsonPath("$.[*].fotoCasal").value(hasItem(Base64Utils.encodeToString(DEFAULT_FOTO_CASAL))))
+            .andExpect(jsonPath("$.[*].dataUniao").value(hasItem(DEFAULT_DATA_UNIAO.toString())))
+            .andExpect(jsonPath("$.[*].numeroFicha").value(hasItem(DEFAULT_NUMERO_FICHA)))
+            .andExpect(jsonPath("$.[*].informacoesCasal").value(hasItem(DEFAULT_INFORMACOES_CASAL)));
     }
     
     @Test
@@ -320,7 +416,20 @@ public class CasalResourceIT {
             .andExpect(jsonPath("$.esposaProfissao").value(DEFAULT_ESPOSA_PROFISSAO))
             .andExpect(jsonPath("$.esposaTelCelular").value(DEFAULT_ESPOSA_TEL_CELULAR))
             .andExpect(jsonPath("$.esposaEmail").value(DEFAULT_ESPOSA_EMAIL))
-            .andExpect(jsonPath("$.esposaProblemaSaude").value(DEFAULT_ESPOSA_PROBLEMA_SAUDE));
+            .andExpect(jsonPath("$.esposaProblemaSaude").value(DEFAULT_ESPOSA_PROBLEMA_SAUDE))
+            .andExpect(jsonPath("$.casalFoneFixo").value(DEFAULT_CASAL_FONE_FIXO))
+            .andExpect(jsonPath("$.casalFoneContato").value(DEFAULT_CASAL_FONE_CONTATO))
+            .andExpect(jsonPath("$.casalCep").value(DEFAULT_CASAL_CEP))
+            .andExpect(jsonPath("$.casalNomeRua").value(DEFAULT_CASAL_NOME_RUA))
+            .andExpect(jsonPath("$.casalNumeroRua").value(DEFAULT_CASAL_NUMERO_RUA))
+            .andExpect(jsonPath("$.casalBairro").value(DEFAULT_CASAL_BAIRRO))
+            .andExpect(jsonPath("$.casalCidade").value(DEFAULT_CASAL_CIDADE))
+            .andExpect(jsonPath("$.casalEstado").value(DEFAULT_CASAL_ESTADO.toString()))
+            .andExpect(jsonPath("$.fotoCasalContentType").value(DEFAULT_FOTO_CASAL_CONTENT_TYPE))
+            .andExpect(jsonPath("$.fotoCasal").value(Base64Utils.encodeToString(DEFAULT_FOTO_CASAL)))
+            .andExpect(jsonPath("$.dataUniao").value(DEFAULT_DATA_UNIAO.toString()))
+            .andExpect(jsonPath("$.numeroFicha").value(DEFAULT_NUMERO_FICHA))
+            .andExpect(jsonPath("$.informacoesCasal").value(DEFAULT_INFORMACOES_CASAL));
     }
 
 
@@ -1491,6 +1600,932 @@ public class CasalResourceIT {
 
     @Test
     @Transactional
+    public void getAllCasalsByCasalFoneFixoIsEqualToSomething() throws Exception {
+        // Initialize the database
+        casalRepository.saveAndFlush(casal);
+
+        // Get all the casalList where casalFoneFixo equals to DEFAULT_CASAL_FONE_FIXO
+        defaultCasalShouldBeFound("casalFoneFixo.equals=" + DEFAULT_CASAL_FONE_FIXO);
+
+        // Get all the casalList where casalFoneFixo equals to UPDATED_CASAL_FONE_FIXO
+        defaultCasalShouldNotBeFound("casalFoneFixo.equals=" + UPDATED_CASAL_FONE_FIXO);
+    }
+
+    @Test
+    @Transactional
+    public void getAllCasalsByCasalFoneFixoIsNotEqualToSomething() throws Exception {
+        // Initialize the database
+        casalRepository.saveAndFlush(casal);
+
+        // Get all the casalList where casalFoneFixo not equals to DEFAULT_CASAL_FONE_FIXO
+        defaultCasalShouldNotBeFound("casalFoneFixo.notEquals=" + DEFAULT_CASAL_FONE_FIXO);
+
+        // Get all the casalList where casalFoneFixo not equals to UPDATED_CASAL_FONE_FIXO
+        defaultCasalShouldBeFound("casalFoneFixo.notEquals=" + UPDATED_CASAL_FONE_FIXO);
+    }
+
+    @Test
+    @Transactional
+    public void getAllCasalsByCasalFoneFixoIsInShouldWork() throws Exception {
+        // Initialize the database
+        casalRepository.saveAndFlush(casal);
+
+        // Get all the casalList where casalFoneFixo in DEFAULT_CASAL_FONE_FIXO or UPDATED_CASAL_FONE_FIXO
+        defaultCasalShouldBeFound("casalFoneFixo.in=" + DEFAULT_CASAL_FONE_FIXO + "," + UPDATED_CASAL_FONE_FIXO);
+
+        // Get all the casalList where casalFoneFixo equals to UPDATED_CASAL_FONE_FIXO
+        defaultCasalShouldNotBeFound("casalFoneFixo.in=" + UPDATED_CASAL_FONE_FIXO);
+    }
+
+    @Test
+    @Transactional
+    public void getAllCasalsByCasalFoneFixoIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        casalRepository.saveAndFlush(casal);
+
+        // Get all the casalList where casalFoneFixo is not null
+        defaultCasalShouldBeFound("casalFoneFixo.specified=true");
+
+        // Get all the casalList where casalFoneFixo is null
+        defaultCasalShouldNotBeFound("casalFoneFixo.specified=false");
+    }
+                @Test
+    @Transactional
+    public void getAllCasalsByCasalFoneFixoContainsSomething() throws Exception {
+        // Initialize the database
+        casalRepository.saveAndFlush(casal);
+
+        // Get all the casalList where casalFoneFixo contains DEFAULT_CASAL_FONE_FIXO
+        defaultCasalShouldBeFound("casalFoneFixo.contains=" + DEFAULT_CASAL_FONE_FIXO);
+
+        // Get all the casalList where casalFoneFixo contains UPDATED_CASAL_FONE_FIXO
+        defaultCasalShouldNotBeFound("casalFoneFixo.contains=" + UPDATED_CASAL_FONE_FIXO);
+    }
+
+    @Test
+    @Transactional
+    public void getAllCasalsByCasalFoneFixoNotContainsSomething() throws Exception {
+        // Initialize the database
+        casalRepository.saveAndFlush(casal);
+
+        // Get all the casalList where casalFoneFixo does not contain DEFAULT_CASAL_FONE_FIXO
+        defaultCasalShouldNotBeFound("casalFoneFixo.doesNotContain=" + DEFAULT_CASAL_FONE_FIXO);
+
+        // Get all the casalList where casalFoneFixo does not contain UPDATED_CASAL_FONE_FIXO
+        defaultCasalShouldBeFound("casalFoneFixo.doesNotContain=" + UPDATED_CASAL_FONE_FIXO);
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllCasalsByCasalFoneContatoIsEqualToSomething() throws Exception {
+        // Initialize the database
+        casalRepository.saveAndFlush(casal);
+
+        // Get all the casalList where casalFoneContato equals to DEFAULT_CASAL_FONE_CONTATO
+        defaultCasalShouldBeFound("casalFoneContato.equals=" + DEFAULT_CASAL_FONE_CONTATO);
+
+        // Get all the casalList where casalFoneContato equals to UPDATED_CASAL_FONE_CONTATO
+        defaultCasalShouldNotBeFound("casalFoneContato.equals=" + UPDATED_CASAL_FONE_CONTATO);
+    }
+
+    @Test
+    @Transactional
+    public void getAllCasalsByCasalFoneContatoIsNotEqualToSomething() throws Exception {
+        // Initialize the database
+        casalRepository.saveAndFlush(casal);
+
+        // Get all the casalList where casalFoneContato not equals to DEFAULT_CASAL_FONE_CONTATO
+        defaultCasalShouldNotBeFound("casalFoneContato.notEquals=" + DEFAULT_CASAL_FONE_CONTATO);
+
+        // Get all the casalList where casalFoneContato not equals to UPDATED_CASAL_FONE_CONTATO
+        defaultCasalShouldBeFound("casalFoneContato.notEquals=" + UPDATED_CASAL_FONE_CONTATO);
+    }
+
+    @Test
+    @Transactional
+    public void getAllCasalsByCasalFoneContatoIsInShouldWork() throws Exception {
+        // Initialize the database
+        casalRepository.saveAndFlush(casal);
+
+        // Get all the casalList where casalFoneContato in DEFAULT_CASAL_FONE_CONTATO or UPDATED_CASAL_FONE_CONTATO
+        defaultCasalShouldBeFound("casalFoneContato.in=" + DEFAULT_CASAL_FONE_CONTATO + "," + UPDATED_CASAL_FONE_CONTATO);
+
+        // Get all the casalList where casalFoneContato equals to UPDATED_CASAL_FONE_CONTATO
+        defaultCasalShouldNotBeFound("casalFoneContato.in=" + UPDATED_CASAL_FONE_CONTATO);
+    }
+
+    @Test
+    @Transactional
+    public void getAllCasalsByCasalFoneContatoIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        casalRepository.saveAndFlush(casal);
+
+        // Get all the casalList where casalFoneContato is not null
+        defaultCasalShouldBeFound("casalFoneContato.specified=true");
+
+        // Get all the casalList where casalFoneContato is null
+        defaultCasalShouldNotBeFound("casalFoneContato.specified=false");
+    }
+                @Test
+    @Transactional
+    public void getAllCasalsByCasalFoneContatoContainsSomething() throws Exception {
+        // Initialize the database
+        casalRepository.saveAndFlush(casal);
+
+        // Get all the casalList where casalFoneContato contains DEFAULT_CASAL_FONE_CONTATO
+        defaultCasalShouldBeFound("casalFoneContato.contains=" + DEFAULT_CASAL_FONE_CONTATO);
+
+        // Get all the casalList where casalFoneContato contains UPDATED_CASAL_FONE_CONTATO
+        defaultCasalShouldNotBeFound("casalFoneContato.contains=" + UPDATED_CASAL_FONE_CONTATO);
+    }
+
+    @Test
+    @Transactional
+    public void getAllCasalsByCasalFoneContatoNotContainsSomething() throws Exception {
+        // Initialize the database
+        casalRepository.saveAndFlush(casal);
+
+        // Get all the casalList where casalFoneContato does not contain DEFAULT_CASAL_FONE_CONTATO
+        defaultCasalShouldNotBeFound("casalFoneContato.doesNotContain=" + DEFAULT_CASAL_FONE_CONTATO);
+
+        // Get all the casalList where casalFoneContato does not contain UPDATED_CASAL_FONE_CONTATO
+        defaultCasalShouldBeFound("casalFoneContato.doesNotContain=" + UPDATED_CASAL_FONE_CONTATO);
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllCasalsByCasalCepIsEqualToSomething() throws Exception {
+        // Initialize the database
+        casalRepository.saveAndFlush(casal);
+
+        // Get all the casalList where casalCep equals to DEFAULT_CASAL_CEP
+        defaultCasalShouldBeFound("casalCep.equals=" + DEFAULT_CASAL_CEP);
+
+        // Get all the casalList where casalCep equals to UPDATED_CASAL_CEP
+        defaultCasalShouldNotBeFound("casalCep.equals=" + UPDATED_CASAL_CEP);
+    }
+
+    @Test
+    @Transactional
+    public void getAllCasalsByCasalCepIsNotEqualToSomething() throws Exception {
+        // Initialize the database
+        casalRepository.saveAndFlush(casal);
+
+        // Get all the casalList where casalCep not equals to DEFAULT_CASAL_CEP
+        defaultCasalShouldNotBeFound("casalCep.notEquals=" + DEFAULT_CASAL_CEP);
+
+        // Get all the casalList where casalCep not equals to UPDATED_CASAL_CEP
+        defaultCasalShouldBeFound("casalCep.notEquals=" + UPDATED_CASAL_CEP);
+    }
+
+    @Test
+    @Transactional
+    public void getAllCasalsByCasalCepIsInShouldWork() throws Exception {
+        // Initialize the database
+        casalRepository.saveAndFlush(casal);
+
+        // Get all the casalList where casalCep in DEFAULT_CASAL_CEP or UPDATED_CASAL_CEP
+        defaultCasalShouldBeFound("casalCep.in=" + DEFAULT_CASAL_CEP + "," + UPDATED_CASAL_CEP);
+
+        // Get all the casalList where casalCep equals to UPDATED_CASAL_CEP
+        defaultCasalShouldNotBeFound("casalCep.in=" + UPDATED_CASAL_CEP);
+    }
+
+    @Test
+    @Transactional
+    public void getAllCasalsByCasalCepIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        casalRepository.saveAndFlush(casal);
+
+        // Get all the casalList where casalCep is not null
+        defaultCasalShouldBeFound("casalCep.specified=true");
+
+        // Get all the casalList where casalCep is null
+        defaultCasalShouldNotBeFound("casalCep.specified=false");
+    }
+                @Test
+    @Transactional
+    public void getAllCasalsByCasalCepContainsSomething() throws Exception {
+        // Initialize the database
+        casalRepository.saveAndFlush(casal);
+
+        // Get all the casalList where casalCep contains DEFAULT_CASAL_CEP
+        defaultCasalShouldBeFound("casalCep.contains=" + DEFAULT_CASAL_CEP);
+
+        // Get all the casalList where casalCep contains UPDATED_CASAL_CEP
+        defaultCasalShouldNotBeFound("casalCep.contains=" + UPDATED_CASAL_CEP);
+    }
+
+    @Test
+    @Transactional
+    public void getAllCasalsByCasalCepNotContainsSomething() throws Exception {
+        // Initialize the database
+        casalRepository.saveAndFlush(casal);
+
+        // Get all the casalList where casalCep does not contain DEFAULT_CASAL_CEP
+        defaultCasalShouldNotBeFound("casalCep.doesNotContain=" + DEFAULT_CASAL_CEP);
+
+        // Get all the casalList where casalCep does not contain UPDATED_CASAL_CEP
+        defaultCasalShouldBeFound("casalCep.doesNotContain=" + UPDATED_CASAL_CEP);
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllCasalsByCasalNomeRuaIsEqualToSomething() throws Exception {
+        // Initialize the database
+        casalRepository.saveAndFlush(casal);
+
+        // Get all the casalList where casalNomeRua equals to DEFAULT_CASAL_NOME_RUA
+        defaultCasalShouldBeFound("casalNomeRua.equals=" + DEFAULT_CASAL_NOME_RUA);
+
+        // Get all the casalList where casalNomeRua equals to UPDATED_CASAL_NOME_RUA
+        defaultCasalShouldNotBeFound("casalNomeRua.equals=" + UPDATED_CASAL_NOME_RUA);
+    }
+
+    @Test
+    @Transactional
+    public void getAllCasalsByCasalNomeRuaIsNotEqualToSomething() throws Exception {
+        // Initialize the database
+        casalRepository.saveAndFlush(casal);
+
+        // Get all the casalList where casalNomeRua not equals to DEFAULT_CASAL_NOME_RUA
+        defaultCasalShouldNotBeFound("casalNomeRua.notEquals=" + DEFAULT_CASAL_NOME_RUA);
+
+        // Get all the casalList where casalNomeRua not equals to UPDATED_CASAL_NOME_RUA
+        defaultCasalShouldBeFound("casalNomeRua.notEquals=" + UPDATED_CASAL_NOME_RUA);
+    }
+
+    @Test
+    @Transactional
+    public void getAllCasalsByCasalNomeRuaIsInShouldWork() throws Exception {
+        // Initialize the database
+        casalRepository.saveAndFlush(casal);
+
+        // Get all the casalList where casalNomeRua in DEFAULT_CASAL_NOME_RUA or UPDATED_CASAL_NOME_RUA
+        defaultCasalShouldBeFound("casalNomeRua.in=" + DEFAULT_CASAL_NOME_RUA + "," + UPDATED_CASAL_NOME_RUA);
+
+        // Get all the casalList where casalNomeRua equals to UPDATED_CASAL_NOME_RUA
+        defaultCasalShouldNotBeFound("casalNomeRua.in=" + UPDATED_CASAL_NOME_RUA);
+    }
+
+    @Test
+    @Transactional
+    public void getAllCasalsByCasalNomeRuaIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        casalRepository.saveAndFlush(casal);
+
+        // Get all the casalList where casalNomeRua is not null
+        defaultCasalShouldBeFound("casalNomeRua.specified=true");
+
+        // Get all the casalList where casalNomeRua is null
+        defaultCasalShouldNotBeFound("casalNomeRua.specified=false");
+    }
+                @Test
+    @Transactional
+    public void getAllCasalsByCasalNomeRuaContainsSomething() throws Exception {
+        // Initialize the database
+        casalRepository.saveAndFlush(casal);
+
+        // Get all the casalList where casalNomeRua contains DEFAULT_CASAL_NOME_RUA
+        defaultCasalShouldBeFound("casalNomeRua.contains=" + DEFAULT_CASAL_NOME_RUA);
+
+        // Get all the casalList where casalNomeRua contains UPDATED_CASAL_NOME_RUA
+        defaultCasalShouldNotBeFound("casalNomeRua.contains=" + UPDATED_CASAL_NOME_RUA);
+    }
+
+    @Test
+    @Transactional
+    public void getAllCasalsByCasalNomeRuaNotContainsSomething() throws Exception {
+        // Initialize the database
+        casalRepository.saveAndFlush(casal);
+
+        // Get all the casalList where casalNomeRua does not contain DEFAULT_CASAL_NOME_RUA
+        defaultCasalShouldNotBeFound("casalNomeRua.doesNotContain=" + DEFAULT_CASAL_NOME_RUA);
+
+        // Get all the casalList where casalNomeRua does not contain UPDATED_CASAL_NOME_RUA
+        defaultCasalShouldBeFound("casalNomeRua.doesNotContain=" + UPDATED_CASAL_NOME_RUA);
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllCasalsByCasalNumeroRuaIsEqualToSomething() throws Exception {
+        // Initialize the database
+        casalRepository.saveAndFlush(casal);
+
+        // Get all the casalList where casalNumeroRua equals to DEFAULT_CASAL_NUMERO_RUA
+        defaultCasalShouldBeFound("casalNumeroRua.equals=" + DEFAULT_CASAL_NUMERO_RUA);
+
+        // Get all the casalList where casalNumeroRua equals to UPDATED_CASAL_NUMERO_RUA
+        defaultCasalShouldNotBeFound("casalNumeroRua.equals=" + UPDATED_CASAL_NUMERO_RUA);
+    }
+
+    @Test
+    @Transactional
+    public void getAllCasalsByCasalNumeroRuaIsNotEqualToSomething() throws Exception {
+        // Initialize the database
+        casalRepository.saveAndFlush(casal);
+
+        // Get all the casalList where casalNumeroRua not equals to DEFAULT_CASAL_NUMERO_RUA
+        defaultCasalShouldNotBeFound("casalNumeroRua.notEquals=" + DEFAULT_CASAL_NUMERO_RUA);
+
+        // Get all the casalList where casalNumeroRua not equals to UPDATED_CASAL_NUMERO_RUA
+        defaultCasalShouldBeFound("casalNumeroRua.notEquals=" + UPDATED_CASAL_NUMERO_RUA);
+    }
+
+    @Test
+    @Transactional
+    public void getAllCasalsByCasalNumeroRuaIsInShouldWork() throws Exception {
+        // Initialize the database
+        casalRepository.saveAndFlush(casal);
+
+        // Get all the casalList where casalNumeroRua in DEFAULT_CASAL_NUMERO_RUA or UPDATED_CASAL_NUMERO_RUA
+        defaultCasalShouldBeFound("casalNumeroRua.in=" + DEFAULT_CASAL_NUMERO_RUA + "," + UPDATED_CASAL_NUMERO_RUA);
+
+        // Get all the casalList where casalNumeroRua equals to UPDATED_CASAL_NUMERO_RUA
+        defaultCasalShouldNotBeFound("casalNumeroRua.in=" + UPDATED_CASAL_NUMERO_RUA);
+    }
+
+    @Test
+    @Transactional
+    public void getAllCasalsByCasalNumeroRuaIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        casalRepository.saveAndFlush(casal);
+
+        // Get all the casalList where casalNumeroRua is not null
+        defaultCasalShouldBeFound("casalNumeroRua.specified=true");
+
+        // Get all the casalList where casalNumeroRua is null
+        defaultCasalShouldNotBeFound("casalNumeroRua.specified=false");
+    }
+                @Test
+    @Transactional
+    public void getAllCasalsByCasalNumeroRuaContainsSomething() throws Exception {
+        // Initialize the database
+        casalRepository.saveAndFlush(casal);
+
+        // Get all the casalList where casalNumeroRua contains DEFAULT_CASAL_NUMERO_RUA
+        defaultCasalShouldBeFound("casalNumeroRua.contains=" + DEFAULT_CASAL_NUMERO_RUA);
+
+        // Get all the casalList where casalNumeroRua contains UPDATED_CASAL_NUMERO_RUA
+        defaultCasalShouldNotBeFound("casalNumeroRua.contains=" + UPDATED_CASAL_NUMERO_RUA);
+    }
+
+    @Test
+    @Transactional
+    public void getAllCasalsByCasalNumeroRuaNotContainsSomething() throws Exception {
+        // Initialize the database
+        casalRepository.saveAndFlush(casal);
+
+        // Get all the casalList where casalNumeroRua does not contain DEFAULT_CASAL_NUMERO_RUA
+        defaultCasalShouldNotBeFound("casalNumeroRua.doesNotContain=" + DEFAULT_CASAL_NUMERO_RUA);
+
+        // Get all the casalList where casalNumeroRua does not contain UPDATED_CASAL_NUMERO_RUA
+        defaultCasalShouldBeFound("casalNumeroRua.doesNotContain=" + UPDATED_CASAL_NUMERO_RUA);
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllCasalsByCasalBairroIsEqualToSomething() throws Exception {
+        // Initialize the database
+        casalRepository.saveAndFlush(casal);
+
+        // Get all the casalList where casalBairro equals to DEFAULT_CASAL_BAIRRO
+        defaultCasalShouldBeFound("casalBairro.equals=" + DEFAULT_CASAL_BAIRRO);
+
+        // Get all the casalList where casalBairro equals to UPDATED_CASAL_BAIRRO
+        defaultCasalShouldNotBeFound("casalBairro.equals=" + UPDATED_CASAL_BAIRRO);
+    }
+
+    @Test
+    @Transactional
+    public void getAllCasalsByCasalBairroIsNotEqualToSomething() throws Exception {
+        // Initialize the database
+        casalRepository.saveAndFlush(casal);
+
+        // Get all the casalList where casalBairro not equals to DEFAULT_CASAL_BAIRRO
+        defaultCasalShouldNotBeFound("casalBairro.notEquals=" + DEFAULT_CASAL_BAIRRO);
+
+        // Get all the casalList where casalBairro not equals to UPDATED_CASAL_BAIRRO
+        defaultCasalShouldBeFound("casalBairro.notEquals=" + UPDATED_CASAL_BAIRRO);
+    }
+
+    @Test
+    @Transactional
+    public void getAllCasalsByCasalBairroIsInShouldWork() throws Exception {
+        // Initialize the database
+        casalRepository.saveAndFlush(casal);
+
+        // Get all the casalList where casalBairro in DEFAULT_CASAL_BAIRRO or UPDATED_CASAL_BAIRRO
+        defaultCasalShouldBeFound("casalBairro.in=" + DEFAULT_CASAL_BAIRRO + "," + UPDATED_CASAL_BAIRRO);
+
+        // Get all the casalList where casalBairro equals to UPDATED_CASAL_BAIRRO
+        defaultCasalShouldNotBeFound("casalBairro.in=" + UPDATED_CASAL_BAIRRO);
+    }
+
+    @Test
+    @Transactional
+    public void getAllCasalsByCasalBairroIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        casalRepository.saveAndFlush(casal);
+
+        // Get all the casalList where casalBairro is not null
+        defaultCasalShouldBeFound("casalBairro.specified=true");
+
+        // Get all the casalList where casalBairro is null
+        defaultCasalShouldNotBeFound("casalBairro.specified=false");
+    }
+                @Test
+    @Transactional
+    public void getAllCasalsByCasalBairroContainsSomething() throws Exception {
+        // Initialize the database
+        casalRepository.saveAndFlush(casal);
+
+        // Get all the casalList where casalBairro contains DEFAULT_CASAL_BAIRRO
+        defaultCasalShouldBeFound("casalBairro.contains=" + DEFAULT_CASAL_BAIRRO);
+
+        // Get all the casalList where casalBairro contains UPDATED_CASAL_BAIRRO
+        defaultCasalShouldNotBeFound("casalBairro.contains=" + UPDATED_CASAL_BAIRRO);
+    }
+
+    @Test
+    @Transactional
+    public void getAllCasalsByCasalBairroNotContainsSomething() throws Exception {
+        // Initialize the database
+        casalRepository.saveAndFlush(casal);
+
+        // Get all the casalList where casalBairro does not contain DEFAULT_CASAL_BAIRRO
+        defaultCasalShouldNotBeFound("casalBairro.doesNotContain=" + DEFAULT_CASAL_BAIRRO);
+
+        // Get all the casalList where casalBairro does not contain UPDATED_CASAL_BAIRRO
+        defaultCasalShouldBeFound("casalBairro.doesNotContain=" + UPDATED_CASAL_BAIRRO);
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllCasalsByCasalCidadeIsEqualToSomething() throws Exception {
+        // Initialize the database
+        casalRepository.saveAndFlush(casal);
+
+        // Get all the casalList where casalCidade equals to DEFAULT_CASAL_CIDADE
+        defaultCasalShouldBeFound("casalCidade.equals=" + DEFAULT_CASAL_CIDADE);
+
+        // Get all the casalList where casalCidade equals to UPDATED_CASAL_CIDADE
+        defaultCasalShouldNotBeFound("casalCidade.equals=" + UPDATED_CASAL_CIDADE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllCasalsByCasalCidadeIsNotEqualToSomething() throws Exception {
+        // Initialize the database
+        casalRepository.saveAndFlush(casal);
+
+        // Get all the casalList where casalCidade not equals to DEFAULT_CASAL_CIDADE
+        defaultCasalShouldNotBeFound("casalCidade.notEquals=" + DEFAULT_CASAL_CIDADE);
+
+        // Get all the casalList where casalCidade not equals to UPDATED_CASAL_CIDADE
+        defaultCasalShouldBeFound("casalCidade.notEquals=" + UPDATED_CASAL_CIDADE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllCasalsByCasalCidadeIsInShouldWork() throws Exception {
+        // Initialize the database
+        casalRepository.saveAndFlush(casal);
+
+        // Get all the casalList where casalCidade in DEFAULT_CASAL_CIDADE or UPDATED_CASAL_CIDADE
+        defaultCasalShouldBeFound("casalCidade.in=" + DEFAULT_CASAL_CIDADE + "," + UPDATED_CASAL_CIDADE);
+
+        // Get all the casalList where casalCidade equals to UPDATED_CASAL_CIDADE
+        defaultCasalShouldNotBeFound("casalCidade.in=" + UPDATED_CASAL_CIDADE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllCasalsByCasalCidadeIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        casalRepository.saveAndFlush(casal);
+
+        // Get all the casalList where casalCidade is not null
+        defaultCasalShouldBeFound("casalCidade.specified=true");
+
+        // Get all the casalList where casalCidade is null
+        defaultCasalShouldNotBeFound("casalCidade.specified=false");
+    }
+                @Test
+    @Transactional
+    public void getAllCasalsByCasalCidadeContainsSomething() throws Exception {
+        // Initialize the database
+        casalRepository.saveAndFlush(casal);
+
+        // Get all the casalList where casalCidade contains DEFAULT_CASAL_CIDADE
+        defaultCasalShouldBeFound("casalCidade.contains=" + DEFAULT_CASAL_CIDADE);
+
+        // Get all the casalList where casalCidade contains UPDATED_CASAL_CIDADE
+        defaultCasalShouldNotBeFound("casalCidade.contains=" + UPDATED_CASAL_CIDADE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllCasalsByCasalCidadeNotContainsSomething() throws Exception {
+        // Initialize the database
+        casalRepository.saveAndFlush(casal);
+
+        // Get all the casalList where casalCidade does not contain DEFAULT_CASAL_CIDADE
+        defaultCasalShouldNotBeFound("casalCidade.doesNotContain=" + DEFAULT_CASAL_CIDADE);
+
+        // Get all the casalList where casalCidade does not contain UPDATED_CASAL_CIDADE
+        defaultCasalShouldBeFound("casalCidade.doesNotContain=" + UPDATED_CASAL_CIDADE);
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllCasalsByCasalEstadoIsEqualToSomething() throws Exception {
+        // Initialize the database
+        casalRepository.saveAndFlush(casal);
+
+        // Get all the casalList where casalEstado equals to DEFAULT_CASAL_ESTADO
+        defaultCasalShouldBeFound("casalEstado.equals=" + DEFAULT_CASAL_ESTADO);
+
+        // Get all the casalList where casalEstado equals to UPDATED_CASAL_ESTADO
+        defaultCasalShouldNotBeFound("casalEstado.equals=" + UPDATED_CASAL_ESTADO);
+    }
+
+    @Test
+    @Transactional
+    public void getAllCasalsByCasalEstadoIsNotEqualToSomething() throws Exception {
+        // Initialize the database
+        casalRepository.saveAndFlush(casal);
+
+        // Get all the casalList where casalEstado not equals to DEFAULT_CASAL_ESTADO
+        defaultCasalShouldNotBeFound("casalEstado.notEquals=" + DEFAULT_CASAL_ESTADO);
+
+        // Get all the casalList where casalEstado not equals to UPDATED_CASAL_ESTADO
+        defaultCasalShouldBeFound("casalEstado.notEquals=" + UPDATED_CASAL_ESTADO);
+    }
+
+    @Test
+    @Transactional
+    public void getAllCasalsByCasalEstadoIsInShouldWork() throws Exception {
+        // Initialize the database
+        casalRepository.saveAndFlush(casal);
+
+        // Get all the casalList where casalEstado in DEFAULT_CASAL_ESTADO or UPDATED_CASAL_ESTADO
+        defaultCasalShouldBeFound("casalEstado.in=" + DEFAULT_CASAL_ESTADO + "," + UPDATED_CASAL_ESTADO);
+
+        // Get all the casalList where casalEstado equals to UPDATED_CASAL_ESTADO
+        defaultCasalShouldNotBeFound("casalEstado.in=" + UPDATED_CASAL_ESTADO);
+    }
+
+    @Test
+    @Transactional
+    public void getAllCasalsByCasalEstadoIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        casalRepository.saveAndFlush(casal);
+
+        // Get all the casalList where casalEstado is not null
+        defaultCasalShouldBeFound("casalEstado.specified=true");
+
+        // Get all the casalList where casalEstado is null
+        defaultCasalShouldNotBeFound("casalEstado.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllCasalsByDataUniaoIsEqualToSomething() throws Exception {
+        // Initialize the database
+        casalRepository.saveAndFlush(casal);
+
+        // Get all the casalList where dataUniao equals to DEFAULT_DATA_UNIAO
+        defaultCasalShouldBeFound("dataUniao.equals=" + DEFAULT_DATA_UNIAO);
+
+        // Get all the casalList where dataUniao equals to UPDATED_DATA_UNIAO
+        defaultCasalShouldNotBeFound("dataUniao.equals=" + UPDATED_DATA_UNIAO);
+    }
+
+    @Test
+    @Transactional
+    public void getAllCasalsByDataUniaoIsNotEqualToSomething() throws Exception {
+        // Initialize the database
+        casalRepository.saveAndFlush(casal);
+
+        // Get all the casalList where dataUniao not equals to DEFAULT_DATA_UNIAO
+        defaultCasalShouldNotBeFound("dataUniao.notEquals=" + DEFAULT_DATA_UNIAO);
+
+        // Get all the casalList where dataUniao not equals to UPDATED_DATA_UNIAO
+        defaultCasalShouldBeFound("dataUniao.notEquals=" + UPDATED_DATA_UNIAO);
+    }
+
+    @Test
+    @Transactional
+    public void getAllCasalsByDataUniaoIsInShouldWork() throws Exception {
+        // Initialize the database
+        casalRepository.saveAndFlush(casal);
+
+        // Get all the casalList where dataUniao in DEFAULT_DATA_UNIAO or UPDATED_DATA_UNIAO
+        defaultCasalShouldBeFound("dataUniao.in=" + DEFAULT_DATA_UNIAO + "," + UPDATED_DATA_UNIAO);
+
+        // Get all the casalList where dataUniao equals to UPDATED_DATA_UNIAO
+        defaultCasalShouldNotBeFound("dataUniao.in=" + UPDATED_DATA_UNIAO);
+    }
+
+    @Test
+    @Transactional
+    public void getAllCasalsByDataUniaoIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        casalRepository.saveAndFlush(casal);
+
+        // Get all the casalList where dataUniao is not null
+        defaultCasalShouldBeFound("dataUniao.specified=true");
+
+        // Get all the casalList where dataUniao is null
+        defaultCasalShouldNotBeFound("dataUniao.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllCasalsByDataUniaoIsGreaterThanOrEqualToSomething() throws Exception {
+        // Initialize the database
+        casalRepository.saveAndFlush(casal);
+
+        // Get all the casalList where dataUniao is greater than or equal to DEFAULT_DATA_UNIAO
+        defaultCasalShouldBeFound("dataUniao.greaterThanOrEqual=" + DEFAULT_DATA_UNIAO);
+
+        // Get all the casalList where dataUniao is greater than or equal to UPDATED_DATA_UNIAO
+        defaultCasalShouldNotBeFound("dataUniao.greaterThanOrEqual=" + UPDATED_DATA_UNIAO);
+    }
+
+    @Test
+    @Transactional
+    public void getAllCasalsByDataUniaoIsLessThanOrEqualToSomething() throws Exception {
+        // Initialize the database
+        casalRepository.saveAndFlush(casal);
+
+        // Get all the casalList where dataUniao is less than or equal to DEFAULT_DATA_UNIAO
+        defaultCasalShouldBeFound("dataUniao.lessThanOrEqual=" + DEFAULT_DATA_UNIAO);
+
+        // Get all the casalList where dataUniao is less than or equal to SMALLER_DATA_UNIAO
+        defaultCasalShouldNotBeFound("dataUniao.lessThanOrEqual=" + SMALLER_DATA_UNIAO);
+    }
+
+    @Test
+    @Transactional
+    public void getAllCasalsByDataUniaoIsLessThanSomething() throws Exception {
+        // Initialize the database
+        casalRepository.saveAndFlush(casal);
+
+        // Get all the casalList where dataUniao is less than DEFAULT_DATA_UNIAO
+        defaultCasalShouldNotBeFound("dataUniao.lessThan=" + DEFAULT_DATA_UNIAO);
+
+        // Get all the casalList where dataUniao is less than UPDATED_DATA_UNIAO
+        defaultCasalShouldBeFound("dataUniao.lessThan=" + UPDATED_DATA_UNIAO);
+    }
+
+    @Test
+    @Transactional
+    public void getAllCasalsByDataUniaoIsGreaterThanSomething() throws Exception {
+        // Initialize the database
+        casalRepository.saveAndFlush(casal);
+
+        // Get all the casalList where dataUniao is greater than DEFAULT_DATA_UNIAO
+        defaultCasalShouldNotBeFound("dataUniao.greaterThan=" + DEFAULT_DATA_UNIAO);
+
+        // Get all the casalList where dataUniao is greater than SMALLER_DATA_UNIAO
+        defaultCasalShouldBeFound("dataUniao.greaterThan=" + SMALLER_DATA_UNIAO);
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllCasalsByNumeroFichaIsEqualToSomething() throws Exception {
+        // Initialize the database
+        casalRepository.saveAndFlush(casal);
+
+        // Get all the casalList where numeroFicha equals to DEFAULT_NUMERO_FICHA
+        defaultCasalShouldBeFound("numeroFicha.equals=" + DEFAULT_NUMERO_FICHA);
+
+        // Get all the casalList where numeroFicha equals to UPDATED_NUMERO_FICHA
+        defaultCasalShouldNotBeFound("numeroFicha.equals=" + UPDATED_NUMERO_FICHA);
+    }
+
+    @Test
+    @Transactional
+    public void getAllCasalsByNumeroFichaIsNotEqualToSomething() throws Exception {
+        // Initialize the database
+        casalRepository.saveAndFlush(casal);
+
+        // Get all the casalList where numeroFicha not equals to DEFAULT_NUMERO_FICHA
+        defaultCasalShouldNotBeFound("numeroFicha.notEquals=" + DEFAULT_NUMERO_FICHA);
+
+        // Get all the casalList where numeroFicha not equals to UPDATED_NUMERO_FICHA
+        defaultCasalShouldBeFound("numeroFicha.notEquals=" + UPDATED_NUMERO_FICHA);
+    }
+
+    @Test
+    @Transactional
+    public void getAllCasalsByNumeroFichaIsInShouldWork() throws Exception {
+        // Initialize the database
+        casalRepository.saveAndFlush(casal);
+
+        // Get all the casalList where numeroFicha in DEFAULT_NUMERO_FICHA or UPDATED_NUMERO_FICHA
+        defaultCasalShouldBeFound("numeroFicha.in=" + DEFAULT_NUMERO_FICHA + "," + UPDATED_NUMERO_FICHA);
+
+        // Get all the casalList where numeroFicha equals to UPDATED_NUMERO_FICHA
+        defaultCasalShouldNotBeFound("numeroFicha.in=" + UPDATED_NUMERO_FICHA);
+    }
+
+    @Test
+    @Transactional
+    public void getAllCasalsByNumeroFichaIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        casalRepository.saveAndFlush(casal);
+
+        // Get all the casalList where numeroFicha is not null
+        defaultCasalShouldBeFound("numeroFicha.specified=true");
+
+        // Get all the casalList where numeroFicha is null
+        defaultCasalShouldNotBeFound("numeroFicha.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllCasalsByNumeroFichaIsGreaterThanOrEqualToSomething() throws Exception {
+        // Initialize the database
+        casalRepository.saveAndFlush(casal);
+
+        // Get all the casalList where numeroFicha is greater than or equal to DEFAULT_NUMERO_FICHA
+        defaultCasalShouldBeFound("numeroFicha.greaterThanOrEqual=" + DEFAULT_NUMERO_FICHA);
+
+        // Get all the casalList where numeroFicha is greater than or equal to UPDATED_NUMERO_FICHA
+        defaultCasalShouldNotBeFound("numeroFicha.greaterThanOrEqual=" + UPDATED_NUMERO_FICHA);
+    }
+
+    @Test
+    @Transactional
+    public void getAllCasalsByNumeroFichaIsLessThanOrEqualToSomething() throws Exception {
+        // Initialize the database
+        casalRepository.saveAndFlush(casal);
+
+        // Get all the casalList where numeroFicha is less than or equal to DEFAULT_NUMERO_FICHA
+        defaultCasalShouldBeFound("numeroFicha.lessThanOrEqual=" + DEFAULT_NUMERO_FICHA);
+
+        // Get all the casalList where numeroFicha is less than or equal to SMALLER_NUMERO_FICHA
+        defaultCasalShouldNotBeFound("numeroFicha.lessThanOrEqual=" + SMALLER_NUMERO_FICHA);
+    }
+
+    @Test
+    @Transactional
+    public void getAllCasalsByNumeroFichaIsLessThanSomething() throws Exception {
+        // Initialize the database
+        casalRepository.saveAndFlush(casal);
+
+        // Get all the casalList where numeroFicha is less than DEFAULT_NUMERO_FICHA
+        defaultCasalShouldNotBeFound("numeroFicha.lessThan=" + DEFAULT_NUMERO_FICHA);
+
+        // Get all the casalList where numeroFicha is less than UPDATED_NUMERO_FICHA
+        defaultCasalShouldBeFound("numeroFicha.lessThan=" + UPDATED_NUMERO_FICHA);
+    }
+
+    @Test
+    @Transactional
+    public void getAllCasalsByNumeroFichaIsGreaterThanSomething() throws Exception {
+        // Initialize the database
+        casalRepository.saveAndFlush(casal);
+
+        // Get all the casalList where numeroFicha is greater than DEFAULT_NUMERO_FICHA
+        defaultCasalShouldNotBeFound("numeroFicha.greaterThan=" + DEFAULT_NUMERO_FICHA);
+
+        // Get all the casalList where numeroFicha is greater than SMALLER_NUMERO_FICHA
+        defaultCasalShouldBeFound("numeroFicha.greaterThan=" + SMALLER_NUMERO_FICHA);
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllCasalsByInformacoesCasalIsEqualToSomething() throws Exception {
+        // Initialize the database
+        casalRepository.saveAndFlush(casal);
+
+        // Get all the casalList where informacoesCasal equals to DEFAULT_INFORMACOES_CASAL
+        defaultCasalShouldBeFound("informacoesCasal.equals=" + DEFAULT_INFORMACOES_CASAL);
+
+        // Get all the casalList where informacoesCasal equals to UPDATED_INFORMACOES_CASAL
+        defaultCasalShouldNotBeFound("informacoesCasal.equals=" + UPDATED_INFORMACOES_CASAL);
+    }
+
+    @Test
+    @Transactional
+    public void getAllCasalsByInformacoesCasalIsNotEqualToSomething() throws Exception {
+        // Initialize the database
+        casalRepository.saveAndFlush(casal);
+
+        // Get all the casalList where informacoesCasal not equals to DEFAULT_INFORMACOES_CASAL
+        defaultCasalShouldNotBeFound("informacoesCasal.notEquals=" + DEFAULT_INFORMACOES_CASAL);
+
+        // Get all the casalList where informacoesCasal not equals to UPDATED_INFORMACOES_CASAL
+        defaultCasalShouldBeFound("informacoesCasal.notEquals=" + UPDATED_INFORMACOES_CASAL);
+    }
+
+    @Test
+    @Transactional
+    public void getAllCasalsByInformacoesCasalIsInShouldWork() throws Exception {
+        // Initialize the database
+        casalRepository.saveAndFlush(casal);
+
+        // Get all the casalList where informacoesCasal in DEFAULT_INFORMACOES_CASAL or UPDATED_INFORMACOES_CASAL
+        defaultCasalShouldBeFound("informacoesCasal.in=" + DEFAULT_INFORMACOES_CASAL + "," + UPDATED_INFORMACOES_CASAL);
+
+        // Get all the casalList where informacoesCasal equals to UPDATED_INFORMACOES_CASAL
+        defaultCasalShouldNotBeFound("informacoesCasal.in=" + UPDATED_INFORMACOES_CASAL);
+    }
+
+    @Test
+    @Transactional
+    public void getAllCasalsByInformacoesCasalIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        casalRepository.saveAndFlush(casal);
+
+        // Get all the casalList where informacoesCasal is not null
+        defaultCasalShouldBeFound("informacoesCasal.specified=true");
+
+        // Get all the casalList where informacoesCasal is null
+        defaultCasalShouldNotBeFound("informacoesCasal.specified=false");
+    }
+                @Test
+    @Transactional
+    public void getAllCasalsByInformacoesCasalContainsSomething() throws Exception {
+        // Initialize the database
+        casalRepository.saveAndFlush(casal);
+
+        // Get all the casalList where informacoesCasal contains DEFAULT_INFORMACOES_CASAL
+        defaultCasalShouldBeFound("informacoesCasal.contains=" + DEFAULT_INFORMACOES_CASAL);
+
+        // Get all the casalList where informacoesCasal contains UPDATED_INFORMACOES_CASAL
+        defaultCasalShouldNotBeFound("informacoesCasal.contains=" + UPDATED_INFORMACOES_CASAL);
+    }
+
+    @Test
+    @Transactional
+    public void getAllCasalsByInformacoesCasalNotContainsSomething() throws Exception {
+        // Initialize the database
+        casalRepository.saveAndFlush(casal);
+
+        // Get all the casalList where informacoesCasal does not contain DEFAULT_INFORMACOES_CASAL
+        defaultCasalShouldNotBeFound("informacoesCasal.doesNotContain=" + DEFAULT_INFORMACOES_CASAL);
+
+        // Get all the casalList where informacoesCasal does not contain UPDATED_INFORMACOES_CASAL
+        defaultCasalShouldBeFound("informacoesCasal.doesNotContain=" + UPDATED_INFORMACOES_CASAL);
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllCasalsByTipoUniaoIsEqualToSomething() throws Exception {
+        // Initialize the database
+        casalRepository.saveAndFlush(casal);
+        TipoUniao tipoUniao = TipoUniaoResourceIT.createEntity(em);
+        em.persist(tipoUniao);
+        em.flush();
+        casal.setTipoUniao(tipoUniao);
+        casalRepository.saveAndFlush(casal);
+        Long tipoUniaoId = tipoUniao.getId();
+
+        // Get all the casalList where tipoUniao equals to tipoUniaoId
+        defaultCasalShouldBeFound("tipoUniaoId.equals=" + tipoUniaoId);
+
+        // Get all the casalList where tipoUniao equals to tipoUniaoId + 1
+        defaultCasalShouldNotBeFound("tipoUniaoId.equals=" + (tipoUniaoId + 1));
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllCasalsByCasalPadrinhoIsEqualToSomething() throws Exception {
+        // Initialize the database
+        casalRepository.saveAndFlush(casal);
+        Casal casalPadrinho = CasalResourceIT.createEntity(em);
+        em.persist(casalPadrinho);
+        em.flush();
+        casal.setCasalPadrinho(casalPadrinho);
+        casalRepository.saveAndFlush(casal);
+        Long casalPadrinhoId = casalPadrinho.getId();
+
+        // Get all the casalList where casalPadrinho equals to casalPadrinhoId
+        defaultCasalShouldBeFound("casalPadrinhoId.equals=" + casalPadrinhoId);
+
+        // Get all the casalList where casalPadrinho equals to casalPadrinhoId + 1
+        defaultCasalShouldNotBeFound("casalPadrinhoId.equals=" + (casalPadrinhoId + 1));
+    }
+
+
+    @Test
+    @Transactional
     public void getAllCasalsByIdIsEqualToSomething() throws Exception {
         // Initialize the database
         casalRepository.saveAndFlush(casal);
@@ -1545,7 +2580,20 @@ public class CasalResourceIT {
             .andExpect(jsonPath("$.[*].esposaProfissao").value(hasItem(DEFAULT_ESPOSA_PROFISSAO)))
             .andExpect(jsonPath("$.[*].esposaTelCelular").value(hasItem(DEFAULT_ESPOSA_TEL_CELULAR)))
             .andExpect(jsonPath("$.[*].esposaEmail").value(hasItem(DEFAULT_ESPOSA_EMAIL)))
-            .andExpect(jsonPath("$.[*].esposaProblemaSaude").value(hasItem(DEFAULT_ESPOSA_PROBLEMA_SAUDE)));
+            .andExpect(jsonPath("$.[*].esposaProblemaSaude").value(hasItem(DEFAULT_ESPOSA_PROBLEMA_SAUDE)))
+            .andExpect(jsonPath("$.[*].casalFoneFixo").value(hasItem(DEFAULT_CASAL_FONE_FIXO)))
+            .andExpect(jsonPath("$.[*].casalFoneContato").value(hasItem(DEFAULT_CASAL_FONE_CONTATO)))
+            .andExpect(jsonPath("$.[*].casalCep").value(hasItem(DEFAULT_CASAL_CEP)))
+            .andExpect(jsonPath("$.[*].casalNomeRua").value(hasItem(DEFAULT_CASAL_NOME_RUA)))
+            .andExpect(jsonPath("$.[*].casalNumeroRua").value(hasItem(DEFAULT_CASAL_NUMERO_RUA)))
+            .andExpect(jsonPath("$.[*].casalBairro").value(hasItem(DEFAULT_CASAL_BAIRRO)))
+            .andExpect(jsonPath("$.[*].casalCidade").value(hasItem(DEFAULT_CASAL_CIDADE)))
+            .andExpect(jsonPath("$.[*].casalEstado").value(hasItem(DEFAULT_CASAL_ESTADO.toString())))
+            .andExpect(jsonPath("$.[*].fotoCasalContentType").value(hasItem(DEFAULT_FOTO_CASAL_CONTENT_TYPE)))
+            .andExpect(jsonPath("$.[*].fotoCasal").value(hasItem(Base64Utils.encodeToString(DEFAULT_FOTO_CASAL))))
+            .andExpect(jsonPath("$.[*].dataUniao").value(hasItem(DEFAULT_DATA_UNIAO.toString())))
+            .andExpect(jsonPath("$.[*].numeroFicha").value(hasItem(DEFAULT_NUMERO_FICHA)))
+            .andExpect(jsonPath("$.[*].informacoesCasal").value(hasItem(DEFAULT_INFORMACOES_CASAL)));
 
         // Check, that the count call also returns 1
         restCasalMockMvc.perform(get("/api/casals/count?sort=id,desc&" + filter))
@@ -1606,7 +2654,20 @@ public class CasalResourceIT {
             .esposaProfissao(UPDATED_ESPOSA_PROFISSAO)
             .esposaTelCelular(UPDATED_ESPOSA_TEL_CELULAR)
             .esposaEmail(UPDATED_ESPOSA_EMAIL)
-            .esposaProblemaSaude(UPDATED_ESPOSA_PROBLEMA_SAUDE);
+            .esposaProblemaSaude(UPDATED_ESPOSA_PROBLEMA_SAUDE)
+            .casalFoneFixo(UPDATED_CASAL_FONE_FIXO)
+            .casalFoneContato(UPDATED_CASAL_FONE_CONTATO)
+            .casalCep(UPDATED_CASAL_CEP)
+            .casalNomeRua(UPDATED_CASAL_NOME_RUA)
+            .casalNumeroRua(UPDATED_CASAL_NUMERO_RUA)
+            .casalBairro(UPDATED_CASAL_BAIRRO)
+            .casalCidade(UPDATED_CASAL_CIDADE)
+            .casalEstado(UPDATED_CASAL_ESTADO)
+            .fotoCasal(UPDATED_FOTO_CASAL)
+            .fotoCasalContentType(UPDATED_FOTO_CASAL_CONTENT_TYPE)
+            .dataUniao(UPDATED_DATA_UNIAO)
+            .numeroFicha(UPDATED_NUMERO_FICHA)
+            .informacoesCasal(UPDATED_INFORMACOES_CASAL);
         CasalDTO casalDTO = casalMapper.toDto(updatedCasal);
 
         restCasalMockMvc.perform(put("/api/casals").with(csrf())
@@ -1632,6 +2693,19 @@ public class CasalResourceIT {
         assertThat(testCasal.getEsposaTelCelular()).isEqualTo(UPDATED_ESPOSA_TEL_CELULAR);
         assertThat(testCasal.getEsposaEmail()).isEqualTo(UPDATED_ESPOSA_EMAIL);
         assertThat(testCasal.getEsposaProblemaSaude()).isEqualTo(UPDATED_ESPOSA_PROBLEMA_SAUDE);
+        assertThat(testCasal.getCasalFoneFixo()).isEqualTo(UPDATED_CASAL_FONE_FIXO);
+        assertThat(testCasal.getCasalFoneContato()).isEqualTo(UPDATED_CASAL_FONE_CONTATO);
+        assertThat(testCasal.getCasalCep()).isEqualTo(UPDATED_CASAL_CEP);
+        assertThat(testCasal.getCasalNomeRua()).isEqualTo(UPDATED_CASAL_NOME_RUA);
+        assertThat(testCasal.getCasalNumeroRua()).isEqualTo(UPDATED_CASAL_NUMERO_RUA);
+        assertThat(testCasal.getCasalBairro()).isEqualTo(UPDATED_CASAL_BAIRRO);
+        assertThat(testCasal.getCasalCidade()).isEqualTo(UPDATED_CASAL_CIDADE);
+        assertThat(testCasal.getCasalEstado()).isEqualTo(UPDATED_CASAL_ESTADO);
+        assertThat(testCasal.getFotoCasal()).isEqualTo(UPDATED_FOTO_CASAL);
+        assertThat(testCasal.getFotoCasalContentType()).isEqualTo(UPDATED_FOTO_CASAL_CONTENT_TYPE);
+        assertThat(testCasal.getDataUniao()).isEqualTo(UPDATED_DATA_UNIAO);
+        assertThat(testCasal.getNumeroFicha()).isEqualTo(UPDATED_NUMERO_FICHA);
+        assertThat(testCasal.getInformacoesCasal()).isEqualTo(UPDATED_INFORMACOES_CASAL);
     }
 
     @Test

@@ -3,6 +3,7 @@ package br.com.lareira.service.dto;
 import java.io.Serializable;
 import java.util.Objects;
 import io.github.jhipster.service.Criteria;
+import br.com.lareira.domain.enumeration.UF;
 import io.github.jhipster.service.filter.BooleanFilter;
 import io.github.jhipster.service.filter.DoubleFilter;
 import io.github.jhipster.service.filter.Filter;
@@ -22,6 +23,24 @@ import io.github.jhipster.service.filter.LocalDateFilter;
  * fix type specific filters.
  */
 public class CasalCriteria implements Serializable, Criteria {
+    /**
+     * Class for filtering UF
+     */
+    public static class UFFilter extends Filter<UF> {
+
+        public UFFilter() {
+        }
+
+        public UFFilter(UFFilter filter) {
+            super(filter);
+        }
+
+        @Override
+        public UFFilter copy() {
+            return new UFFilter(this);
+        }
+
+    }
 
     private static final long serialVersionUID = 1L;
 
@@ -55,6 +74,32 @@ public class CasalCriteria implements Serializable, Criteria {
 
     private StringFilter esposaProblemaSaude;
 
+    private StringFilter casalFoneFixo;
+
+    private StringFilter casalFoneContato;
+
+    private StringFilter casalCep;
+
+    private StringFilter casalNomeRua;
+
+    private StringFilter casalNumeroRua;
+
+    private StringFilter casalBairro;
+
+    private StringFilter casalCidade;
+
+    private UFFilter casalEstado;
+
+    private LocalDateFilter dataUniao;
+
+    private IntegerFilter numeroFicha;
+
+    private StringFilter informacoesCasal;
+
+    private LongFilter tipoUniaoId;
+
+    private LongFilter casalPadrinhoId;
+
     private LongFilter idId;
 
     private LongFilter idLareiraId;
@@ -78,6 +123,19 @@ public class CasalCriteria implements Serializable, Criteria {
         this.esposaTelCelular = other.esposaTelCelular == null ? null : other.esposaTelCelular.copy();
         this.esposaEmail = other.esposaEmail == null ? null : other.esposaEmail.copy();
         this.esposaProblemaSaude = other.esposaProblemaSaude == null ? null : other.esposaProblemaSaude.copy();
+        this.casalFoneFixo = other.casalFoneFixo == null ? null : other.casalFoneFixo.copy();
+        this.casalFoneContato = other.casalFoneContato == null ? null : other.casalFoneContato.copy();
+        this.casalCep = other.casalCep == null ? null : other.casalCep.copy();
+        this.casalNomeRua = other.casalNomeRua == null ? null : other.casalNomeRua.copy();
+        this.casalNumeroRua = other.casalNumeroRua == null ? null : other.casalNumeroRua.copy();
+        this.casalBairro = other.casalBairro == null ? null : other.casalBairro.copy();
+        this.casalCidade = other.casalCidade == null ? null : other.casalCidade.copy();
+        this.casalEstado = other.casalEstado == null ? null : other.casalEstado.copy();
+        this.dataUniao = other.dataUniao == null ? null : other.dataUniao.copy();
+        this.numeroFicha = other.numeroFicha == null ? null : other.numeroFicha.copy();
+        this.informacoesCasal = other.informacoesCasal == null ? null : other.informacoesCasal.copy();
+        this.tipoUniaoId = other.tipoUniaoId == null ? null : other.tipoUniaoId.copy();
+        this.casalPadrinhoId = other.casalPadrinhoId == null ? null : other.casalPadrinhoId.copy();
         this.idId = other.idId == null ? null : other.idId.copy();
         this.idLareiraId = other.idLareiraId == null ? null : other.idLareiraId.copy();
     }
@@ -207,6 +265,110 @@ public class CasalCriteria implements Serializable, Criteria {
         this.esposaProblemaSaude = esposaProblemaSaude;
     }
 
+    public StringFilter getCasalFoneFixo() {
+        return casalFoneFixo;
+    }
+
+    public void setCasalFoneFixo(StringFilter casalFoneFixo) {
+        this.casalFoneFixo = casalFoneFixo;
+    }
+
+    public StringFilter getCasalFoneContato() {
+        return casalFoneContato;
+    }
+
+    public void setCasalFoneContato(StringFilter casalFoneContato) {
+        this.casalFoneContato = casalFoneContato;
+    }
+
+    public StringFilter getCasalCep() {
+        return casalCep;
+    }
+
+    public void setCasalCep(StringFilter casalCep) {
+        this.casalCep = casalCep;
+    }
+
+    public StringFilter getCasalNomeRua() {
+        return casalNomeRua;
+    }
+
+    public void setCasalNomeRua(StringFilter casalNomeRua) {
+        this.casalNomeRua = casalNomeRua;
+    }
+
+    public StringFilter getCasalNumeroRua() {
+        return casalNumeroRua;
+    }
+
+    public void setCasalNumeroRua(StringFilter casalNumeroRua) {
+        this.casalNumeroRua = casalNumeroRua;
+    }
+
+    public StringFilter getCasalBairro() {
+        return casalBairro;
+    }
+
+    public void setCasalBairro(StringFilter casalBairro) {
+        this.casalBairro = casalBairro;
+    }
+
+    public StringFilter getCasalCidade() {
+        return casalCidade;
+    }
+
+    public void setCasalCidade(StringFilter casalCidade) {
+        this.casalCidade = casalCidade;
+    }
+
+    public UFFilter getCasalEstado() {
+        return casalEstado;
+    }
+
+    public void setCasalEstado(UFFilter casalEstado) {
+        this.casalEstado = casalEstado;
+    }
+
+    public LocalDateFilter getDataUniao() {
+        return dataUniao;
+    }
+
+    public void setDataUniao(LocalDateFilter dataUniao) {
+        this.dataUniao = dataUniao;
+    }
+
+    public IntegerFilter getNumeroFicha() {
+        return numeroFicha;
+    }
+
+    public void setNumeroFicha(IntegerFilter numeroFicha) {
+        this.numeroFicha = numeroFicha;
+    }
+
+    public StringFilter getInformacoesCasal() {
+        return informacoesCasal;
+    }
+
+    public void setInformacoesCasal(StringFilter informacoesCasal) {
+        this.informacoesCasal = informacoesCasal;
+    }
+
+    public LongFilter getTipoUniaoId() {
+        return tipoUniaoId;
+    }
+
+    public void setTipoUniaoId(LongFilter tipoUniaoId) {
+        this.tipoUniaoId = tipoUniaoId;
+    }
+
+    public LongFilter getCasalPadrinhoId() {
+        return casalPadrinhoId;
+    }
+
+    public void setCasalPadrinhoId(LongFilter casalPadrinhoId) {
+        this.casalPadrinhoId = casalPadrinhoId;
+    }
+
     public LongFilter getIdId() {
         return idId;
     }
@@ -249,6 +411,19 @@ public class CasalCriteria implements Serializable, Criteria {
             Objects.equals(esposaTelCelular, that.esposaTelCelular) &&
             Objects.equals(esposaEmail, that.esposaEmail) &&
             Objects.equals(esposaProblemaSaude, that.esposaProblemaSaude) &&
+            Objects.equals(casalFoneFixo, that.casalFoneFixo) &&
+            Objects.equals(casalFoneContato, that.casalFoneContato) &&
+            Objects.equals(casalCep, that.casalCep) &&
+            Objects.equals(casalNomeRua, that.casalNomeRua) &&
+            Objects.equals(casalNumeroRua, that.casalNumeroRua) &&
+            Objects.equals(casalBairro, that.casalBairro) &&
+            Objects.equals(casalCidade, that.casalCidade) &&
+            Objects.equals(casalEstado, that.casalEstado) &&
+            Objects.equals(dataUniao, that.dataUniao) &&
+            Objects.equals(numeroFicha, that.numeroFicha) &&
+            Objects.equals(informacoesCasal, that.informacoesCasal) &&
+            Objects.equals(tipoUniaoId, that.tipoUniaoId) &&
+            Objects.equals(casalPadrinhoId, that.casalPadrinhoId) &&
             Objects.equals(idId, that.idId) &&
             Objects.equals(idLareiraId, that.idLareiraId);
     }
@@ -271,6 +446,19 @@ public class CasalCriteria implements Serializable, Criteria {
         esposaTelCelular,
         esposaEmail,
         esposaProblemaSaude,
+        casalFoneFixo,
+        casalFoneContato,
+        casalCep,
+        casalNomeRua,
+        casalNumeroRua,
+        casalBairro,
+        casalCidade,
+        casalEstado,
+        dataUniao,
+        numeroFicha,
+        informacoesCasal,
+        tipoUniaoId,
+        casalPadrinhoId,
         idId,
         idLareiraId
         );
@@ -294,6 +482,19 @@ public class CasalCriteria implements Serializable, Criteria {
                 (esposaTelCelular != null ? "esposaTelCelular=" + esposaTelCelular + ", " : "") +
                 (esposaEmail != null ? "esposaEmail=" + esposaEmail + ", " : "") +
                 (esposaProblemaSaude != null ? "esposaProblemaSaude=" + esposaProblemaSaude + ", " : "") +
+                (casalFoneFixo != null ? "casalFoneFixo=" + casalFoneFixo + ", " : "") +
+                (casalFoneContato != null ? "casalFoneContato=" + casalFoneContato + ", " : "") +
+                (casalCep != null ? "casalCep=" + casalCep + ", " : "") +
+                (casalNomeRua != null ? "casalNomeRua=" + casalNomeRua + ", " : "") +
+                (casalNumeroRua != null ? "casalNumeroRua=" + casalNumeroRua + ", " : "") +
+                (casalBairro != null ? "casalBairro=" + casalBairro + ", " : "") +
+                (casalCidade != null ? "casalCidade=" + casalCidade + ", " : "") +
+                (casalEstado != null ? "casalEstado=" + casalEstado + ", " : "") +
+                (dataUniao != null ? "dataUniao=" + dataUniao + ", " : "") +
+                (numeroFicha != null ? "numeroFicha=" + numeroFicha + ", " : "") +
+                (informacoesCasal != null ? "informacoesCasal=" + informacoesCasal + ", " : "") +
+                (tipoUniaoId != null ? "tipoUniaoId=" + tipoUniaoId + ", " : "") +
+                (casalPadrinhoId != null ? "casalPadrinhoId=" + casalPadrinhoId + ", " : "") +
                 (idId != null ? "idId=" + idId + ", " : "") +
                 (idLareiraId != null ? "idLareiraId=" + idLareiraId + ", " : "") +
             "}";

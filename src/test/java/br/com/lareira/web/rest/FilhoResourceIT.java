@@ -42,7 +42,7 @@ public class FilhoResourceIT {
     private static final String UPDATED_NOME = "BBBBBBBBBB";
 
     private static final Sexo DEFAULT_SEXO = Sexo.MASCULINO;
-    private static final Sexo UPDATED_SEXO = Sexo.DEMININO;
+    private static final Sexo UPDATED_SEXO = Sexo.FEMININO;
 
     private static final LocalDate DEFAULT_DATA_NASCIMENTO = LocalDate.ofEpochDay(0L);
     private static final LocalDate UPDATED_DATA_NASCIMENTO = LocalDate.now(ZoneId.systemDefault());
@@ -192,7 +192,7 @@ public class FilhoResourceIT {
             .andExpect(jsonPath("$.[*].sexo").value(hasItem(DEFAULT_SEXO.toString())))
             .andExpect(jsonPath("$.[*].dataNascimento").value(hasItem(DEFAULT_DATA_NASCIMENTO.toString())));
     }
-    
+
     @Test
     @Transactional
     public void getFilho() throws Exception {

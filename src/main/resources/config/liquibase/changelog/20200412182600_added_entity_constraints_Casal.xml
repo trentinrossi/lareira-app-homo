@@ -8,6 +8,18 @@
     -->
     <changeSet id="20200412182600-2" author="jhipster">
         
+        <addForeignKeyConstraint baseColumnNames="tipo_uniao_id"
+                                 baseTableName="casal"
+                                 constraintName="fk_casal_tipo_uniao_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="tipo_uniao"/>
+
+        <addForeignKeyConstraint baseColumnNames="casal_padrinho_id"
+                                 baseTableName="casal"
+                                 constraintName="fk_casal_casal_padrinho_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="casal"/>
+
         <addForeignKeyConstraint baseColumnNames="id_lareira_id"
                                  baseTableName="casal"
                                  constraintName="fk_casal_id_lareira_id"

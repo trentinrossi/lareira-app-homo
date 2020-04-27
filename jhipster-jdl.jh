@@ -1,44 +1,67 @@
 entity Lareira {
-    nome String required,
-    endereco String,
-    bairro String,
-    cep String,
-    cidade String,
-    estado String,
+    nome String required
+    endereco String
+    bairro String
+    cep String
+    cidade String
+    estado String
     telefone String
 }
 entity Casal {
-    maridoNome String required minlength(3) maxlength(100),
-    maridoSobrenome String,
-    maridoDataNascimento LocalDate,
-    maridoProfissao String,
-    maridoTelCelular String,
-    maridoEmail String,
-    maridoProblemaSaude String,
-    esposaNome String required minlength(3) maxlength(100),
-    esposaSobrenome String,
-    esposaDataNascimento LocalDate,
-    esposaProfissao String,
-    esposaTelCelular String,
-    esposaEmail String,
+    maridoNome String required minlength(3) maxlength(100)
+    maridoSobrenome String
+    maridoDataNascimento LocalDate
+    maridoProfissao String
+    maridoTelCelular String
+    maridoEmail String
+    maridoProblemaSaude String
+    esposaNome String required minlength(3) maxlength(100)
+    esposaSobrenome String
+    esposaDataNascimento LocalDate
+    esposaProfissao String
+    esposaTelCelular String
+    esposaEmail String
     esposaProblemaSaude String
+    casalFoneFixo String
+    casalFoneContato String
+    casalCep String
+    casalNomeRua String
+    casalNumeroRua String
+    casalBairro String
+    casalCidade String
+    casalEstado UF
+    fotoCasal Blob
+    dataUniao LocalDate
+    numeroFicha Integer
+    informacoesCasal String
 }
 entity Filho {
-    nome String required minlength(3) maxlength(100),
-    sexo Sexo,
+    nome String required minlength(3) maxlength(100)
+    sexo Sexo
     dataNascimento LocalDate
+}
+entity TipoUniao {
+    nome String required
+    descricao String
 }
 enum Sexo {
     MASCULINO, FEMININO
 }
+enum UF {
+    AC, AL, AP, AM, BA, CE, DF, ES, GO, MA, MT, MS, MG, PA, PB, PR, PE, PI, RJ, RN, RS, RO, RR, SC, SP, SE, TO
+}
 relationship OneToMany {
     Lareira {id} to Casal {idLareira required}
 }
-
 relationship OneToMany {
     Casal {id} to Filho {idCasal required}
 }
-
+relationship OneToOne {
+    Casal{tipoUniao} to TipoUniao
+}
+relationship OneToOne {
+    Casal{casalPadrinho} to Casal
+}
 // DTO
 dto * with mapstruct
 // Set service options to all except few

@@ -64,6 +64,69 @@
                 <dd>
                     <span>{{ casal.esposaProblemaSaude }}</span>
                 </dd>
+                <dt><span jhiTranslate="lareiraAppHomoApp.casal.casalFoneFixo">Casal Fone Fixo</span></dt>
+                <dd>
+                    <span>{{ casal.casalFoneFixo }}</span>
+                </dd>
+                <dt><span jhiTranslate="lareiraAppHomoApp.casal.casalFoneContato">Casal Fone Contato</span></dt>
+                <dd>
+                    <span>{{ casal.casalFoneContato }}</span>
+                </dd>
+                <dt><span jhiTranslate="lareiraAppHomoApp.casal.casalCep">Casal Cep</span></dt>
+                <dd>
+                    <span>{{ casal.casalCep }}</span>
+                </dd>
+                <dt><span jhiTranslate="lareiraAppHomoApp.casal.casalNomeRua">Casal Nome Rua</span></dt>
+                <dd>
+                    <span>{{ casal.casalNomeRua }}</span>
+                </dd>
+                <dt><span jhiTranslate="lareiraAppHomoApp.casal.casalNumeroRua">Casal Numero Rua</span></dt>
+                <dd>
+                    <span>{{ casal.casalNumeroRua }}</span>
+                </dd>
+                <dt><span jhiTranslate="lareiraAppHomoApp.casal.casalBairro">Casal Bairro</span></dt>
+                <dd>
+                    <span>{{ casal.casalBairro }}</span>
+                </dd>
+                <dt><span jhiTranslate="lareiraAppHomoApp.casal.casalCidade">Casal Cidade</span></dt>
+                <dd>
+                    <span>{{ casal.casalCidade }}</span>
+                </dd>
+                <dt><span jhiTranslate="lareiraAppHomoApp.casal.casalEstado">Casal Estado</span></dt>
+                <dd>
+                    <span jhiTranslate="{{ 'lareiraAppHomoApp.UF.' + casal.casalEstado }}">{{ casal.casalEstado }}</span>
+                </dd>
+                <dt><span jhiTranslate="lareiraAppHomoApp.casal.fotoCasal">Foto Casal</span></dt>
+                <dd>
+                    <div *ngIf="casal.fotoCasal">
+                        <a (click)="openFile(casal?.fotoCasalContentType!, casal?.fotoCasal)" jhiTranslate="entity.action.open">open</a>
+                        {{ casal.fotoCasalContentType }}, {{ byteSize(casal.fotoCasal) }}
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="lareiraAppHomoApp.casal.dataUniao">Data Uniao</span></dt>
+                <dd>
+                    <span>{{ casal.dataUniao }}</span>
+                </dd>
+                <dt><span jhiTranslate="lareiraAppHomoApp.casal.numeroFicha">Numero Ficha</span></dt>
+                <dd>
+                    <span>{{ casal.numeroFicha }}</span>
+                </dd>
+                <dt><span jhiTranslate="lareiraAppHomoApp.casal.informacoesCasal">Informacoes Casal</span></dt>
+                <dd>
+                    <span>{{ casal.informacoesCasal }}</span>
+                </dd>
+                <dt><span jhiTranslate="lareiraAppHomoApp.casal.tipoUniao">Tipo Uniao</span></dt>
+                <dd>
+                    <div *ngIf="casal.tipoUniaoId">
+                        <a [routerLink]="['/tipo-uniao', casal.tipoUniaoId, 'view']">{{ casal.tipoUniaoId }}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="lareiraAppHomoApp.casal.casalPadrinho">Casal Padrinho</span></dt>
+                <dd>
+                    <div *ngIf="casal.casalPadrinhoId">
+                        <a [routerLink]="['/casal', casal.casalPadrinhoId, 'view']">{{ casal.casalPadrinhoId }}</a>
+                    </div>
+                </dd>
                 <dt><span jhiTranslate="lareiraAppHomoApp.casal.idLareira">Id Lareira</span></dt>
                 <dd>
                     <div *ngIf="casal.idLareiraId">

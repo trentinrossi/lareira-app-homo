@@ -54,17 +54,17 @@ export class CasalService {
       maridoDataNascimento:
         casal.maridoDataNascimento && casal.maridoDataNascimento.isValid() ? casal.maridoDataNascimento.format(DATE_FORMAT) : undefined,
       esposaDataNascimento:
-        casal.esposaDataNascimento && casal.esposaDataNascimento.isValid() ? casal.esposaDataNascimento.format(DATE_FORMAT) : undefined
+        casal.esposaDataNascimento && casal.esposaDataNascimento.isValid() ? casal.esposaDataNascimento.format(DATE_FORMAT) : undefined,
+      dataUniao: casal.dataUniao && casal.dataUniao.isValid() ? casal.dataUniao.format(DATE_FORMAT) : undefined
     });
     return copy;
   }
 
   protected convertDateFromServer(res: EntityResponseType): EntityResponseType {
     if (res.body) {
-      console.log(res.body);
-
       res.body.maridoDataNascimento = res.body.maridoDataNascimento ? moment(res.body.maridoDataNascimento) : undefined;
       res.body.esposaDataNascimento = res.body.esposaDataNascimento ? moment(res.body.esposaDataNascimento) : undefined;
+      res.body.dataUniao = res.body.dataUniao ? moment(res.body.dataUniao) : undefined;
     }
     return res;
   }
@@ -74,6 +74,7 @@ export class CasalService {
       res.body.forEach((casal: ICasal) => {
         casal.maridoDataNascimento = casal.maridoDataNascimento ? moment(casal.maridoDataNascimento) : undefined;
         casal.esposaDataNascimento = casal.esposaDataNascimento ? moment(casal.esposaDataNascimento) : undefined;
+        casal.dataUniao = casal.dataUniao ? moment(casal.dataUniao) : undefined;
       });
     }
     return res;

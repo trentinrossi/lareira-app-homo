@@ -1,0 +1,23 @@
+{
+  "lareiraAppHomoApp": {
+    "tipoUniao": {
+      "home": {
+        "title": "Tipo Uniaos",
+        "createLabel": "Crear nuevo Tipo Uniao",
+        "createOrEditLabel": "Crear o editar Tipo Uniao",
+        "notFound": "Ningún Tipo Uniaos encontrado"
+      },
+      "created": "Un nuevo Tipo Uniao ha sido creado con el identificador {{ param }}",
+      "updated": "Un Tipo Uniao ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Tipo Uniao ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Tipo Uniao {{ id }}?"
+      },
+      "detail": {
+        "title": "Tipo Uniao"
+      },
+      "nome": "Nome",
+      "descricao": "Descricao"
+    }
+  }
+}

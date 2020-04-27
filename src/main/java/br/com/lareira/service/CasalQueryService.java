@@ -133,6 +133,47 @@ public class CasalQueryService extends QueryService<Casal> {
             if (criteria.getEsposaProblemaSaude() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getEsposaProblemaSaude(), Casal_.esposaProblemaSaude));
             }
+            if (criteria.getCasalFoneFixo() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getCasalFoneFixo(), Casal_.casalFoneFixo));
+            }
+            if (criteria.getCasalFoneContato() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getCasalFoneContato(), Casal_.casalFoneContato));
+            }
+            if (criteria.getCasalCep() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getCasalCep(), Casal_.casalCep));
+            }
+            if (criteria.getCasalNomeRua() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getCasalNomeRua(), Casal_.casalNomeRua));
+            }
+            if (criteria.getCasalNumeroRua() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getCasalNumeroRua(), Casal_.casalNumeroRua));
+            }
+            if (criteria.getCasalBairro() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getCasalBairro(), Casal_.casalBairro));
+            }
+            if (criteria.getCasalCidade() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getCasalCidade(), Casal_.casalCidade));
+            }
+            if (criteria.getCasalEstado() != null) {
+                specification = specification.and(buildSpecification(criteria.getCasalEstado(), Casal_.casalEstado));
+            }
+            if (criteria.getDataUniao() != null) {
+                specification = specification.and(buildRangeSpecification(criteria.getDataUniao(), Casal_.dataUniao));
+            }
+            if (criteria.getNumeroFicha() != null) {
+                specification = specification.and(buildRangeSpecification(criteria.getNumeroFicha(), Casal_.numeroFicha));
+            }
+            if (criteria.getInformacoesCasal() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getInformacoesCasal(), Casal_.informacoesCasal));
+            }
+            if (criteria.getTipoUniaoId() != null) {
+                specification = specification.and(buildSpecification(criteria.getTipoUniaoId(),
+                    root -> root.join(Casal_.tipoUniao, JoinType.LEFT).get(TipoUniao_.id)));
+            }
+            if (criteria.getCasalPadrinhoId() != null) {
+                specification = specification.and(buildSpecification(criteria.getCasalPadrinhoId(),
+                    root -> root.join(Casal_.casalPadrinho, JoinType.LEFT).get(Casal_.id)));
+            }
             if (criteria.getIdId() != null) {
                 specification = specification.and(buildSpecification(criteria.getIdId(),
                     root -> root.join(Casal_.ids, JoinType.LEFT).get(Filho_.id)));

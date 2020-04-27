@@ -4,6 +4,7 @@ import * as moment from 'moment';
 import { DATE_FORMAT } from 'app/shared/constants/input.constants';
 import { CasalService } from 'app/entities/casal/casal.service';
 import { ICasal, Casal } from 'app/shared/model/casal.model';
+import { UF } from 'app/shared/model/enumerations/uf.model';
 
 describe('Service Tests', () => {
   describe('Casal Service', () => {
@@ -39,6 +40,19 @@ describe('Service Tests', () => {
         'AAAAAAA',
         'AAAAAAA',
         'AAAAAAA',
+        'AAAAAAA',
+        'AAAAAAA',
+        'AAAAAAA',
+        'AAAAAAA',
+        'AAAAAAA',
+        'AAAAAAA',
+        'AAAAAAA',
+        'AAAAAAA',
+        UF.AC,
+        'image/png',
+        'AAAAAAA',
+        currentDate,
+        0,
         'AAAAAAA'
       );
     });
@@ -48,7 +62,8 @@ describe('Service Tests', () => {
         const returnedFromService = Object.assign(
           {
             maridoDataNascimento: currentDate.format(DATE_FORMAT),
-            esposaDataNascimento: currentDate.format(DATE_FORMAT)
+            esposaDataNascimento: currentDate.format(DATE_FORMAT),
+            dataUniao: currentDate.format(DATE_FORMAT)
           },
           elemDefault
         );
@@ -65,7 +80,8 @@ describe('Service Tests', () => {
           {
             id: 0,
             maridoDataNascimento: currentDate.format(DATE_FORMAT),
-            esposaDataNascimento: currentDate.format(DATE_FORMAT)
+            esposaDataNascimento: currentDate.format(DATE_FORMAT),
+            dataUniao: currentDate.format(DATE_FORMAT)
           },
           elemDefault
         );
@@ -73,7 +89,8 @@ describe('Service Tests', () => {
         const expected = Object.assign(
           {
             maridoDataNascimento: currentDate,
-            esposaDataNascimento: currentDate
+            esposaDataNascimento: currentDate,
+            dataUniao: currentDate
           },
           returnedFromService
         );
@@ -101,7 +118,19 @@ describe('Service Tests', () => {
             esposaProfissao: 'BBBBBB',
             esposaTelCelular: 'BBBBBB',
             esposaEmail: 'BBBBBB',
-            esposaProblemaSaude: 'BBBBBB'
+            esposaProblemaSaude: 'BBBBBB',
+            casalFoneFixo: 'BBBBBB',
+            casalFoneContato: 'BBBBBB',
+            casalCep: 'BBBBBB',
+            casalNomeRua: 'BBBBBB',
+            casalNumeroRua: 'BBBBBB',
+            casalBairro: 'BBBBBB',
+            casalCidade: 'BBBBBB',
+            casalEstado: 'BBBBBB',
+            fotoCasal: 'BBBBBB',
+            dataUniao: currentDate.format(DATE_FORMAT),
+            numeroFicha: 1,
+            informacoesCasal: 'BBBBBB'
           },
           elemDefault
         );
@@ -109,7 +138,8 @@ describe('Service Tests', () => {
         const expected = Object.assign(
           {
             maridoDataNascimento: currentDate,
-            esposaDataNascimento: currentDate
+            esposaDataNascimento: currentDate,
+            dataUniao: currentDate
           },
           returnedFromService
         );
@@ -137,7 +167,19 @@ describe('Service Tests', () => {
             esposaProfissao: 'BBBBBB',
             esposaTelCelular: 'BBBBBB',
             esposaEmail: 'BBBBBB',
-            esposaProblemaSaude: 'BBBBBB'
+            esposaProblemaSaude: 'BBBBBB',
+            casalFoneFixo: 'BBBBBB',
+            casalFoneContato: 'BBBBBB',
+            casalCep: 'BBBBBB',
+            casalNomeRua: 'BBBBBB',
+            casalNumeroRua: 'BBBBBB',
+            casalBairro: 'BBBBBB',
+            casalCidade: 'BBBBBB',
+            casalEstado: 'BBBBBB',
+            fotoCasal: 'BBBBBB',
+            dataUniao: currentDate.format(DATE_FORMAT),
+            numeroFicha: 1,
+            informacoesCasal: 'BBBBBB'
           },
           elemDefault
         );
@@ -145,7 +187,8 @@ describe('Service Tests', () => {
         const expected = Object.assign(
           {
             maridoDataNascimento: currentDate,
-            esposaDataNascimento: currentDate
+            esposaDataNascimento: currentDate,
+            dataUniao: currentDate
           },
           returnedFromService
         );

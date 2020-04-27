@@ -4,11 +4,18 @@ import { HttpResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { JhiDataUtils, JhiFileLoadError, JhiEventManager, JhiEventWithContent } from 'ng-jhipster';
 
 import { ICasal, Casal } from 'app/shared/model/casal.model';
 import { CasalService } from './casal.service';
+import { AlertError } from 'app/shared/alert/alert-error.model';
+import { ITipoUniao } from 'app/shared/model/tipo-uniao.model';
+import { TipoUniaoService } from 'app/entities/tipo-uniao/tipo-uniao.service';
 import { ILareira } from 'app/shared/model/lareira.model';
 import { LareiraService } from 'app/entities/lareira/lareira.service';
+
+type SelectableEntity = ITipoUniao | ICasal | ILareira;
 
 @Component({
   selector: 'jhi-casal-update',
@@ -16,9 +23,12 @@ import { LareiraService } from 'app/entities/lareira/lareira.service';
 })
 export class CasalUpdateComponent implements OnInit {
   isSaving = false;
+  tipouniaos: ITipoUniao[] = [];
+  casalpadrinhos: ICasal[] = [];
   lareiras: ILareira[] = [];
   maridoDataNascimentoDp: any;
   esposaDataNascimentoDp: any;
+  dataUniaoDp: any;
 
   editForm = this.fb.group({
     id: [],
@@ -36,11 +46,29 @@ export class CasalUpdateComponent implements OnInit {
     esposaTelCelular: [],
     esposaEmail: [],
     esposaProblemaSaude: [],
+    casalFoneFixo: [],
+    casalFoneContato: [],
+    casalCep: [],
+    casalNomeRua: [],
+    casalNumeroRua: [],
+    casalBairro: [],
+    casalCidade: [],
+    casalEstado: [],
+    fotoCasal: [],
+    fotoCasalContentType: [],
+    dataUniao: [],
+    numeroFicha: [],
+    informacoesCasal: [],
+    tipoUniaoId: [],
+    casalPadrinhoId: [],
     idLareiraId: [null, Validators.required]
   });
 
   constructor(
+    protected dataUtils: JhiDataUtils,
+    protected eventManager: JhiEventManager,
     protected casalService: CasalService,
+    protected tipoUniaoService: TipoUniaoService,
     protected lareiraService: LareiraService,
     protected activatedRoute: ActivatedRoute,
     private fb: FormBuilder
@@ -49,6 +77,50 @@ export class CasalUpdateComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ casal }) => {
       this.updateForm(casal);
+
+      this.tipoUniaoService
+        .query({ filter: 'casal-is-null' })
+        .pipe(
+          map((res: HttpResponse<ITipoUniao[]>) => {
+            return res.body || [];
+          })
+        )
+        .subscribe((resBody: ITipoUniao[]) => {
+          if (!casal.tipoUniaoId) {
+            this.tipouniaos = resBody;
+          } else {
+            this.tipoUniaoService
+              .find(casal.tipoUniaoId)
+              .pipe(
+                map((subRes: HttpResponse<ITipoUniao>) => {
+                  return subRes.body ? [subRes.body].concat(resBody) : resBody;
+                })
+              )
+              .subscribe((concatRes: ITipoUniao[]) => (this.tipouniaos = concatRes));
+          }
+        });
+
+      this.casalService
+        .query({ 'casalId.specified': 'false' })
+        .pipe(
+          map((res: HttpResponse<ICasal[]>) => {
+            return res.body || [];
+          })
+        )
+        .subscribe((resBody: ICasal[]) => {
+          if (!casal.casalPadrinhoId) {
+            this.casalpadrinhos = resBody;
+          } else {
+            this.casalService
+              .find(casal.casalPadrinhoId)
+              .pipe(
+                map((subRes: HttpResponse<ICasal>) => {
+                  return subRes.body ? [subRes.body].concat(resBody) : resBody;
+                })
+              )
+              .subscribe((concatRes: ICasal[]) => (this.casalpadrinhos = concatRes));
+          }
+        });
 
       this.lareiraService.query().subscribe((res: HttpResponse<ILareira[]>) => (this.lareiras = res.body || []));
     });
@@ -71,7 +143,38 @@ export class CasalUpdateComponent implements OnInit {
       esposaTelCelular: casal.esposaTelCelular,
       esposaEmail: casal.esposaEmail,
       esposaProblemaSaude: casal.esposaProblemaSaude,
+      casalFoneFixo: casal.casalFoneFixo,
+      casalFoneContato: casal.casalFoneContato,
+      casalCep: casal.casalCep,
+      casalNomeRua: casal.casalNomeRua,
+      casalNumeroRua: casal.casalNumeroRua,
+      casalBairro: casal.casalBairro,
+      casalCidade: casal.casalCidade,
+      casalEstado: casal.casalEstado,
+      fotoCasal: casal.fotoCasal,
+      fotoCasalContentType: casal.fotoCasalContentType,
+      dataUniao: casal.dataUniao,
+      numeroFicha: casal.numeroFicha,
+      informacoesCasal: casal.informacoesCasal,
+      tipoUniaoId: casal.tipoUniaoId,
+      casalPadrinhoId: casal.casalPadrinhoId,
       idLareiraId: casal.idLareiraId
+    });
+  }
+
+  byteSize(base64String: string): string {
+    return this.dataUtils.byteSize(base64String);
+  }
+
+  openFile(contentType: string, base64String: string): void {
+    this.dataUtils.openFile(contentType, base64String);
+  }
+
+  setFileData(event: Event, field: string, isImage: boolean): void {
+    this.dataUtils.loadFileToForm(event, this.editForm, field, isImage).subscribe(null, (err: JhiFileLoadError) => {
+      this.eventManager.broadcast(
+        new JhiEventWithContent<AlertError>('lareiraAppHomoApp.error', { ...err, key: 'error.file.' + err.key })
+      );
     });
   }
 
@@ -107,6 +210,21 @@ export class CasalUpdateComponent implements OnInit {
       esposaTelCelular: this.editForm.get(['esposaTelCelular'])!.value,
       esposaEmail: this.editForm.get(['esposaEmail'])!.value,
       esposaProblemaSaude: this.editForm.get(['esposaProblemaSaude'])!.value,
+      casalFoneFixo: this.editForm.get(['casalFoneFixo'])!.value,
+      casalFoneContato: this.editForm.get(['casalFoneContato'])!.value,
+      casalCep: this.editForm.get(['casalCep'])!.value,
+      casalNomeRua: this.editForm.get(['casalNomeRua'])!.value,
+      casalNumeroRua: this.editForm.get(['casalNumeroRua'])!.value,
+      casalBairro: this.editForm.get(['casalBairro'])!.value,
+      casalCidade: this.editForm.get(['casalCidade'])!.value,
+      casalEstado: this.editForm.get(['casalEstado'])!.value,
+      fotoCasalContentType: this.editForm.get(['fotoCasalContentType'])!.value,
+      fotoCasal: this.editForm.get(['fotoCasal'])!.value,
+      dataUniao: this.editForm.get(['dataUniao'])!.value,
+      numeroFicha: this.editForm.get(['numeroFicha'])!.value,
+      informacoesCasal: this.editForm.get(['informacoesCasal'])!.value,
+      tipoUniaoId: this.editForm.get(['tipoUniaoId'])!.value,
+      casalPadrinhoId: this.editForm.get(['casalPadrinhoId'])!.value,
       idLareiraId: this.editForm.get(['idLareiraId'])!.value
     };
   }
@@ -127,7 +245,7 @@ export class CasalUpdateComponent implements OnInit {
     this.isSaving = false;
   }
 
-  trackById(index: number, item: ILareira): any {
+  trackById(index: number, item: SelectableEntity): any {
     return item.id;
   }
 }

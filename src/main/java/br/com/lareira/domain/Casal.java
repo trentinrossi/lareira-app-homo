@@ -11,6 +11,8 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
+import br.com.lareira.domain.enumeration.UF;
+
 /**
  * A Casal.
  */
@@ -69,6 +71,55 @@ public class Casal implements Serializable {
 
     @Column(name = "esposa_problema_saude")
     private String esposaProblemaSaude;
+
+    @Column(name = "casal_fone_fixo")
+    private String casalFoneFixo;
+
+    @Column(name = "casal_fone_contato")
+    private String casalFoneContato;
+
+    @Column(name = "casal_cep")
+    private String casalCep;
+
+    @Column(name = "casal_nome_rua")
+    private String casalNomeRua;
+
+    @Column(name = "casal_numero_rua")
+    private String casalNumeroRua;
+
+    @Column(name = "casal_bairro")
+    private String casalBairro;
+
+    @Column(name = "casal_cidade")
+    private String casalCidade;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "casal_estado")
+    private UF casalEstado;
+
+    @Lob
+    @Column(name = "foto_casal")
+    private byte[] fotoCasal;
+
+    @Column(name = "foto_casal_content_type")
+    private String fotoCasalContentType;
+
+    @Column(name = "data_uniao")
+    private LocalDate dataUniao;
+
+    @Column(name = "numero_ficha")
+    private Integer numeroFicha;
+
+    @Column(name = "informacoes_casal")
+    private String informacoesCasal;
+
+    @OneToOne
+    @JoinColumn(unique = true)
+    private TipoUniao tipoUniao;
+
+    @OneToOne
+    @JoinColumn(unique = true)
+    private Casal casalPadrinho;
 
     @OneToMany(mappedBy = "idCasal")
     private Set<Filho> ids = new HashSet<>();
@@ -269,6 +320,201 @@ public class Casal implements Serializable {
         this.esposaProblemaSaude = esposaProblemaSaude;
     }
 
+    public String getCasalFoneFixo() {
+        return casalFoneFixo;
+    }
+
+    public Casal casalFoneFixo(String casalFoneFixo) {
+        this.casalFoneFixo = casalFoneFixo;
+        return this;
+    }
+
+    public void setCasalFoneFixo(String casalFoneFixo) {
+        this.casalFoneFixo = casalFoneFixo;
+    }
+
+    public String getCasalFoneContato() {
+        return casalFoneContato;
+    }
+
+    public Casal casalFoneContato(String casalFoneContato) {
+        this.casalFoneContato = casalFoneContato;
+        return this;
+    }
+
+    public void setCasalFoneContato(String casalFoneContato) {
+        this.casalFoneContato = casalFoneContato;
+    }
+
+    public String getCasalCep() {
+        return casalCep;
+    }
+
+    public Casal casalCep(String casalCep) {
+        this.casalCep = casalCep;
+        return this;
+    }
+
+    public void setCasalCep(String casalCep) {
+        this.casalCep = casalCep;
+    }
+
+    public String getCasalNomeRua() {
+        return casalNomeRua;
+    }
+
+    public Casal casalNomeRua(String casalNomeRua) {
+        this.casalNomeRua = casalNomeRua;
+        return this;
+    }
+
+    public void setCasalNomeRua(String casalNomeRua) {
+        this.casalNomeRua = casalNomeRua;
+    }
+
+    public String getCasalNumeroRua() {
+        return casalNumeroRua;
+    }
+
+    public Casal casalNumeroRua(String casalNumeroRua) {
+        this.casalNumeroRua = casalNumeroRua;
+        return this;
+    }
+
+    public void setCasalNumeroRua(String casalNumeroRua) {
+        this.casalNumeroRua = casalNumeroRua;
+    }
+
+    public String getCasalBairro() {
+        return casalBairro;
+    }
+
+    public Casal casalBairro(String casalBairro) {
+        this.casalBairro = casalBairro;
+        return this;
+    }
+
+    public void setCasalBairro(String casalBairro) {
+        this.casalBairro = casalBairro;
+    }
+
+    public String getCasalCidade() {
+        return casalCidade;
+    }
+
+    public Casal casalCidade(String casalCidade) {
+        this.casalCidade = casalCidade;
+        return this;
+    }
+
+    public void setCasalCidade(String casalCidade) {
+        this.casalCidade = casalCidade;
+    }
+
+    public UF getCasalEstado() {
+        return casalEstado;
+    }
+
+    public Casal casalEstado(UF casalEstado) {
+        this.casalEstado = casalEstado;
+        return this;
+    }
+
+    public void setCasalEstado(UF casalEstado) {
+        this.casalEstado = casalEstado;
+    }
+
+    public byte[] getFotoCasal() {
+        return fotoCasal;
+    }
+
+    public Casal fotoCasal(byte[] fotoCasal) {
+        this.fotoCasal = fotoCasal;
+        return this;
+    }
+
+    public void setFotoCasal(byte[] fotoCasal) {
+        this.fotoCasal = fotoCasal;
+    }
+
+    public String getFotoCasalContentType() {
+        return fotoCasalContentType;
+    }
+
+    public Casal fotoCasalContentType(String fotoCasalContentType) {
+        this.fotoCasalContentType = fotoCasalContentType;
+        return this;
+    }
+
+    public void setFotoCasalContentType(String fotoCasalContentType) {
+        this.fotoCasalContentType = fotoCasalContentType;
+    }
+
+    public LocalDate getDataUniao() {
+        return dataUniao;
+    }
+
+    public Casal dataUniao(LocalDate dataUniao) {
+        this.dataUniao = dataUniao;
+        return this;
+    }
+
+    public void setDataUniao(LocalDate dataUniao) {
+        this.dataUniao = dataUniao;
+    }
+
+    public Integer getNumeroFicha() {
+        return numeroFicha;
+    }
+
+    public Casal numeroFicha(Integer numeroFicha) {
+        this.numeroFicha = numeroFicha;
+        return this;
+    }
+
+    public void setNumeroFicha(Integer numeroFicha) {
+        this.numeroFicha = numeroFicha;
+    }
+
+    public String getInformacoesCasal() {
+        return informacoesCasal;
+    }
+
+    public Casal informacoesCasal(String informacoesCasal) {
+        this.informacoesCasal = informacoesCasal;
+        return this;
+    }
+
+    public void setInformacoesCasal(String informacoesCasal) {
+        this.informacoesCasal = informacoesCasal;
+    }
+
+    public TipoUniao getTipoUniao() {
+        return tipoUniao;
+    }
+
+    public Casal tipoUniao(TipoUniao tipoUniao) {
+        this.tipoUniao = tipoUniao;
+        return this;
+    }
+
+    public void setTipoUniao(TipoUniao tipoUniao) {
+        this.tipoUniao = tipoUniao;
+    }
+
+    public Casal getCasalPadrinho() {
+        return casalPadrinho;
+    }
+
+    public Casal casalPadrinho(Casal casal) {
+        this.casalPadrinho = casal;
+        return this;
+    }
+
+    public void setCasalPadrinho(Casal casal) {
+        this.casalPadrinho = casal;
+    }
+
     public Set<Filho> getIds() {
         return ids;
     }
@@ -342,6 +588,19 @@ public class Casal implements Serializable {
             ", esposaTelCelular='" + getEsposaTelCelular() + "'" +
             ", esposaEmail='" + getEsposaEmail() + "'" +
             ", esposaProblemaSaude='" + getEsposaProblemaSaude() + "'" +
+            ", casalFoneFixo='" + getCasalFoneFixo() + "'" +
+            ", casalFoneContato='" + getCasalFoneContato() + "'" +
+            ", casalCep='" + getCasalCep() + "'" +
+            ", casalNomeRua='" + getCasalNomeRua() + "'" +
+            ", casalNumeroRua='" + getCasalNumeroRua() + "'" +
+            ", casalBairro='" + getCasalBairro() + "'" +
+            ", casalCidade='" + getCasalCidade() + "'" +
+            ", casalEstado='" + getCasalEstado() + "'" +
+            ", fotoCasal='" + getFotoCasal() + "'" +
+            ", fotoCasalContentType='" + getFotoCasalContentType() + "'" +
+            ", dataUniao='" + getDataUniao() + "'" +
+            ", numeroFicha=" + getNumeroFicha() +
+            ", informacoesCasal='" + getInformacoesCasal() + "'" +
             "}";
     }
 }

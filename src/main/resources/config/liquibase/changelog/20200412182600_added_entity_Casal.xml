@@ -58,6 +58,51 @@
             <column name="esposa_problema_saude" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
+            <column name="casal_fone_fixo" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="casal_fone_contato" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="casal_cep" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="casal_nome_rua" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="casal_numero_rua" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="casal_bairro" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="casal_cidade" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="casal_estado" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="foto_casal" type="longblob">
+                <constraints nullable="true" />
+            </column>
+            <column name="foto_casal_content_type" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="data_uniao" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="numero_ficha" type="integer">
+                <constraints nullable="true" />
+            </column>
+            <column name="informacoes_casal" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="tipo_uniao_id" type="bigint">
+                <constraints unique="true" nullable="true" uniqueConstraintName="ux_casal_tipo_uniao_id" />
+            </column>
+            <column name="casal_padrinho_id" type="bigint">
+                <constraints unique="true" nullable="true" uniqueConstraintName="ux_casal_casal_padrinho_id" />
+            </column>
             <column name="id_lareira_id" type="bigint">
                 <constraints nullable="false" />
             </column>
@@ -98,6 +143,19 @@
             <column name="esposa_tel_celular" type="string"/>
             <column name="esposa_email" type="string"/>
             <column name="esposa_problema_saude" type="string"/>
+            <column name="casal_fone_fixo" type="string"/>
+            <column name="casal_fone_contato" type="string"/>
+            <column name="casal_cep" type="string"/>
+            <column name="casal_nome_rua" type="string"/>
+            <column name="casal_numero_rua" type="string"/>
+            <column name="casal_bairro" type="string"/>
+            <column name="casal_cidade" type="string"/>
+            <column name="casal_estado" type="string"/>
+            <column name="foto_casal" type="blob"/>
+            <column name="foto_casal_content_type" type="string"/>
+            <column name="data_uniao" type="date"/>
+            <column name="numero_ficha" type="numeric"/>
+            <column name="informacoes_casal" type="string"/>
             <column name="id_lareira_id" type="numeric"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here, do not remove-->
         </loadData>

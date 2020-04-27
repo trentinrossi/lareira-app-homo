@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.Lob;
+import br.com.lareira.domain.enumeration.UF;
 
 /**
  * A DTO for the {@link br.com.lareira.domain.Casal} entity.
@@ -44,6 +46,36 @@ public class CasalDTO implements Serializable {
 
     private String esposaProblemaSaude;
 
+    private String casalFoneFixo;
+
+    private String casalFoneContato;
+
+    private String casalCep;
+
+    private String casalNomeRua;
+
+    private String casalNumeroRua;
+
+    private String casalBairro;
+
+    private String casalCidade;
+
+    private UF casalEstado;
+
+    @Lob
+    private byte[] fotoCasal;
+
+    private String fotoCasalContentType;
+    private LocalDate dataUniao;
+
+    private Integer numeroFicha;
+
+    private String informacoesCasal;
+
+
+    private Long tipoUniaoId;
+
+    private Long casalPadrinhoId;
 
     private Long idLareiraId;
     
@@ -167,6 +199,126 @@ public class CasalDTO implements Serializable {
         this.esposaProblemaSaude = esposaProblemaSaude;
     }
 
+    public String getCasalFoneFixo() {
+        return casalFoneFixo;
+    }
+
+    public void setCasalFoneFixo(String casalFoneFixo) {
+        this.casalFoneFixo = casalFoneFixo;
+    }
+
+    public String getCasalFoneContato() {
+        return casalFoneContato;
+    }
+
+    public void setCasalFoneContato(String casalFoneContato) {
+        this.casalFoneContato = casalFoneContato;
+    }
+
+    public String getCasalCep() {
+        return casalCep;
+    }
+
+    public void setCasalCep(String casalCep) {
+        this.casalCep = casalCep;
+    }
+
+    public String getCasalNomeRua() {
+        return casalNomeRua;
+    }
+
+    public void setCasalNomeRua(String casalNomeRua) {
+        this.casalNomeRua = casalNomeRua;
+    }
+
+    public String getCasalNumeroRua() {
+        return casalNumeroRua;
+    }
+
+    public void setCasalNumeroRua(String casalNumeroRua) {
+        this.casalNumeroRua = casalNumeroRua;
+    }
+
+    public String getCasalBairro() {
+        return casalBairro;
+    }
+
+    public void setCasalBairro(String casalBairro) {
+        this.casalBairro = casalBairro;
+    }
+
+    public String getCasalCidade() {
+        return casalCidade;
+    }
+
+    public void setCasalCidade(String casalCidade) {
+        this.casalCidade = casalCidade;
+    }
+
+    public UF getCasalEstado() {
+        return casalEstado;
+    }
+
+    public void setCasalEstado(UF casalEstado) {
+        this.casalEstado = casalEstado;
+    }
+
+    public byte[] getFotoCasal() {
+        return fotoCasal;
+    }
+
+    public void setFotoCasal(byte[] fotoCasal) {
+        this.fotoCasal = fotoCasal;
+    }
+
+    public String getFotoCasalContentType() {
+        return fotoCasalContentType;
+    }
+
+    public void setFotoCasalContentType(String fotoCasalContentType) {
+        this.fotoCasalContentType = fotoCasalContentType;
+    }
+
+    public LocalDate getDataUniao() {
+        return dataUniao;
+    }
+
+    public void setDataUniao(LocalDate dataUniao) {
+        this.dataUniao = dataUniao;
+    }
+
+    public Integer getNumeroFicha() {
+        return numeroFicha;
+    }
+
+    public void setNumeroFicha(Integer numeroFicha) {
+        this.numeroFicha = numeroFicha;
+    }
+
+    public String getInformacoesCasal() {
+        return informacoesCasal;
+    }
+
+    public void setInformacoesCasal(String informacoesCasal) {
+        this.informacoesCasal = informacoesCasal;
+    }
+
+    public Long getTipoUniaoId() {
+        return tipoUniaoId;
+    }
+
+    public void setTipoUniaoId(Long tipoUniaoId) {
+        this.tipoUniaoId = tipoUniaoId;
+    }
+
+    public Long getCasalPadrinhoId() {
+        return casalPadrinhoId;
+    }
+
+    public void setCasalPadrinhoId(Long casalId) {
+        this.casalPadrinhoId = casalId;
+    }
+
     public Long getIdLareiraId() {
         return idLareiraId;
     }
@@ -214,6 +366,20 @@ public class CasalDTO implements Serializable {
             ", esposaTelCelular='" + getEsposaTelCelular() + "'" +
             ", esposaEmail='" + getEsposaEmail() + "'" +
             ", esposaProblemaSaude='" + getEsposaProblemaSaude() + "'" +
+            ", casalFoneFixo='" + getCasalFoneFixo() + "'" +
+            ", casalFoneContato='" + getCasalFoneContato() + "'" +
+            ", casalCep='" + getCasalCep() + "'" +
+            ", casalNomeRua='" + getCasalNomeRua() + "'" +
+            ", casalNumeroRua='" + getCasalNumeroRua() + "'" +
+            ", casalBairro='" + getCasalBairro() + "'" +
+            ", casalCidade='" + getCasalCidade() + "'" +
+            ", casalEstado='" + getCasalEstado() + "'" +
+            ", fotoCasal='" + getFotoCasal() + "'" +
+            ", dataUniao='" + getDataUniao() + "'" +
+            ", numeroFicha=" + getNumeroFicha() +
+            ", informacoesCasal='" + getInformacoesCasal() + "'" +
+            ", tipoUniaoId=" + getTipoUniaoId() +
+            ", casalPadrinhoId=" + getCasalPadrinhoId() +
             ", idLareiraId=" + getIdLareiraId() +
             "}";
     }
