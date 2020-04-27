@@ -12,7 +12,8 @@
                             <label class="form-control-label" jhiTranslate="lareiraAppHomoApp.casal.idLareira" for="field_idLareira">Id Lareira</label>
                             <select class="form-control" id="field_idLareira" name="idLareira" formControlName="idLareiraId">
                                 <option *ngIf="!editForm.get('idLareiraId')!.value" [ngValue]="null" selected></option>
-                                <option [ngValue]="lareiraOption.id" *ngFor="let lareiraOption of lareiras; trackBy: trackById">{{ lareiraOption.nome }}</option>
+                                <option [ngValue]="lareiraOption.id" *ngFor="let lareiraOption of lareiras; trackBy: trackById">{{ lareiraOption.nome }}
+                                </option>
                             </select>
                         </div>
                         <div *ngIf="editForm.get('idLareiraId')!.invalid && (editForm.get('idLareiraId')!.dirty || editForm.get('idLareiraId')!.touched)">
@@ -58,11 +59,10 @@
                                 </div>
                                 <div class="ui-g-12 ui-md-6 ui-fluid">
                                     <label class="form-control-label" jhiTranslate="lareiraAppHomoApp.casal.maridoDataNascimento"
-                                        for="field_maridoDataNascimento">Marido Data
-                                        Nascimento</label>
+                                        for="field_maridoDataNascimento">Marido Data Nascimento</label>
                                     <div class="input-group">
                                         <input id="field_maridoDataNascimento" type="text" class="form-control" name="maridoDataNascimento" ngbDatepicker
-                                            #maridoDataNascimentoDp="ngbDatepicker" formControlName="maridoDataNascimento" />
+                                            #maridoDataNascimentoDp="ngbDatepicker" formControlName="maridoDataNascimento" placeholder="dd/mm/aaaa" />
                                         <span class="input-group-append">
                                             <button type="button" class="btn btn-secondary" (click)="maridoDataNascimentoDp.toggle()">
                                                 <fa-icon icon="calendar-alt"></fa-icon>
@@ -131,11 +131,10 @@
                                 </div>
                                 <div class="ui-g-12 ui-md-6 ui-fluid">
                                     <label class="form-control-label" jhiTranslate="lareiraAppHomoApp.casal.esposaDataNascimento"
-                                        for="field_esposaDataNascimento">Esposa Data
-                                        Nascimento</label>
+                                        for="field_esposaDataNascimento">Esposa Data Nascimento</label>
                                     <div class="input-group">
                                         <input id="field_esposaDataNascimento" type="text" class="form-control" name="esposaDataNascimento" ngbDatepicker
-                                            #esposaDataNascimentoDp="ngbDatepicker" formControlName="esposaDataNascimento" />
+                                            #esposaDataNascimentoDp="ngbDatepicker" formControlName="esposaDataNascimento" placeholder="dd/mm/aaaa" />
                                         <span class="input-group-append">
                                             <button type="button" class="btn btn-secondary" (click)="esposaDataNascimentoDp.toggle()">
                                                 <fa-icon icon="calendar-alt"></fa-icon>
@@ -144,8 +143,7 @@
                                     </div>
                                 </div>
                                 <div class="ui-g-12 ui-md-6 ui-fluid"> <label class="form-control-label" jhiTranslate="lareiraAppHomoApp.casal.esposaProfissao"
-                                        for="field_esposaProfissao">Esposa
-                                        Profissao</label>
+                                        for="field_esposaProfissao">Esposa Profissao</label>
                                     <input type="text" class="form-control" name="esposaProfissao" id="field_esposaProfissao"
                                         formControlName="esposaProfissao" />
                                 </div>

@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\main",
+    "\\src\\main\\webapp",
+    "\\src\\main\\webapp\\app",
+    "\\src\\main\\webapp\\app\\blocks\\config",
+    "\\src\\main\\webapp\\app\\blocks\\interceptor",
+    "\\src\\main\\webapp\\app\\core",
+    "\\src\\main\\webapp\\app\\shared",
+    "\\src\\main\\webapp\\app\\shared\\constants"
+  ],
+  "SelectedNode": "\\src\\main\\webapp\\app\\shared\\constants\\input.constants.ts",
+  "PreviewInSolutionExplorer": false
+}
