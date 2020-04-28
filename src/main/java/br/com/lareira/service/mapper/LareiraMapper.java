@@ -13,8 +13,8 @@ import org.mapstruct.*;
 public interface LareiraMapper extends EntityMapper<LareiraDTO, Lareira> {
 
 
-    @Mapping(target = "ids", ignore = true)
-    @Mapping(target = "removeId", ignore = true)
+    @Mapping(target = "casals", ignore = true)
+    @Mapping(target = "removeCasal", ignore = true)
     Lareira toEntity(LareiraDTO lareiraDTO);
 
     default Lareira fromId(Long id) {

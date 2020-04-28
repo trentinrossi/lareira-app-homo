@@ -23,6 +23,7 @@
             <thead>
                 <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
                     <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="fotoCasal"><span jhiTranslate="lareiraAppHomoApp.casal.fotoCasal">Foto</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="maridoNome"><span jhiTranslate="lareiraAppHomoApp.casal.maridoNome">Marido Nome</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="maridoSobrenome"><span jhiTranslate="lareiraAppHomoApp.casal.maridoSobrenome">Marido Sobrenome</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="maridoDataNascimento"><span jhiTranslate="lareiraAppHomoApp.casal.maridoDataNascimento">Marido Data Nascimento</span> <fa-icon icon="sort"></fa-icon></th>
@@ -44,6 +45,11 @@
             <tbody>
                 <tr *ngFor="let casal of casals ;trackBy: trackId">
                     <td><a [routerLink]="['/casal', casal.id, 'view']">{{ casal.id }}</a></td>
+                    <td>
+                        <img [src]="'data:image/jpg;base64,' + casal.fotoCasal" height="60" *ngIf="casal.fotoCasal" >
+                        <!-- <a *ngIf="casal.fotoCasal" (click)="openFile(casal.fotoCasalContentType, casal.fotoCasal)" jhiTranslate="entity.action.open">open</a> -->
+                        <!-- <span *ngIf="casal.fotoCasal">{{ casal.fotoCasalContentType }}, {{ byteSize(casal.fotoCasal) }}</span> -->
+                    </td>
                     <td>{{ casal.maridoNome }}</td>
                     <td>{{ casal.maridoSobrenome }}</td>
                     <td>{{ casal.maridoDataNascimento | date:'mediumDate' }}</td>

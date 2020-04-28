@@ -4,18 +4,17 @@ import { HttpResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { JhiDataUtils, JhiFileLoadError, JhiEventManager, JhiEventWithContent } from 'ng-jhipster';
 
 import { ICasal, Casal } from 'app/shared/model/casal.model';
 import { CasalService } from './casal.service';
 import { AlertError } from 'app/shared/alert/alert-error.model';
-import { ITipoUniao } from 'app/shared/model/tipo-uniao.model';
-import { TipoUniaoService } from 'app/entities/tipo-uniao/tipo-uniao.service';
 import { ILareira } from 'app/shared/model/lareira.model';
 import { LareiraService } from 'app/entities/lareira/lareira.service';
+import { ITipoUniao } from 'app/shared/model/tipo-uniao.model';
+import { TipoUniaoService } from 'app/entities/tipo-uniao/tipo-uniao.service';
 
-type SelectableEntity = ITipoUniao | ICasal | ILareira;
+type SelectableEntity = ILareira | ITipoUniao | ICasal;
 
 @Component({
   selector: 'jhi-casal-update',
@@ -23,9 +22,9 @@ type SelectableEntity = ITipoUniao | ICasal | ILareira;
 })
 export class CasalUpdateComponent implements OnInit {
   isSaving = false;
-  tipouniaos: ITipoUniao[] = [];
-  casalpadrinhos: ICasal[] = [];
   lareiras: ILareira[] = [];
+  tipouniaos: ITipoUniao[] = [];
+  casals: ICasal[] = [];
   maridoDataNascimentoDp: any;
   esposaDataNascimentoDp: any;
   dataUniaoDp: any;
@@ -59,17 +58,17 @@ export class CasalUpdateComponent implements OnInit {
     dataUniao: [],
     numeroFicha: [],
     informacoesCasal: [],
+    lareiraId: [null, Validators.required],
     tipoUniaoId: [],
-    casalPadrinhoId: [],
-    idLareiraId: [null, Validators.required]
+    casalPadrinhoId: []
   });
 
   constructor(
     protected dataUtils: JhiDataUtils,
     protected eventManager: JhiEventManager,
     protected casalService: CasalService,
-    protected tipoUniaoService: TipoUniaoService,
     protected lareiraService: LareiraService,
+    protected tipoUniaoService: TipoUniaoService,
     protected activatedRoute: ActivatedRoute,
     private fb: FormBuilder
   ) {}
@@ -78,51 +77,11 @@ export class CasalUpdateComponent implements OnInit {
     this.activatedRoute.data.subscribe(({ casal }) => {
       this.updateForm(casal);
 
-      this.tipoUniaoService
-        .query({ filter: 'casal-is-null' })
-        .pipe(
-          map((res: HttpResponse<ITipoUniao[]>) => {
-            return res.body || [];
-          })
-        )
-        .subscribe((resBody: ITipoUniao[]) => {
-          if (!casal.tipoUniaoId) {
-            this.tipouniaos = resBody;
-          } else {
-            this.tipoUniaoService
-              .find(casal.tipoUniaoId)
-              .pipe(
-                map((subRes: HttpResponse<ITipoUniao>) => {
-                  return subRes.body ? [subRes.body].concat(resBody) : resBody;
-                })
-              )
-              .subscribe((concatRes: ITipoUniao[]) => (this.tipouniaos = concatRes));
-          }
-        });
-
-      this.casalService
-        .query({ 'casalId.specified': 'false' })
-        .pipe(
-          map((res: HttpResponse<ICasal[]>) => {
-            return res.body || [];
-          })
-        )
-        .subscribe((resBody: ICasal[]) => {
-          if (!casal.casalPadrinhoId) {
-            this.casalpadrinhos = resBody;
-          } else {
-            this.casalService
-              .find(casal.casalPadrinhoId)
-              .pipe(
-                map((subRes: HttpResponse<ICasal>) => {
-                  return subRes.body ? [subRes.body].concat(resBody) : resBody;
-                })
-              )
-              .subscribe((concatRes: ICasal[]) => (this.casalpadrinhos = concatRes));
-          }
-        });
-
       this.lareiraService.query().subscribe((res: HttpResponse<ILareira[]>) => (this.lareiras = res.body || []));
+
+      this.tipoUniaoService.query().subscribe((res: HttpResponse<ITipoUniao[]>) => (this.tipouniaos = res.body || []));
+
+      this.casalService.query().subscribe((res: HttpResponse<ICasal[]>) => (this.casals = res.body || []));
     });
   }
 
@@ -156,9 +115,9 @@ export class CasalUpdateComponent implements OnInit {
       dataUniao: casal.dataUniao,
       numeroFicha: casal.numeroFicha,
       informacoesCasal: casal.informacoesCasal,
+      lareiraId: casal.lareiraId,
       tipoUniaoId: casal.tipoUniaoId,
-      casalPadrinhoId: casal.casalPadrinhoId,
-      idLareiraId: casal.idLareiraId
+      casalPadrinhoId: casal.casalPadrinhoId
     });
   }
 
@@ -223,9 +182,9 @@ export class CasalUpdateComponent implements OnInit {
       dataUniao: this.editForm.get(['dataUniao'])!.value,
       numeroFicha: this.editForm.get(['numeroFicha'])!.value,
       informacoesCasal: this.editForm.get(['informacoesCasal'])!.value,
+      lareiraId: this.editForm.get(['lareiraId'])!.value,
       tipoUniaoId: this.editForm.get(['tipoUniaoId'])!.value,
-      casalPadrinhoId: this.editForm.get(['casalPadrinhoId'])!.value,
-      idLareiraId: this.editForm.get(['idLareiraId'])!.value
+      casalPadrinhoId: this.editForm.get(['casalPadrinhoId'])!.value
     };
   }
 

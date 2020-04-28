@@ -40,7 +40,7 @@ public class LareiraCriteria implements Serializable, Criteria {
 
     private StringFilter telefone;
 
-    private LongFilter idId;
+    private LongFilter casalId;
 
     public LareiraCriteria() {
     }
@@ -54,7 +54,7 @@ public class LareiraCriteria implements Serializable, Criteria {
         this.cidade = other.cidade == null ? null : other.cidade.copy();
         this.estado = other.estado == null ? null : other.estado.copy();
         this.telefone = other.telefone == null ? null : other.telefone.copy();
-        this.idId = other.idId == null ? null : other.idId.copy();
+        this.casalId = other.casalId == null ? null : other.casalId.copy();
     }
 
     @Override
@@ -126,12 +126,12 @@ public class LareiraCriteria implements Serializable, Criteria {
         this.telefone = telefone;
     }
 
-    public LongFilter getIdId() {
-        return idId;
+    public LongFilter getCasalId() {
+        return casalId;
     }
 
-    public void setIdId(LongFilter idId) {
-        this.idId = idId;
+    public void setCasalId(LongFilter casalId) {
+        this.casalId = casalId;
     }
 
 
@@ -153,7 +153,7 @@ public class LareiraCriteria implements Serializable, Criteria {
             Objects.equals(cidade, that.cidade) &&
             Objects.equals(estado, that.estado) &&
             Objects.equals(telefone, that.telefone) &&
-            Objects.equals(idId, that.idId);
+            Objects.equals(casalId, that.casalId);
     }
 
     @Override
@@ -167,7 +167,7 @@ public class LareiraCriteria implements Serializable, Criteria {
         cidade,
         estado,
         telefone,
-        idId
+        casalId
         );
     }
 
@@ -182,7 +182,7 @@ public class LareiraCriteria implements Serializable, Criteria {
                 (cidade != null ? "cidade=" + cidade + ", " : "") +
                 (estado != null ? "estado=" + estado + ", " : "") +
                 (telefone != null ? "telefone=" + telefone + ", " : "") +
-                (idId != null ? "idId=" + idId + ", " : "") +
+                (casalId != null ? "casalId=" + casalId + ", " : "") +
             "}";
     }
 

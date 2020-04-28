@@ -11,7 +11,7 @@
       "updated": "Um Casal foi atualizado com o identificador {{ param }}",
       "deleted": "Um Casal foi excluído com o identificador {{ param }}",
       "delete": {
-        "question": "Tem certeza de que deseja excluir Casal {{ id }}?"
+        "question": "Tem certeza de que deseja excluir o Casal {{ id }}?"
       },
       "detail": {
         "title": "Casal"
@@ -19,33 +19,34 @@
       "maridoNome": "Nome",
       "maridoSobrenome": "Sobrenome",
       "maridoDataNascimento": "Data Nascimento",
-      "maridoProfissao": "Profissao",
+      "maridoProfissao": "Profissão",
       "maridoTelCelular": "Tel Celular",
       "maridoEmail": "Email",
       "maridoProblemaSaude": "Problema Saude",
       "esposaNome": "Nome",
       "esposaSobrenome": "Sobrenome",
       "esposaDataNascimento": "Data Nascimento",
-      "esposaProfissao": "Profissao",
+      "esposaProfissao": "Profissão",
       "esposaTelCelular": "Tel Celular",
-      "esposaEmail": "Essa Email",
+      "esposaEmail": "Email",
       "esposaProblemaSaude": "Problema Saude",
       "casalFoneFixo": "Fone Fixo",
       "casalFoneContato": "Fone Contato",
       "casalCep": "Cep",
       "casalNomeRua": "Nome Rua",
-      "casalNumeroRua": "Numero Rua",
+      "casalNumeroRua": "Numero",
       "casalBairro": "Bairro",
       "casalCidade": "Cidade",
       "casalEstado": "Estado",
       "fotoCasal": "Foto",
-      "dataUniao": "Data Uniao",
+      "dataUniao": "Data União",
       "numeroFicha": "Numero Ficha",
-      "informacoesCasal": "Memorando do Casal",
-      "tipoUniao": "Tipo da União",
-      "casalPadrinho": "Casal Padrinho",
-      "id": "Id",
-      "idLareira": "Lareira"
+      "informacoesCasal": "Informações Casal (Memorando)",
+      "filho": "Filho",
+      "apadrinhado": "Apadrinhado",
+      "lareira": "Lareira",
+      "tipoUniao": "Tipo Uniao",
+      "casalPadrinho": "Casal Padrinho"
     }
   }
 }

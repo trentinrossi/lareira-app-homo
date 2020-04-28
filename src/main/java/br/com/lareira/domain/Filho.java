@@ -38,8 +38,8 @@ public class Filho implements Serializable {
 
     @ManyToOne(optional = false)
     @NotNull
-    @JsonIgnoreProperties("ids")
-    private Casal idCasal;
+    @JsonIgnoreProperties("filhos")
+    private Casal casal;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -89,17 +89,17 @@ public class Filho implements Serializable {
         this.dataNascimento = dataNascimento;
     }
 
-    public Casal getIdCasal() {
-        return idCasal;
+    public Casal getCasal() {
+        return casal;
     }
 
-    public Filho idCasal(Casal casal) {
-        this.idCasal = casal;
+    public Filho casal(Casal casal) {
+        this.casal = casal;
         return this;
     }
 
-    public void setIdCasal(Casal casal) {
-        this.idCasal = casal;
+    public void setCasal(Casal casal) {
+        this.casal = casal;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

@@ -96,13 +96,15 @@ public class CasalCriteria implements Serializable, Criteria {
 
     private StringFilter informacoesCasal;
 
+    private LongFilter filhoId;
+
+    private LongFilter apadrinhadoId;
+
+    private LongFilter lareiraId;
+
     private LongFilter tipoUniaoId;
 
     private LongFilter casalPadrinhoId;
-
-    private LongFilter idId;
-
-    private LongFilter idLareiraId;
 
     public CasalCriteria() {
     }
@@ -134,10 +136,11 @@ public class CasalCriteria implements Serializable, Criteria {
         this.dataUniao = other.dataUniao == null ? null : other.dataUniao.copy();
         this.numeroFicha = other.numeroFicha == null ? null : other.numeroFicha.copy();
         this.informacoesCasal = other.informacoesCasal == null ? null : other.informacoesCasal.copy();
+        this.filhoId = other.filhoId == null ? null : other.filhoId.copy();
+        this.apadrinhadoId = other.apadrinhadoId == null ? null : other.apadrinhadoId.copy();
+        this.lareiraId = other.lareiraId == null ? null : other.lareiraId.copy();
         this.tipoUniaoId = other.tipoUniaoId == null ? null : other.tipoUniaoId.copy();
         this.casalPadrinhoId = other.casalPadrinhoId == null ? null : other.casalPadrinhoId.copy();
-        this.idId = other.idId == null ? null : other.idId.copy();
-        this.idLareiraId = other.idLareiraId == null ? null : other.idLareiraId.copy();
     }
 
     @Override
@@ -353,6 +356,30 @@ public class CasalCriteria implements Serializable, Criteria {
         this.informacoesCasal = informacoesCasal;
     }
 
+    public LongFilter getFilhoId() {
+        return filhoId;
+    }
+
+    public void setFilhoId(LongFilter filhoId) {
+        this.filhoId = filhoId;
+    }
+
+    public LongFilter getApadrinhadoId() {
+        return apadrinhadoId;
+    }
+
+    public void setApadrinhadoId(LongFilter apadrinhadoId) {
+        this.apadrinhadoId = apadrinhadoId;
+    }
+
+    public LongFilter getLareiraId() {
+        return lareiraId;
+    }
+
+    public void setLareiraId(LongFilter lareiraId) {
+        this.lareiraId = lareiraId;
+    }
+
     public LongFilter getTipoUniaoId() {
         return tipoUniaoId;
     }
@@ -367,22 +394,6 @@ public class CasalCriteria implements Serializable, Criteria {
 
     public void setCasalPadrinhoId(LongFilter casalPadrinhoId) {
         this.casalPadrinhoId = casalPadrinhoId;
-    }
-
-    public LongFilter getIdId() {
-        return idId;
-    }
-
-    public void setIdId(LongFilter idId) {
-        this.idId = idId;
-    }
-
-    public LongFilter getIdLareiraId() {
-        return idLareiraId;
-    }
-
-    public void setIdLareiraId(LongFilter idLareiraId) {
-        this.idLareiraId = idLareiraId;
     }
 
 
@@ -422,10 +433,11 @@ public class CasalCriteria implements Serializable, Criteria {
             Objects.equals(dataUniao, that.dataUniao) &&
             Objects.equals(numeroFicha, that.numeroFicha) &&
             Objects.equals(informacoesCasal, that.informacoesCasal) &&
+            Objects.equals(filhoId, that.filhoId) &&
+            Objects.equals(apadrinhadoId, that.apadrinhadoId) &&
+            Objects.equals(lareiraId, that.lareiraId) &&
             Objects.equals(tipoUniaoId, that.tipoUniaoId) &&
-            Objects.equals(casalPadrinhoId, that.casalPadrinhoId) &&
-            Objects.equals(idId, that.idId) &&
-            Objects.equals(idLareiraId, that.idLareiraId);
+            Objects.equals(casalPadrinhoId, that.casalPadrinhoId);
     }
 
     @Override
@@ -457,10 +469,11 @@ public class CasalCriteria implements Serializable, Criteria {
         dataUniao,
         numeroFicha,
         informacoesCasal,
+        filhoId,
+        apadrinhadoId,
+        lareiraId,
         tipoUniaoId,
-        casalPadrinhoId,
-        idId,
-        idLareiraId
+        casalPadrinhoId
         );
     }
 
@@ -493,10 +506,11 @@ public class CasalCriteria implements Serializable, Criteria {
                 (dataUniao != null ? "dataUniao=" + dataUniao + ", " : "") +
                 (numeroFicha != null ? "numeroFicha=" + numeroFicha + ", " : "") +
                 (informacoesCasal != null ? "informacoesCasal=" + informacoesCasal + ", " : "") +
+                (filhoId != null ? "filhoId=" + filhoId + ", " : "") +
+                (apadrinhadoId != null ? "apadrinhadoId=" + apadrinhadoId + ", " : "") +
+                (lareiraId != null ? "lareiraId=" + lareiraId + ", " : "") +
                 (tipoUniaoId != null ? "tipoUniaoId=" + tipoUniaoId + ", " : "") +
                 (casalPadrinhoId != null ? "casalPadrinhoId=" + casalPadrinhoId + ", " : "") +
-                (idId != null ? "idId=" + idId + ", " : "") +
-                (idLareiraId != null ? "idLareiraId=" + idLareiraId + ", " : "") +
             "}";
     }
 

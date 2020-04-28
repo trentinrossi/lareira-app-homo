@@ -9,7 +9,7 @@ export interface ILareira {
   cidade?: string;
   estado?: string;
   telefone?: string;
-  ids?: ICasal[];
+  casals?: ICasal[];
 }
 
 export class Lareira implements ILareira {
@@ -22,6 +22,6 @@ export class Lareira implements ILareira {
     public cidade?: string,
     public estado?: string,
     public telefone?: string,
-    public ids?: ICasal[]
+    public casals?: ICasal[]
   ) {}
 }

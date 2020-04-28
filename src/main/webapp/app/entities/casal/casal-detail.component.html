@@ -115,6 +115,12 @@
                 <dd>
                     <span>{{ casal.informacoesCasal }}</span>
                 </dd>
+                <dt><span jhiTranslate="lareiraAppHomoApp.casal.lareira">Lareira</span></dt>
+                <dd>
+                    <div *ngIf="casal.lareiraId">
+                        <a [routerLink]="['/lareira', casal.lareiraId, 'view']">{{ casal.lareiraId }}</a>
+                    </div>
+                </dd>
                 <dt><span jhiTranslate="lareiraAppHomoApp.casal.tipoUniao">Tipo Uniao</span></dt>
                 <dd>
                     <div *ngIf="casal.tipoUniaoId">
@@ -125,12 +131,6 @@
                 <dd>
                     <div *ngIf="casal.casalPadrinhoId">
                         <a [routerLink]="['/casal', casal.casalPadrinhoId, 'view']">{{ casal.casalPadrinhoId }}</a>
-                    </div>
-                </dd>
-                <dt><span jhiTranslate="lareiraAppHomoApp.casal.idLareira">Id Lareira</span></dt>
-                <dd>
-                    <div *ngIf="casal.idLareiraId">
-                        <a [routerLink]="['/lareira', casal.idLareiraId, 'view']">{{ casal.idLareiraId }}</a>
                     </div>
                 </dd>
             </dl>

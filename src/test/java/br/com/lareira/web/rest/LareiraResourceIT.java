@@ -791,21 +791,21 @@ public class LareiraResourceIT {
 
     @Test
     @Transactional
-    public void getAllLareirasByIdIsEqualToSomething() throws Exception {
+    public void getAllLareirasByCasalIsEqualToSomething() throws Exception {
         // Initialize the database
         lareiraRepository.saveAndFlush(lareira);
-        Casal id = CasalResourceIT.createEntity(em);
-        em.persist(id);
+        Casal casal = CasalResourceIT.createEntity(em);
+        em.persist(casal);
         em.flush();
-        lareira.addId(id);
+        lareira.addCasal(casal);
         lareiraRepository.saveAndFlush(lareira);
-        Long idId = id.getId();
+        Long casalId = casal.getId();
 
-        // Get all the lareiraList where id equals to idId
-        defaultLareiraShouldBeFound("idId.equals=" + idId);
+        // Get all the lareiraList where casal equals to casalId
+        defaultLareiraShouldBeFound("casalId.equals=" + casalId);
 
-        // Get all the lareiraList where id equals to idId + 1
-        defaultLareiraShouldNotBeFound("idId.equals=" + (idId + 1));
+        // Get all the lareiraList where casal equals to casalId + 1
+        defaultLareiraShouldNotBeFound("casalId.equals=" + (casalId + 1));
     }
 
     /**

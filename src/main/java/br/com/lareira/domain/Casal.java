@@ -113,21 +113,24 @@ public class Casal implements Serializable {
     @Column(name = "informacoes_casal")
     private String informacoesCasal;
 
-    @OneToOne
-    @JoinColumn(unique = true)
-    private TipoUniao tipoUniao;
+    @OneToMany(mappedBy = "casal")
+    private Set<Filho> filhos = new HashSet<>();
 
-    @OneToOne
-    @JoinColumn(unique = true)
-    private Casal casalPadrinho;
-
-    @OneToMany(mappedBy = "idCasal")
-    private Set<Filho> ids = new HashSet<>();
+    @OneToMany(mappedBy = "casalPadrinho")
+    private Set<Casal> apadrinhados = new HashSet<>();
 
     @ManyToOne(optional = false)
     @NotNull
-    @JsonIgnoreProperties("ids")
-    private Lareira idLareira;
+    @JsonIgnoreProperties("casals")
+    private Lareira lareira;
+
+    @ManyToOne
+    @JsonIgnoreProperties("casals")
+    private TipoUniao tipoUniao;
+
+    @ManyToOne
+    @JsonIgnoreProperties("apadrinhados")
+    private Casal casalPadrinho;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -489,6 +492,69 @@ public class Casal implements Serializable {
         this.informacoesCasal = informacoesCasal;
     }
 
+    public Set<Filho> getFilhos() {
+        return filhos;
+    }
+
+    public Casal filhos(Set<Filho> filhos) {
+        this.filhos = filhos;
+        return this;
+    }
+
+    public Casal addFilho(Filho filho) {
+        this.filhos.add(filho);
+        filho.setCasal(this);
+        return this;
+    }
+
+    public Casal removeFilho(Filho filho) {
+        this.filhos.remove(filho);
+        filho.setCasal(null);
+        return this;
+    }
+
+    public void setFilhos(Set<Filho> filhos) {
+        this.filhos = filhos;
+    }
+
+    public Set<Casal> getApadrinhados() {
+        return apadrinhados;
+    }
+
+    public Casal apadrinhados(Set<Casal> casals) {
+        this.apadrinhados = casals;
+        return this;
+    }
+
+    public Casal addApadrinhado(Casal casal) {
+        this.apadrinhados.add(casal);
+        casal.setCasalPadrinho(this);
+        return this;
+    }
+
+    public Casal removeApadrinhado(Casal casal) {
+        this.apadrinhados.remove(casal);
+        casal.setCasalPadrinho(null);
+        return this;
+    }
+
+    public void setApadrinhados(Set<Casal> casals) {
+        this.apadrinhados = casals;
+    }
+
+    public Lareira getLareira() {
+        return lareira;
+    }
+
+    public Casal lareira(Lareira lareira) {
+        this.lareira = lareira;
+        return this;
+    }
+
+    public void setLareira(Lareira lareira) {
+        this.lareira = lareira;
+    }
+
     public TipoUniao getTipoUniao() {
         return tipoUniao;
     }
@@ -513,44 +579,6 @@ public class Casal implements Serializable {
 
     public void setCasalPadrinho(Casal casal) {
         this.casalPadrinho = casal;
-    }
-
-    public Set<Filho> getIds() {
-        return ids;
-    }
-
-    public Casal ids(Set<Filho> filhos) {
-        this.ids = filhos;
-        return this;
-    }
-
-    public Casal addId(Filho filho) {
-        this.ids.add(filho);
-        filho.setIdCasal(this);
-        return this;
-    }
-
-    public Casal removeId(Filho filho) {
-        this.ids.remove(filho);
-        filho.setIdCasal(null);
-        return this;
-    }
-
-    public void setIds(Set<Filho> filhos) {
-        this.ids = filhos;
-    }
-
-    public Lareira getIdLareira() {
-        return idLareira;
-    }
-
-    public Casal idLareira(Lareira lareira) {
-        this.idLareira = lareira;
-        return this;
-    }
-
-    public void setIdLareira(Lareira lareira) {
-        this.idLareira = lareira;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

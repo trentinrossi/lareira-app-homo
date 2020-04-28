@@ -24,7 +24,7 @@ export class FilhoUpdateComponent implements OnInit {
     nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
     sexo: [],
     dataNascimento: [],
-    idCasalId: [null, Validators.required]
+    casalId: [null, Validators.required]
   });
 
   constructor(
@@ -48,7 +48,7 @@ export class FilhoUpdateComponent implements OnInit {
       nome: filho.nome,
       sexo: filho.sexo,
       dataNascimento: filho.dataNascimento,
-      idCasalId: filho.idCasalId
+      casalId: filho.casalId
     });
   }
 
@@ -73,7 +73,7 @@ export class FilhoUpdateComponent implements OnInit {
       nome: this.editForm.get(['nome'])!.value,
       sexo: this.editForm.get(['sexo'])!.value,
       dataNascimento: this.editForm.get(['dataNascimento'])!.value,
-      idCasalId: this.editForm.get(['idCasalId'])!.value
+      casalId: this.editForm.get(['casalId'])!.value
     };
   }
 

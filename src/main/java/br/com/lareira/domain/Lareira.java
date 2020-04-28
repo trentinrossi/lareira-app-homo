@@ -44,8 +44,8 @@ public class Lareira implements Serializable {
     @Column(name = "telefone")
     private String telefone;
 
-    @OneToMany(mappedBy = "idLareira")
-    private Set<Casal> ids = new HashSet<>();
+    @OneToMany(mappedBy = "lareira")
+    private Set<Casal> casals = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -147,29 +147,29 @@ public class Lareira implements Serializable {
         this.telefone = telefone;
     }
 
-    public Set<Casal> getIds() {
-        return ids;
+    public Set<Casal> getCasals() {
+        return casals;
     }
 
-    public Lareira ids(Set<Casal> casals) {
-        this.ids = casals;
+    public Lareira casals(Set<Casal> casals) {
+        this.casals = casals;
         return this;
     }
 
-    public Lareira addId(Casal casal) {
-        this.ids.add(casal);
-        casal.setIdLareira(this);
+    public Lareira addCasal(Casal casal) {
+        this.casals.add(casal);
+        casal.setLareira(this);
         return this;
     }
 
-    public Lareira removeId(Casal casal) {
-        this.ids.remove(casal);
-        casal.setIdLareira(null);
+    public Lareira removeCasal(Casal casal) {
+        this.casals.remove(casal);
+        casal.setLareira(null);
         return this;
     }
 
-    public void setIds(Set<Casal> casals) {
-        this.ids = casals;
+    public void setCasals(Set<Casal> casals) {
+        this.casals = casals;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

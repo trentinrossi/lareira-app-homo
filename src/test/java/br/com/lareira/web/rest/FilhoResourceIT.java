@@ -84,7 +84,7 @@ public class FilhoResourceIT {
         } else {
             casal = TestUtil.findAll(em, Casal.class).get(0);
         }
-        filho.setIdCasal(casal);
+        filho.setCasal(casal);
         return filho;
     }
     /**
@@ -107,7 +107,7 @@ public class FilhoResourceIT {
         } else {
             casal = TestUtil.findAll(em, Casal.class).get(0);
         }
-        filho.setIdCasal(casal);
+        filho.setCasal(casal);
         return filho;
     }
 
@@ -192,7 +192,7 @@ public class FilhoResourceIT {
             .andExpect(jsonPath("$.[*].sexo").value(hasItem(DEFAULT_SEXO.toString())))
             .andExpect(jsonPath("$.[*].dataNascimento").value(hasItem(DEFAULT_DATA_NASCIMENTO.toString())));
     }
-
+    
     @Test
     @Transactional
     public void getFilho() throws Exception {

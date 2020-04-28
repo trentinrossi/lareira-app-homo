@@ -42,10 +42,11 @@
       "dataUniao": "Data Uniao",
       "numeroFicha": "Numero Ficha",
       "informacoesCasal": "Informacoes Casal",
+      "filho": "Filho",
+      "apadrinhado": "Apadrinhado",
+      "lareira": "Lareira",
       "tipoUniao": "Tipo Uniao",
-      "casalPadrinho": "Casal Padrinho",
-      "id": "Id",
-      "idLareira": "Id Lareira"
+      "casalPadrinho": "Casal Padrinho"
     }
   }
 }

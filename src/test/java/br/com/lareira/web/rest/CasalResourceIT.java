@@ -2,10 +2,10 @@ package br.com.lareira.web.rest;
 
 import br.com.lareira.LareiraAppHomoApp;
 import br.com.lareira.domain.Casal;
-import br.com.lareira.domain.TipoUniao;
-import br.com.lareira.domain.Casal;
 import br.com.lareira.domain.Filho;
+import br.com.lareira.domain.Casal;
 import br.com.lareira.domain.Lareira;
+import br.com.lareira.domain.TipoUniao;
 import br.com.lareira.repository.CasalRepository;
 import br.com.lareira.service.CasalService;
 import br.com.lareira.service.dto.CasalDTO;
@@ -192,7 +192,7 @@ public class CasalResourceIT {
         } else {
             lareira = TestUtil.findAll(em, Lareira.class).get(0);
         }
-        casal.setIdLareira(lareira);
+        casal.setLareira(lareira);
         return casal;
     }
     /**
@@ -239,7 +239,7 @@ public class CasalResourceIT {
         } else {
             lareira = TestUtil.findAll(em, Lareira.class).get(0);
         }
-        casal.setIdLareira(lareira);
+        casal.setLareira(lareira);
         return casal;
     }
 
@@ -2486,6 +2486,62 @@ public class CasalResourceIT {
 
     @Test
     @Transactional
+    public void getAllCasalsByFilhoIsEqualToSomething() throws Exception {
+        // Initialize the database
+        casalRepository.saveAndFlush(casal);
+        Filho filho = FilhoResourceIT.createEntity(em);
+        em.persist(filho);
+        em.flush();
+        casal.addFilho(filho);
+        casalRepository.saveAndFlush(casal);
+        Long filhoId = filho.getId();
+
+        // Get all the casalList where filho equals to filhoId
+        defaultCasalShouldBeFound("filhoId.equals=" + filhoId);
+
+        // Get all the casalList where filho equals to filhoId + 1
+        defaultCasalShouldNotBeFound("filhoId.equals=" + (filhoId + 1));
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllCasalsByApadrinhadoIsEqualToSomething() throws Exception {
+        // Initialize the database
+        casalRepository.saveAndFlush(casal);
+        Casal apadrinhado = CasalResourceIT.createEntity(em);
+        em.persist(apadrinhado);
+        em.flush();
+        casal.addApadrinhado(apadrinhado);
+        casalRepository.saveAndFlush(casal);
+        Long apadrinhadoId = apadrinhado.getId();
+
+        // Get all the casalList where apadrinhado equals to apadrinhadoId
+        defaultCasalShouldBeFound("apadrinhadoId.equals=" + apadrinhadoId);
+
+        // Get all the casalList where apadrinhado equals to apadrinhadoId + 1
+        defaultCasalShouldNotBeFound("apadrinhadoId.equals=" + (apadrinhadoId + 1));
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllCasalsByLareiraIsEqualToSomething() throws Exception {
+        // Get already existing entity
+        Lareira lareira = casal.getLareira();
+        casalRepository.saveAndFlush(casal);
+        Long lareiraId = lareira.getId();
+
+        // Get all the casalList where lareira equals to lareiraId
+        defaultCasalShouldBeFound("lareiraId.equals=" + lareiraId);
+
+        // Get all the casalList where lareira equals to lareiraId + 1
+        defaultCasalShouldNotBeFound("lareiraId.equals=" + (lareiraId + 1));
+    }
+
+
+    @Test
+    @Transactional
     public void getAllCasalsByTipoUniaoIsEqualToSomething() throws Exception {
         // Initialize the database
         casalRepository.saveAndFlush(casal);
@@ -2521,42 +2577,6 @@ public class CasalResourceIT {
 
         // Get all the casalList where casalPadrinho equals to casalPadrinhoId + 1
         defaultCasalShouldNotBeFound("casalPadrinhoId.equals=" + (casalPadrinhoId + 1));
-    }
-
-
-    @Test
-    @Transactional
-    public void getAllCasalsByIdIsEqualToSomething() throws Exception {
-        // Initialize the database
-        casalRepository.saveAndFlush(casal);
-        Filho id = FilhoResourceIT.createEntity(em);
-        em.persist(id);
-        em.flush();
-        casal.addId(id);
-        casalRepository.saveAndFlush(casal);
-        Long idId = id.getId();
-
-        // Get all the casalList where id equals to idId
-        defaultCasalShouldBeFound("idId.equals=" + idId);
-
-        // Get all the casalList where id equals to idId + 1
-        defaultCasalShouldNotBeFound("idId.equals=" + (idId + 1));
-    }
-
-
-    @Test
-    @Transactional
-    public void getAllCasalsByIdLareiraIsEqualToSomething() throws Exception {
-        // Get already existing entity
-        Lareira idLareira = casal.getIdLareira();
-        casalRepository.saveAndFlush(casal);
-        Long idLareiraId = idLareira.getId();
-
-        // Get all the casalList where idLareira equals to idLareiraId
-        defaultCasalShouldBeFound("idLareiraId.equals=" + idLareiraId);
-
-        // Get all the casalList where idLareira equals to idLareiraId + 1
-        defaultCasalShouldNotBeFound("idLareiraId.equals=" + (idLareiraId + 1));
     }
 
     /**

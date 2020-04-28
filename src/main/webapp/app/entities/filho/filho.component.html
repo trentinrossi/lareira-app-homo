@@ -22,25 +22,25 @@
         <table class="table table-striped" aria-describedby="page-heading">
             <thead>
                 <tr>
-                    <th scope="col" ><span jhiTranslate="lareiraAppHomoApp.filho.idCasal">Casal</span></th>
                     <th scope="col" ><span jhiTranslate="global.field.id">ID</span></th>
                     <th scope="col" ><span jhiTranslate="lareiraAppHomoApp.filho.nome">Nome</span></th>
                     <th scope="col" ><span jhiTranslate="lareiraAppHomoApp.filho.sexo">Sexo</span></th>
                     <th scope="col" ><span jhiTranslate="lareiraAppHomoApp.filho.dataNascimento">Data Nascimento</span></th>
+                    <th scope="col" ><span jhiTranslate="lareiraAppHomoApp.filho.casal">Casal</span></th>
                     <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let filho of filhos ;trackBy: trackId">
-                    <td>
-                        <div *ngIf="filho.idCasalId">
-                            <a [routerLink]="['/casal', filho.idCasalId , 'view']" >{{ filho.idCasalId }}</a>
-                        </div>
-                    </td>
                     <td><a [routerLink]="['/filho', filho.id, 'view']">{{ filho.id }}</a></td>
                     <td>{{ filho.nome }}</td>
                     <td jhiTranslate="{{ 'lareiraAppHomoApp.Sexo.' + filho.sexo }}">{{ filho.sexo }}</td>
                     <td>{{ filho.dataNascimento | date:'mediumDate' }}</td>
+                    <td>
+                        <div *ngIf="filho.casalId">
+                            <a [routerLink]="['/casal', filho.casalId , 'view']" >{{ filho.casalId }}</a>
+                        </div>
+                    </td>
                     <td class="text-right">
                         <div class="btn-group">
                             <!-- <button type="submit"

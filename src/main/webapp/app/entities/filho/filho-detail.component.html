@@ -20,10 +20,10 @@
                 <dd>
                     <span>{{ filho.dataNascimento }}</span>
                 </dd>
-                <dt><span jhiTranslate="lareiraAppHomoApp.filho.idCasal">Id Casal</span></dt>
+                <dt><span jhiTranslate="lareiraAppHomoApp.filho.casal">Casal</span></dt>
                 <dd>
-                    <div *ngIf="filho.idCasalId">
-                        <a [routerLink]="['/casal', filho.idCasalId, 'view']">{{ filho.idCasalId }}</a>
+                    <div *ngIf="filho.casalId">
+                        <a [routerLink]="['/casal', filho.casalId, 'view']">{{ filho.casalId }}</a>
                     </div>
                 </dd>
             </dl>

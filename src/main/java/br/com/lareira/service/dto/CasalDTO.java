@@ -73,11 +73,11 @@ public class CasalDTO implements Serializable {
     private String informacoesCasal;
 
 
+    private Long lareiraId;
+
     private Long tipoUniaoId;
 
     private Long casalPadrinhoId;
-
-    private Long idLareiraId;
     
     public Long getId() {
         return id;
@@ -303,6 +303,14 @@ public class CasalDTO implements Serializable {
         this.informacoesCasal = informacoesCasal;
     }
 
+    public Long getLareiraId() {
+        return lareiraId;
+    }
+
+    public void setLareiraId(Long lareiraId) {
+        this.lareiraId = lareiraId;
+    }
+
     public Long getTipoUniaoId() {
         return tipoUniaoId;
     }
@@ -317,14 +325,6 @@ public class CasalDTO implements Serializable {
 
     public void setCasalPadrinhoId(Long casalId) {
         this.casalPadrinhoId = casalId;
-    }
-
-    public Long getIdLareiraId() {
-        return idLareiraId;
-    }
-
-    public void setIdLareiraId(Long lareiraId) {
-        this.idLareiraId = lareiraId;
     }
 
     @Override
@@ -378,9 +378,9 @@ public class CasalDTO implements Serializable {
             ", dataUniao='" + getDataUniao() + "'" +
             ", numeroFicha=" + getNumeroFicha() +
             ", informacoesCasal='" + getInformacoesCasal() + "'" +
+            ", lareiraId=" + getLareiraId() +
             ", tipoUniaoId=" + getTipoUniaoId() +
             ", casalPadrinhoId=" + getCasalPadrinhoId() +
-            ", idLareiraId=" + getIdLareiraId() +
             "}";
     }
 }

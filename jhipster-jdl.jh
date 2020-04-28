@@ -51,16 +51,16 @@ enum UF {
     AC, AL, AP, AM, BA, CE, DF, ES, GO, MA, MT, MS, MG, PA, PB, PR, PE, PI, RJ, RN, RS, RO, RR, SC, SP, SE, TO
 }
 relationship OneToMany {
-    Lareira {id} to Casal {idLareira required}
+    Lareira{casal} to Casal{lareira required}
 }
 relationship OneToMany {
-    Casal {id} to Filho {idCasal required}
+    Casal{filho} to Filho{casal required}
 }
-relationship OneToOne {
-    Casal{tipoUniao} to TipoUniao
+relationship OneToMany {
+    TipoUniao{casal} to Casal{tipoUniao}
 }
-relationship OneToOne {
-    Casal{casalPadrinho} to Casal
+relationship OneToMany {
+    Casal{apadrinhado} to Casal{casalPadrinho}
 }
 // DTO
 dto * with mapstruct

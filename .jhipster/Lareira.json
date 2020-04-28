@@ -37,8 +37,8 @@
         {
             "relationshipType": "one-to-many",
             "otherEntityName": "casal",
-            "otherEntityRelationshipName": "idLareira",
-            "relationshipName": "id"
+            "otherEntityRelationshipName": "lareira",
+            "relationshipName": "casal"
         }
     ],
     "changelogDate": "20200412182500",

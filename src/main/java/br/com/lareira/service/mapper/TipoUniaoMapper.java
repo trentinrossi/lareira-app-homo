@@ -13,6 +13,9 @@ import org.mapstruct.*;
 public interface TipoUniaoMapper extends EntityMapper<TipoUniaoDTO, TipoUniao> {
 
 
+    @Mapping(target = "casals", ignore = true)
+    @Mapping(target = "removeCasal", ignore = true)
+    TipoUniao toEntity(TipoUniaoDTO tipoUniaoDTO);
 
     default TipoUniao fromId(Long id) {
         if (id == null) {

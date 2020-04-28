@@ -112,9 +112,9 @@ public class LareiraQueryService extends QueryService<Lareira> {
             if (criteria.getTelefone() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getTelefone(), Lareira_.telefone));
             }
-            if (criteria.getIdId() != null) {
-                specification = specification.and(buildSpecification(criteria.getIdId(),
-                    root -> root.join(Lareira_.ids, JoinType.LEFT).get(Casal_.id)));
+            if (criteria.getCasalId() != null) {
+                specification = specification.and(buildSpecification(criteria.getCasalId(),
+                    root -> root.join(Lareira_.casals, JoinType.LEFT).get(Casal_.id)));
             }
         }
         return specification;

@@ -124,33 +124,37 @@
     ],
     "relationships": [
         {
-            "relationshipType": "one-to-one",
-            "otherEntityName": "tipoUniao",
+            "relationshipType": "one-to-many",
+            "otherEntityName": "filho",
             "otherEntityRelationshipName": "casal",
-            "relationshipName": "tipoUniao",
-            "otherEntityField": "id",
-            "ownerSide": true
-        },
-        {
-            "relationshipType": "one-to-one",
-            "otherEntityName": "casal",
-            "otherEntityRelationshipName": "casal",
-            "relationshipName": "casalPadrinho",
-            "otherEntityField": "id",
-            "ownerSide": true
+            "relationshipName": "filho"
         },
         {
             "relationshipType": "one-to-many",
-            "otherEntityName": "filho",
-            "otherEntityRelationshipName": "idCasal",
-            "relationshipName": "id"
+            "otherEntityName": "casal",
+            "otherEntityRelationshipName": "casalPadrinho",
+            "relationshipName": "apadrinhado"
         },
         {
             "relationshipType": "many-to-one",
             "otherEntityName": "lareira",
-            "otherEntityRelationshipName": "id",
+            "otherEntityRelationshipName": "casal",
             "relationshipValidateRules": "required",
-            "relationshipName": "idLareira",
+            "relationshipName": "lareira",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "tipoUniao",
+            "otherEntityRelationshipName": "casal",
+            "relationshipName": "tipoUniao",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "casal",
+            "otherEntityRelationshipName": "apadrinhado",
+            "relationshipName": "casalPadrinho",
             "otherEntityField": "id"
         }
     ],

@@ -31,10 +31,11 @@ export interface ICasal {
   dataUniao?: Moment;
   numeroFicha?: number;
   informacoesCasal?: string;
+  filhos?: IFilho[];
+  apadrinhados?: ICasal[];
+  lareiraId?: number;
   tipoUniaoId?: number;
   casalPadrinhoId?: number;
-  ids?: IFilho[];
-  idLareiraId?: number;
 }
 
 export class Casal implements ICasal {
@@ -67,9 +68,10 @@ export class Casal implements ICasal {
     public dataUniao?: Moment,
     public numeroFicha?: number,
     public informacoesCasal?: string,
+    public filhos?: IFilho[],
+    public apadrinhados?: ICasal[],
+    public lareiraId?: number,
     public tipoUniaoId?: number,
-    public casalPadrinhoId?: number,
-    public ids?: IFilho[],
-    public idLareiraId?: number
+    public casalPadrinhoId?: number
   ) {}
 }

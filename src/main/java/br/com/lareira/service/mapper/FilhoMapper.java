@@ -12,10 +12,10 @@ import org.mapstruct.*;
 @Mapper(componentModel = "spring", uses = {CasalMapper.class})
 public interface FilhoMapper extends EntityMapper<FilhoDTO, Filho> {
 
-    @Mapping(source = "idCasal.id", target = "idCasalId")
+    @Mapping(source = "casal.id", target = "casalId")
     FilhoDTO toDto(Filho filho);
 
-    @Mapping(source = "idCasalId", target = "idCasal")
+    @Mapping(source = "casalId", target = "casal")
     Filho toEntity(FilhoDTO filhoDTO);
 
     default Filho fromId(Long id) {

@@ -6,9 +6,9 @@ export interface IFilho {
   nome?: string;
   sexo?: Sexo;
   dataNascimento?: Moment;
-  idCasalId?: number;
+  casalId?: number;
 }
 
 export class Filho implements IFilho {
-  constructor(public id?: number, public nome?: string, public sexo?: Sexo, public dataNascimento?: Moment, public idCasalId?: number) {}
+  constructor(public id?: number, public nome?: string, public sexo?: Sexo, public dataNascimento?: Moment, public casalId?: number) {}
 }

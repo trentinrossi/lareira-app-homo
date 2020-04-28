@@ -166,6 +166,18 @@ public class CasalQueryService extends QueryService<Casal> {
             if (criteria.getInformacoesCasal() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getInformacoesCasal(), Casal_.informacoesCasal));
             }
+            if (criteria.getFilhoId() != null) {
+                specification = specification.and(buildSpecification(criteria.getFilhoId(),
+                    root -> root.join(Casal_.filhos, JoinType.LEFT).get(Filho_.id)));
+            }
+            if (criteria.getApadrinhadoId() != null) {
+                specification = specification.and(buildSpecification(criteria.getApadrinhadoId(),
+                    root -> root.join(Casal_.apadrinhados, JoinType.LEFT).get(Casal_.id)));
+            }
+            if (criteria.getLareiraId() != null) {
+                specification = specification.and(buildSpecification(criteria.getLareiraId(),
+                    root -> root.join(Casal_.lareira, JoinType.LEFT).get(Lareira_.id)));
+            }
             if (criteria.getTipoUniaoId() != null) {
                 specification = specification.and(buildSpecification(criteria.getTipoUniaoId(),
                     root -> root.join(Casal_.tipoUniao, JoinType.LEFT).get(TipoUniao_.id)));
@@ -173,14 +185,6 @@ public class CasalQueryService extends QueryService<Casal> {
             if (criteria.getCasalPadrinhoId() != null) {
                 specification = specification.and(buildSpecification(criteria.getCasalPadrinhoId(),
                     root -> root.join(Casal_.casalPadrinho, JoinType.LEFT).get(Casal_.id)));
-            }
-            if (criteria.getIdId() != null) {
-                specification = specification.and(buildSpecification(criteria.getIdId(),
-                    root -> root.join(Casal_.ids, JoinType.LEFT).get(Filho_.id)));
-            }
-            if (criteria.getIdLareiraId() != null) {
-                specification = specification.and(buildSpecification(criteria.getIdLareiraId(),
-                    root -> root.join(Casal_.idLareira, JoinType.LEFT).get(Lareira_.id)));
             }
         }
         return specification;

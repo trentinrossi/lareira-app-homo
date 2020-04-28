@@ -3,27 +3,27 @@
     "lareira": {
       "home": {
         "title": "Lareiras",
-        "createLabel": "Criar novo Lareira",
+        "createLabel": "Criar nova Lareira",
         "createOrEditLabel": "Criar ou editar Lareira",
-        "notFound": "Nenhum Lareira encontrado"
+        "notFound": "Nenhuma Lareira encontrada"
       },
-      "created": "Um novo Lareira foi criado com o identificador {{ param }}",
-      "updated": "Um Lareira foi atualizado com o identificador {{ param }}",
-      "deleted": "Um Lareira foi excluído com o identificador {{ param }}",
+      "created": "Uma nova Lareira foi criada com o identificador {{ param }}",
+      "updated": "Uma Lareira foi atualizada com o identificador {{ param }}",
+      "deleted": "Uma Lareira foi excluída com o identificador {{ param }}",
       "delete": {
-        "question": "Tem certeza de que deseja excluir Lareira {{ id }}?"
+        "question": "Tem certeza de que deseja excluir a Lareira {{ id }}?"
       },
       "detail": {
         "title": "Lareira"
       },
       "nome": "Nome",
-      "endereco": "Endereco",
+      "endereco": "Endereço",
       "bairro": "Bairro",
       "cep": "Cep",
       "cidade": "Cidade",
       "estado": "Estado",
       "telefone": "Telefone",
-      "id": "Id"
+      "casal": "Casal"
     }
   }
 }

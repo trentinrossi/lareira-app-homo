@@ -6,19 +6,6 @@
             <div>
                 <jhi-alert-error></jhi-alert-error>
 
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="lareiraAppHomoApp.filho.idCasal" for="field_idCasal">Id Casal</label>
-                    <select class="form-control" id="field_idCasal" name="idCasal" formControlName="idCasalId">
-                        <option *ngIf="!editForm.get('idCasalId')!.value" [ngValue]="null" selected></option>
-                        <option [ngValue]="casalOption.id" *ngFor="let casalOption of casals; trackBy: trackById">{{ casalOption.id }} - {{ casalOption.maridoNome }} / {{ casalOption.esposaNome }}</option>
-                    </select>
-                </div>
-                <div *ngIf="editForm.get('idCasalId')!.invalid && (editForm.get('idCasalId')!.dirty || editForm.get('idCasalId')!.touched)">
-                    <small class="form-text text-danger" *ngIf="editForm.get('idCasalId')?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                    </small>
-                </div>
-
                 <div class="form-group" [hidden]="!editForm.get('id')!.value">
                     <label for="id" jhiTranslate="global.field.id">ID</label>
                     <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
@@ -26,18 +13,20 @@
 
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="lareiraAppHomoApp.filho.nome" for="field_nome">Nome</label>
-                    <input type="text" class="form-control" name="nome" id="field_nome" formControlName="nome" />
+                    <input type="text" class="form-control" name="nome" id="field_nome"
+                           formControlName="nome"/>
                     <div *ngIf="editForm.get('nome')!.invalid && (editForm.get('nome')!.dirty || editForm.get('nome')!.touched)">
-                        <small class="form-text text-danger" *ngIf="editForm.get('nome')?.errors?.required" jhiTranslate="entity.validation.required">
-                            This field is required.
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('nome')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
                         </small>
-                        <small class="form-text text-danger" *ngIf="editForm.get('nome')?.errors?.minlength" jhiTranslate="entity.validation.minlength"
-                            [translateValues]="{ min: 3 }">
-                            This field is required to be at least 3 characters.
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('nome')?.errors?.minlength" jhiTranslate="entity.validation.minlength" [translateValues]="{ min: 3 }">
+                        This field is required to be at least 3 characters.
                         </small>
-                        <small class="form-text text-danger" *ngIf="editForm.get('nome')?.errors?.maxlength" jhiTranslate="entity.validation.maxlength"
-                            [translateValues]="{ max: 100 }">
-                            This field cannot be longer than 100 characters.
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('nome')?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 100 }">
+                        This field cannot be longer than 100 characters.
                         </small>
                     </div>
                 </div>
@@ -53,16 +42,26 @@
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="lareiraAppHomoApp.filho.dataNascimento" for="field_dataNascimento">Data Nascimento</label>
                     <div class="input-group">
-                        <input id="field_dataNascimento" type="text" class="form-control" name="dataNascimento" ngbDatepicker #dataNascimentoDp="ngbDatepicker"
-                            formControlName="dataNascimento" />
+                        <input id="field_dataNascimento" type="text" class="form-control" name="dataNascimento" ngbDatepicker #dataNascimentoDp="ngbDatepicker" formControlName="dataNascimento"/>
                         <span class="input-group-append">
-                            <button type="button" class="btn btn-secondary" (click)="dataNascimentoDp.toggle()">
-                                <fa-icon icon="calendar-alt"></fa-icon>
-                            </button>
+                            <button type="button" class="btn btn-secondary" (click)="dataNascimentoDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
                         </span>
                     </div>
                 </div>
 
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="lareiraAppHomoApp.filho.casal" for="field_casal">Casal</label>
+                    <select class="form-control" id="field_casal" name="casal" formControlName="casalId">
+                        <option *ngIf="!editForm.get('casalId')!.value" [ngValue]="null" selected></option>
+                        <option [ngValue]="casalOption.id" *ngFor="let casalOption of casals; trackBy: trackById">{{ casalOption.maridoNome }} da {{ casalOption.esposaNome }} ({{ casalOption.maridoSobrenome }}) </option>
+                    </select>
+                </div>
+                <div *ngIf="editForm.get('casalId')!.invalid && (editForm.get('casalId')!.dirty || editForm.get('casalId')!.touched)">
+                    <small class="form-text text-danger"
+                           *ngIf="editForm.get('casalId')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
             </div>
 
             <div>

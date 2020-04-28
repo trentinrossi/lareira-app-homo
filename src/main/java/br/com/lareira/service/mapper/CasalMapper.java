@@ -9,19 +9,21 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity {@link Casal} and its DTO {@link CasalDTO}.
  */
-@Mapper(componentModel = "spring", uses = {TipoUniaoMapper.class, LareiraMapper.class})
+@Mapper(componentModel = "spring", uses = {LareiraMapper.class, TipoUniaoMapper.class})
 public interface CasalMapper extends EntityMapper<CasalDTO, Casal> {
 
+    @Mapping(source = "lareira.id", target = "lareiraId")
     @Mapping(source = "tipoUniao.id", target = "tipoUniaoId")
     @Mapping(source = "casalPadrinho.id", target = "casalPadrinhoId")
-    @Mapping(source = "idLareira.id", target = "idLareiraId")
     CasalDTO toDto(Casal casal);
 
+    @Mapping(target = "filhos", ignore = true)
+    @Mapping(target = "removeFilho", ignore = true)
+    @Mapping(target = "apadrinhados", ignore = true)
+    @Mapping(target = "removeApadrinhado", ignore = true)
+    @Mapping(source = "lareiraId", target = "lareira")
     @Mapping(source = "tipoUniaoId", target = "tipoUniao")
     @Mapping(source = "casalPadrinhoId", target = "casalPadrinho")
-    @Mapping(target = "ids", ignore = true)
-    @Mapping(target = "removeId", ignore = true)
-    @Mapping(source = "idLareiraId", target = "idLareira")
     Casal toEntity(CasalDTO casalDTO);
 
     default Casal fromId(Long id) {

@@ -13,7 +13,14 @@
             "fieldType": "String"
         }
     ],
-    "relationships": [],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "casal",
+            "otherEntityRelationshipName": "tipoUniao",
+            "relationshipName": "casal"
+        }
+    ],
     "changelogDate": "20200427185800",
     "entityTableName": "tipo_uniao",
     "dto": "mapstruct",

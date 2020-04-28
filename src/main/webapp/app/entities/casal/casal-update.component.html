@@ -32,14 +32,14 @@
                     <div class="ui-g-12 ui-lg-6">
                         <div class="ui-g-12 ui-lg-12 ui-md-6">
                             <div class="form-group">
-                                <label class="form-control-label" jhiTranslate="lareiraAppHomoApp.casal.idLareira" for="field_idLareira">Id Lareira</label>
-                                <select class="form-control" id="field_idLareira" name="idLareira" formControlName="idLareiraId">
-                                    <option *ngIf="!editForm.get('idLareiraId')!.value" [ngValue]="null" selected></option>
+                                <label class="form-control-label" jhiTranslate="lareiraAppHomoApp.casal.lareira" for="field_idLareira">Id Lareira</label>
+                                <select class="form-control" id="field_idLareira" name="lareiraId" formControlName="lareiraId">
+                                    <option *ngIf="!editForm.get('lareiraId')!.value" [ngValue]="null" selected></option>
                                     <option [ngValue]="lareiraOption.id" *ngFor="let lareiraOption of lareiras; trackBy: trackById">{{ lareiraOption.nome }}</option>
                                 </select>
                             </div>
-                            <div *ngIf="editForm.get('idLareiraId')!.invalid && (editForm.get('idLareiraId')!.dirty || editForm.get('idLareiraId')!.touched)">
-                                <small class="form-text text-danger" *ngIf="editForm.get('idLareiraId')?.errors?.required" jhiTranslate="entity.validation.required">
+                            <div *ngIf="editForm.get('lareiraId')!.invalid && (editForm.get('lareiraId')!.dirty || editForm.get('lareiraId')!.touched)">
+                                <small class="form-text text-danger" *ngIf="editForm.get('lareiraId')?.errors?.required" jhiTranslate="entity.validation.required">
                                     This field is required.
                                 </small>
                             </div>
@@ -49,7 +49,7 @@
                             <label class="form-control-label" jhiTranslate="lareiraAppHomoApp.casal.casalPadrinho" for="field_casalPadrinho">Casal Padrinho</label>
                             <select class="form-control" id="field_casalPadrinho" name="casalPadrinho" formControlName="casalPadrinhoId">
                                 <option [ngValue]="null"></option>
-                                <option [ngValue]="casalOption.id" *ngFor="let casalOption of casalpadrinhos; trackBy: trackById">{{ casalOption.maridoNome }}
+                                <option [ngValue]="casalOption.id" *ngFor="let casalOption of casals; trackBy: trackById">{{ casalOption.maridoNome }} da {{ casalOption.esposaNome }} ({{ casalOption.maridoSobrenome }})
                                 </option>
                             </select>
                         </div>

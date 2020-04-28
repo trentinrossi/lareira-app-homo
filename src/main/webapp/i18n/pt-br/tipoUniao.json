@@ -17,7 +17,8 @@
         "title": "Tipo Uniao"
       },
       "nome": "Nome",
-      "descricao": "Descricao"
+      "descricao": "Descricao",
+      "casal": "Casal"
     }
   }
 }

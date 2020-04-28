@@ -6,6 +6,8 @@ import javax.validation.constraints.*;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * A TipoUniao.
@@ -26,6 +28,9 @@ public class TipoUniao implements Serializable {
 
     @Column(name = "descricao")
     private String descricao;
+
+    @OneToMany(mappedBy = "tipoUniao")
+    private Set<Casal> casals = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -60,6 +65,31 @@ public class TipoUniao implements Serializable {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public Set<Casal> getCasals() {
+        return casals;
+    }
+
+    public TipoUniao casals(Set<Casal> casals) {
+        this.casals = casals;
+        return this;
+    }
+
+    public TipoUniao addCasal(Casal casal) {
+        this.casals.add(casal);
+        casal.setTipoUniao(this);
+        return this;
+    }
+
+    public TipoUniao removeCasal(Casal casal) {
+        this.casals.remove(casal);
+        casal.setTipoUniao(null);
+        return this;
+    }
+
+    public void setCasals(Set<Casal> casals) {
+        this.casals = casals;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

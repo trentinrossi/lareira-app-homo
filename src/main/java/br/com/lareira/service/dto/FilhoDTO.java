@@ -22,7 +22,7 @@ public class FilhoDTO implements Serializable {
     private LocalDate dataNascimento;
 
 
-    private Long idCasalId;
+    private Long casalId;
     
     public Long getId() {
         return id;
@@ -56,12 +56,12 @@ public class FilhoDTO implements Serializable {
         this.dataNascimento = dataNascimento;
     }
 
-    public Long getIdCasalId() {
-        return idCasalId;
+    public Long getCasalId() {
+        return casalId;
     }
 
-    public void setIdCasalId(Long casalId) {
-        this.idCasalId = casalId;
+    public void setCasalId(Long casalId) {
+        this.casalId = casalId;
     }
 
     @Override
@@ -92,7 +92,7 @@ public class FilhoDTO implements Serializable {
             ", nome='" + getNome() + "'" +
             ", sexo='" + getSexo() + "'" +
             ", dataNascimento='" + getDataNascimento() + "'" +
-            ", idCasalId=" + getIdCasalId() +
+            ", casalId=" + getCasalId() +
             "}";
     }
 }

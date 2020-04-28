@@ -3,7 +3,7 @@
     "Sexo": {
       "null": "",
       "MASCULINO": "MASCULINO",
-      "DEMININO": "DEMININO"
+      "FEMININO": "FEMININO"
     }
   }
 }

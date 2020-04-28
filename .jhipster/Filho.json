@@ -26,9 +26,9 @@
         {
             "relationshipType": "many-to-one",
             "otherEntityName": "casal",
-            "otherEntityRelationshipName": "id",
+            "otherEntityRelationshipName": "filho",
             "relationshipValidateRules": "required",
-            "relationshipName": "idCasal",
+            "relationshipName": "casal",
             "otherEntityField": "id"
         }
     ],
